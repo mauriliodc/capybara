@@ -19,7 +19,7 @@ int U1BufferPtr=0;
 int U1States=0;
 char header='@';
 
-
+int hasToSend=0;
 
 
 #endif	/* GLOBALS_H */

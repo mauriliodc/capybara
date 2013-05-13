@@ -30,6 +30,13 @@ int main() {
     enableMotors();
     while (1) 
     {
+        U1STAbits.OERR = 0; //necessario resettare il bit di buffer overrun
+        
+        if(hasToSend)
+        {
+            putsUART1((unsigned int *) message);
+            hasToSend=0;
+        }
         
     }
     return (1);

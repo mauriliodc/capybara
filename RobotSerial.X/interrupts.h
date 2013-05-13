@@ -10,6 +10,7 @@
 
 char mio[] = "Board ready\n\0";
 char message[] = "Message received\n\0";
+
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
     secAcc++;
     if (secAcc == 1000) {
@@ -31,9 +32,10 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
     IFS0bits.U1TXIF = 0;
 }
 
-void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
+void __attribute__((__interrupt__, __auto_psv__)) _U1RXInterrupt(void) {
     LED2=1;
-    putsUART1((unsigned int *) message);
+    hasToSend=1;
+    
     IFS0bits.U1RXIF = 0;
 }
 
