@@ -17,9 +17,10 @@ int U1BufferPtr=0;
 //- 1 receiving message
 
 int U1States=0;
-char header='@';
-
 int hasToSend=0;
+unsigned char Buf[10];
+unsigned char charRX;
+int i=0;
 
 
 #endif	/* GLOBALS_H */

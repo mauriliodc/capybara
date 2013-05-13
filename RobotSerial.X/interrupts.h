@@ -32,9 +32,14 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
     IFS0bits.U1TXIF = 0;
 }
 
-void __attribute__((__interrupt__, __auto_psv__)) _U1RXInterrupt(void) {
+void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
     LED2=1;
-    hasToSend=1;
+    
+    charRX=ReadUART1();
+    Buf[i]=charRX;
+    if (i == (10-1)){ i=0;} //lunghezza del buffer
+    else if(i<9) {i++;}
+    if (charRX == '%'){hasToSend=1;i=0;}
     
     IFS0bits.U1RXIF = 0;
 }
