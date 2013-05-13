@@ -18,7 +18,7 @@ int U1BufferPtr=0;
 
 int U1States=0;
 int hasToSend=0;
-unsigned char Buf[10];
+unsigned char Buf[MAX_BUFF];
 unsigned char charRX;
 int i=0;
 

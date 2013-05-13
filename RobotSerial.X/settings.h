@@ -27,23 +27,7 @@ _FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
 _FWDT(FWDTEN_OFF)
 
 
-#define FIN 10000000
-#define N1 2
-#define N2 2
-#define M 32
-#define FOSC FIN*(M/(N1*N2)) //is in the range of 12.5 MHz to 80 MHz, which generates device operating speeds of 6.25-40 MIPS
-#define FCY FOSC/2 // FCY defines the MIPS
-#define TMR1_VALUE 40000 //1 millisecond
 
-//UART BAUDRATE
-#define BAUDRATE 115200
-#define BRGVAL (FCY/(4*BAUDRATE))-1
-
-//Led configuration
-#define LED1 PORTAbits.RA4
-#define LED2 PORTBbits.RB4
-#define LED1CONF _TRISA4
-#define LED2CONF _TRISB4
 
 void clock_settings() {
     // Configure PLL prescaler, PLL postscaler, and PLL divisor
@@ -139,7 +123,9 @@ void init_uart1() {
             & UART_INT_RX_CHAR //Bit 6 & 7 : Interrupt when any character is received
             & UART_ADR_DETECT_DIS //Bit 5 : Adress Detect mode disabled
             & UART_RX_OVERRUN_CLEAR; //Bit 1 *Read Only Bit* et CLEAR
+    IFS0bits.U1RXIF = 0;
     OpenUART1(U1MODEvalue, U1STAvalue, BRGVAL);
+    IFS0bits.U1RXIF = 0;
 }
 #endif	/* SETTINGS_H */
 

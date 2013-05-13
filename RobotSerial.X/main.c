@@ -13,12 +13,12 @@
 #include <uart.h>
 #include <pwm12.h>
 
+#include "defines.h"
 #include "globals.h"
 #include "settings.h"
 #include "utils.h"
 #include "interrupts.h"
-int k=0;
-int x=0;
+
 int main() {
     clock_settings();
     led_settings();
@@ -30,7 +30,7 @@ int main() {
     putsUART1((unsigned int *) mio);
     //enableMotors();
 
-    //    int send=0;
+
     int sender = 0;
     while (1) {
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
@@ -39,13 +39,17 @@ int main() {
         if (U1STAbits.FERR == 1) {
             continue;
         }
-        
-        while (hasToSend)
-        {
+
+        while (hasToSend) {
             U1TXREG = Buf[sender];
-            while(U1STAbits.UTXBF == 1);
-            if (sender == (10 - 1)) { hasToSend = 0;sender=0;}
-            else sender = sender + 1;
+            while (U1STAbits.UTXBF == 1);
+            Buf[sender]=' ';
+            if (sender == (MAX_BUFF - 1)) {
+                hasToSend = 0;
+                sender = 0;
+            } else {
+                sender = sender + 1;
+            }
 
 
         }
