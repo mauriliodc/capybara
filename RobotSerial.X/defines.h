@@ -28,7 +28,12 @@
 
 
 //UART
-#define MAX_BUFF 10
+#define MAX_BUFF 40
+
+
+//COMMANDS
+#define COMMAND_SIZE 2
+#define COMMAND_LENGHT 2
 
 #endif	/* DEFINES_H */
 

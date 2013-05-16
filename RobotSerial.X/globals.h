@@ -17,11 +17,13 @@ int U1BufferPtr=0;
 //- 1 receiving message
 
 int U1States=0;
-int hasToSend=0;
+int RX_hasToSend=0;
+int RX_hasToParse=0;
 unsigned char Buf[MAX_BUFF];
 unsigned char charRX;
 int i=0;
-
+char RX_header='$';
+char RX_footer='%';
 
 #endif	/* GLOBALS_H */
 

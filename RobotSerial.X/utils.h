@@ -62,8 +62,8 @@ void enableMotors() {
     unsigned int config2 = PWM1_MOD1_COMP & PWM1_PEN1L & PWM1_PDIS1H & PWM1_MOD2_COMP & PWM1_PEN2L & PWM1_PDIS2H & PWM1_PDIS3H & PWM1_PDIS3L;
     unsigned int config3 = PWM1_SEVOPS1 & PWM1_OSYNC_PWM & PWM1_UEN;
     OpenMCPWM1(period, sptime, config1, config2, config3);
-    SetDCMCPWM1(1, 3600, 0); //MOTORE R
-    SetDCMCPWM1(2, 3600, 0); //MOTORE L
+    SetDCMCPWM1(1, 3000, 0); //MOTORE R
+    SetDCMCPWM1(2, 3000, 0); //MOTORE L
     
 }
 

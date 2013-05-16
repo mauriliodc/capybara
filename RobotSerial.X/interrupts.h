@@ -19,9 +19,9 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
         //INVERTIRE LA DIREZIONE DEL MOTORE
         //if(LATBbits.LATB14==0)LATBbits.LATB14 = 1;
         //else if(LATBbits.LATB14==1)LATBbits.LATB14 = 0;
-        
+
         secAcc = 0;
-        LED2=0;
+        LED2 = 0;
     }
 
     WriteTimer1(0);
@@ -34,16 +34,24 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
-    LED2=1;
-    charRX=ReadUART1();
-    if(charRX!='$' && i==0){ i=0;}
-    else
-    {
-    Buf[i]=charRX;
-    
-    if (i == (MAX_BUFF-1)){ i=0;} //lunghezza del buffer
-    else if(i<MAX_BUFF) {i++;}
-    if (charRX == '%'){hasToSend=1;i=0;}
+    LED2 = 1;
+    charRX = ReadUART1();
+    if (charRX != RX_header && i == 0) {
+        i = 0;
+    } else {
+        Buf[i] = charRX;
+
+        if (i == (MAX_BUFF - 1)) {
+            i = 0;
+        }//lunghezza del buffer
+        else if (i < MAX_BUFF) {
+            i++;
+        }
+        if (charRX == RX_footer) {
+            RX_hasToSend = 1;
+            RX_hasToParse = 1;
+            i = 0;
+        }
     }
     IFS0bits.U1RXIF = 0;
 }
