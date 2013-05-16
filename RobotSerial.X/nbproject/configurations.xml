@@ -8,8 +8,8 @@
       <itemPath>interrupts.h</itemPath>
       <itemPath>globals.h</itemPath>
       <itemPath>utils.h</itemPath>
-      <itemPath>commands.h</itemPath>
       <itemPath>defines.h</itemPath>
+      <itemPath>commands.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -36,8 +36,8 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit2PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.11</languageToolchainVersion>
-        <platform>4</platform>
+        <languageToolchainVersion>1.10</languageToolchainVersion>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -67,11 +67,7 @@
       <C30Global>
       </C30Global>
       <PICkit2PlatformTool>
-        <property key="pk2settings.3state" value="false"/>
-        <property key="pk2settings.preserveee" value="false"/>
         <property key="pk2settings.setvddvoltage" value="3.25"/>
-        <property key="pk2settings.userpgmexec" value="true"/>
-        <property key="pk2settings.usetargetpower" value="false"/>
       </PICkit2PlatformTool>
     </conf>
   </confs>

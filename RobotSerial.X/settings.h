@@ -24,6 +24,7 @@ _FOSCSEL(FNOSC_PRIPLL);
 // Enable clock switching and configure POSC in XT mode
 _FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
 // Disabling watchdog
+
 _FWDT(FWDTEN_OFF)
 
 
@@ -72,22 +73,43 @@ void pin_remapping() {
     //PPSLock;
 
     asm volatile ( "mov #OSCCONL, w1 \n"
-	"mov #0x45, w2 \n"
-	"mov #0x57, w3 \n"
-	"mov.b w2, [w1] \n"
-	"mov.b w3, [w1] \n"
-	"bclr OSCCON, #6 ");
+                "mov #0x45, w2 \n"
+                "mov #0x57, w3 \n"
+                "mov.b w2, [w1] \n"
+                "mov.b w3, [w1] \n"
+                "bclr OSCCON, #6 ");
 
     //UART
-    RPINR18bits.U1RXR = 2;  //INPUT
-    RPOR1bits.RP3R = 3;     //OUTPUT
+    RPINR18bits.U1RXR = 2; //INPUT
+    RPOR1bits.RP3R = 3; //OUTPUT
+
+    //ENCODER
+    //***************************
+    // Assign QEA1 To Pin RP10
+    //***************************
+    RPINR14bits.QEA1R = 10;
+
+    //***************************
+    // Assign QEB1 To Pin RP11
+    //***************************
+    RPINR14bits.QEB1R = 11;
+
+    //***************************
+    // Assign QEA2 To Pin RP6
+    //***************************
+    RPINR16bits.QEA2R = 6;
+
+    //***************************
+    // Assign QEB2 To Pin RP5
+    //***************************
+    RPINR16bits.QEB2R = 5;
 
     asm volatile ( "mov #OSCCONL, w1 \n"
-	"mov #0x45, w2 \n"
-	"mov #0x57, w3 \n"
-	"mov.b w2, [w1] \n"
-	"mov.b w3, [w1] \n"
-	"bset OSCCON, #6");
+                "mov #0x45, w2 \n"
+                "mov #0x57, w3 \n"
+                "mov.b w2, [w1] \n"
+                "mov.b w3, [w1] \n"
+                "bset OSCCON, #6");
 
     AD1PCFGL = 0xFFFF; //FONDAMENTALE PER LA UART, DEVO CONFIGURARE QUEI PIN COME DIGITALI, DI BASE SONO ANALOGICI
 }
@@ -126,6 +148,51 @@ void init_uart1() {
     IFS0bits.U1RXIF = 0;
     OpenUART1(U1MODEvalue, U1STAvalue, BRGVAL);
     IFS0bits.U1RXIF = 0;
+}
+
+void initEncoders() {
+/*---------------------------------------------------------------------------*/
+/* QEI1	[4]           			    									     */
+/*---------------------------------------------------------------------------*/
+/*
+OpenQEI(QEI_MODE_x4_MATCH & QEI_INPUTS_NOSWAP & QEI_IDLE_STOP
+		& QEI_NORMAL_IO & QEI_INDEX_RESET_DISABLE,
+		QEI_QE_CLK_DIVIDE_1_128 & QEI_QE_OUT_ENABLE & POS_CNT_ERR_INT_DISABLE);
+*/
+//MALCOM INIZIO
+//ENCODER 1
+QEI1CONbits.QEIM 	= 0b101;	//	QEI_MODE_x2_MATCH
+QEI1CONbits.SWPAB 	= 0;	//	QEI_INPUTS_SWAP
+QEI1CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
+QEI1CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE
+QEI1CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
+QEI1CONbits.POSRES	= 1;	//	POS_CNT_ERR_INT_DISABLE
+
+DFLT1CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
+DFLT1CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
+
+//encoder settato a 2048 tick per giro completo
+//posto alla shaft posteriore
+//il QEI legge 2 tick (modalit? 2x)
+MAX1CNT = 1024;
+POS1CNT = 0;
+
+//ENCODER 2
+QEI2CONbits.QEIM 	= 0b101;	//	QEI_MODE_x2_MATCH
+QEI2CONbits.SWPAB 	= 0;	//	QEI_INPUTS_SWAP
+QEI2CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
+QEI2CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE
+QEI2CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
+QEI2CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
+
+DFLT2CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
+DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
+
+//encoder settato a 2048 tick per giro completo
+//posto alla shaft posteriore
+//il QEI legge 2 tick (modalit? 2x)
+MAX2CNT = 1024;
+POS2CNT = 0;
 }
 #endif	/* SETTINGS_H */
 

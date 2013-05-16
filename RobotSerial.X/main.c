@@ -21,10 +21,6 @@
 #include "interrupts.h"
 #include "commands.h"
 
-
-
-
-
 int main() {
     clock_settings();
     led_settings();
@@ -34,13 +30,16 @@ int main() {
     LED1 = 0;
     DelayN1ms(2000);
     putsUART1((unsigned int *) mio);
-    //enableMotors();
+    initEncoders();
+    enableMotors();
     generateCommands();
 
 
-    
 
-    int sender = 0;
+    char pos1[4];
+    char pos2[4];
+    char posPacket[9];
+    
     while (1) {
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
             U1STAbits.OERR = 0;
@@ -49,6 +48,7 @@ int main() {
             continue;
         }
 
+        /*
         while (RX_hasToSend) {
             U1TXREG = Buf[sender];
             while (U1STAbits.UTXBF == 1);
@@ -61,12 +61,31 @@ int main() {
                 sender = sender + 1;
             }
         }
-
+         */
         if (RX_hasToParse) {
+
+            ReceivedCommand = (struct _ReceivedCommand*) Buf;
+
+            unsigned char argument[4];
+            memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
+            putsUART1((unsigned int *) argument);
+            putsUART1((unsigned int *) "\n");
+
+
             parseAndExecuteCommand();
             memset(Buf, 0, sizeof (Buf));
             RX_hasToParse = 0;
         }
+
+        //itoa( pos1,POS1CNT, 10);
+        //itoa( pos2,POS2CNT, 10);
+        sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+        //sprintf(pos2, "%4d", POS2CNT);
+        //memcpy(posPacket,pos1,4*sizeof(unsigned char));
+        //posPacket[4]=':';
+        //memcpy(&posPacket[5],pos2,4*sizeof(unsigned char));
+        putsUART1((unsigned int*) posPacket);
+        putsUART1((unsigned int*) "\n");
     }
     return (1);
 }

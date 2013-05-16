@@ -8,6 +8,9 @@
 #ifndef COMMANDS_H
 #define	COMMANDS_H
 
+#include "globals.h"
+
+
 
 //INTERNALS
 //====================================================================
@@ -19,12 +22,12 @@ struct CommandsAndFunctions {
 
 struct CommandsAndFunctions commandsArray[COMMAND_SIZE];
 
-int compareCommands(unsigned char* buffer, unsigned char* command) {
-    unsigned char commandCode[2];
-    memcpy((unsigned char*)commandCode,(unsigned char*)&buffer[1], 2*sizeof(char));
+int compareCommands(unsigned char* ReceivedCommandCode, unsigned char* CommandCode) {
 
-    if (strcmp((const char*) commandCode, (const char*) command) == 0)return 1;
+    if( strncmp((const char*)ReceivedCommandCode,(const char*)CommandCode,2)==0 ) return 1;
     else return 0;
+
+
 }
 
 void assignCommand(const char* c, unsigned char* p) {
@@ -34,11 +37,15 @@ void assignCommand(const char* c, unsigned char* p) {
 //====================================================================
 
 void comando(void) {
-    putsUART1((unsigned int *) "COMANDO 1");
+    putsUART1((unsigned int *) "MOTORE 1: ");
+    putsUART1((unsigned int *) ReceivedCommand->argument);
+    modifyMotor1(atoi((const char*)ReceivedCommand->argument));
 }
 
 void comando2(void) {
-    putsUART1((unsigned int *) "COMANDO 2 volante");
+    putsUART1((unsigned int *) "MOTORE 2: ");
+    putsUART1((unsigned int *) ReceivedCommand->argument);
+    modifyMotor2(atoi((const char*)ReceivedCommand->argument));
 }
 //====================================================================
 
@@ -46,14 +53,14 @@ void generateCommands() {
     assignCommand("00", commandsArray[0].commandName);
     commandsArray[0].callback = &comando;
 
-    assignCommand("06", commandsArray[1].commandName);
+    assignCommand("01", commandsArray[1].commandName);
     commandsArray[1].callback = &comando2;
 }
 
 void parseAndExecuteCommand() {
     int i = 0;
     for (i = 0; i < COMMAND_SIZE; i++) {
-        if (compareCommands(Buf, commandsArray[i].commandName)) {
+        if (compareCommands(ReceivedCommand->code, commandsArray[i].commandName)) {
             commandsArray[i].callback();
             return;
         };

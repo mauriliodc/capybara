@@ -57,5 +57,17 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
 }
 
 
+void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
+    _QEI1IF = 0;
+    
+
+}
+
+void __attribute__((__interrupt__, __no_auto_psv__)) _QEI2Interrupt(void) {
+    _QEI2IF = 0;
+    
+    
+}
+
 #endif	/* INTERRUPTS_H */
 

@@ -20,10 +20,28 @@ int U1States=0;
 int RX_hasToSend=0;
 int RX_hasToParse=0;
 unsigned char Buf[MAX_BUFF];
+unsigned char commandCode[2];
+
+struct _ReceivedCommand
+{
+    unsigned char header;
+    unsigned char code[2];
+    unsigned char argument[4];
+    unsigned char footer;
+};
+struct _ReceivedCommand* ReceivedCommand;
+
 unsigned char charRX;
 int i=0;
 char RX_header='$';
 char RX_footer='%';
+
+
+
+//ENCODER
+
+int enc1=0;
+int enc2=0;
 
 #endif	/* GLOBALS_H */
 
