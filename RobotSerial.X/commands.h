@@ -37,15 +37,36 @@ void assignCommand(const char* c, unsigned char* p) {
 //====================================================================
 
 void comando(void) {
-    putsUART1((unsigned int *) "MOTORE 1: ");
-    putsUART1((unsigned int *) ReceivedCommand->argument);
-    modifyMotor1(atoi((const char*)ReceivedCommand->argument));
+    putsUART1((unsigned int*)"comando 1");
+    motor1VEL=atoi((const char*)ReceivedCommand->argument);
+    motor2VEL=atoi((const char*)ReceivedCommand->argument);
+    LATBbits.LATB14=1;
+    LATBbits.LATB12=0;
+    modifyMotor1();
+    modifyMotor2();
 }
 
 void comando2(void) {
-    putsUART1((unsigned int *) "MOTORE 2: ");
-    putsUART1((unsigned int *) ReceivedCommand->argument);
-    modifyMotor2(atoi((const char*)ReceivedCommand->argument));
+    putsUART1((unsigned int*)"comando 2");
+    motor1VEL=atoi((const char*)ReceivedCommand->argument);
+    motor2VEL=atoi((const char*)ReceivedCommand->argument);
+    LATBbits.LATB14=0;
+    LATBbits.LATB12=1;
+    modifyMotor1();
+    modifyMotor2();
+}
+void comando3(void) {
+    int c=motor1VEL-atoi((const char*)ReceivedCommand->argument);
+    putsUART1((unsigned int*)"comando 3");
+    putsUART1((unsigned int*)motor1VEL);
+    turnMotor1(c);
+}
+
+void comando4(void) {
+    int c=motor2VEL-atoi((const char*)ReceivedCommand->argument);
+    putsUART1((unsigned int*)"comando 4");
+    putsUART1((unsigned int*)motor2VEL);
+    turnMotor2(c);
 }
 //====================================================================
 
@@ -55,6 +76,12 @@ void generateCommands() {
 
     assignCommand("01", commandsArray[1].commandName);
     commandsArray[1].callback = &comando2;
+
+    assignCommand("02", commandsArray[2].commandName);
+    commandsArray[2].callback = &comando3;
+
+    assignCommand("03", commandsArray[3].commandName);
+    commandsArray[3].callback = &comando4;
 }
 
 void parseAndExecuteCommand() {

@@ -16,10 +16,6 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
     if (secAcc == 1000) {
         toggleLed1();
 
-        //INVERTIRE LA DIREZIONE DEL MOTORE
-        //if(LATBbits.LATB14==0)LATBbits.LATB14 = 1;
-        //else if(LATBbits.LATB14==1)LATBbits.LATB14 = 0;
-
         secAcc = 0;
         LED2 = 0;
     }

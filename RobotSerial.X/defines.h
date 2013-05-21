@@ -32,7 +32,7 @@
 
 
 //COMMANDS
-#define COMMAND_SIZE 2
+#define COMMAND_SIZE 4
 #define COMMAND_LENGHT 2
 
 #endif	/* DEFINES_H */

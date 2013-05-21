@@ -36,9 +36,9 @@ int main() {
 
 
 
-    char pos1[4];
-    char pos2[4];
-    char posPacket[9];
+    //char pos1[4];
+    //char pos2[4];
+    //char posPacket[9];
     
     while (1) {
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
@@ -66,12 +66,14 @@ int main() {
 
             ReceivedCommand = (struct _ReceivedCommand*) Buf;
 
-            unsigned char argument[4];
-            memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
-            putsUART1((unsigned int *) argument);
-            putsUART1((unsigned int *) "\n");
-
-
+            //unsigned char argument[4];
+            //unsigned char command[2];
+            //memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
+            //memcpy(command, ReceivedCommand->code, 2 * sizeof (unsigned char));
+            //putsUART1((unsigned int *) command);
+            //putsUART1((unsigned int *) argument);
+            putsUART1((unsigned int *) "Comando ricevuto");
+            putsUART1((unsigned int *) Buf);
             parseAndExecuteCommand();
             memset(Buf, 0, sizeof (Buf));
             RX_hasToParse = 0;
@@ -79,13 +81,18 @@ int main() {
 
         //itoa( pos1,POS1CNT, 10);
         //itoa( pos2,POS2CNT, 10);
-        sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+
+        //TEST DA COMMENTARE
+        //sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+
+
         //sprintf(pos2, "%4d", POS2CNT);
         //memcpy(posPacket,pos1,4*sizeof(unsigned char));
         //posPacket[4]=':';
         //memcpy(&posPacket[5],pos2,4*sizeof(unsigned char));
-        putsUART1((unsigned int*) posPacket);
-        putsUART1((unsigned int*) "\n");
+        
+        //putsUART1((unsigned int*) posPacket);
+        //putsUART1((unsigned int*) "\n");
     }
     return (1);
 }

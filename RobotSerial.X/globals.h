@@ -8,6 +8,11 @@
 #ifndef GLOBALS_H
 #define	GLOBALS_H
 
+//MOTORI
+
+int motor1VEL=5000;
+int motor2VEL=5000;
+
 int secAcc = 0;
 int bufferSize=100;
 char U1Buffer[100]="";

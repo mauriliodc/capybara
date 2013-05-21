@@ -31,20 +31,40 @@ void DelayN1ms(int n) {
     }
 }
 
-void enableMotor1() {
-    SetDCMCPWM1(1, 2048, 0); //0->4095 //pwmInitSpeed defined in dsPid33.c
+
+void modifyMotor1() {
+    SetDCMCPWM1(1, motor1VEL, 0);
 }
 
-void enableMotor2() {
-    SetDCMCPWM1(2, 2048, 0); //0->4095 //pwmInitSpeed defined in dsPid33.c //SECONDO MOTORE, 0);
+void modifyMotor2() {
+    SetDCMCPWM1(2, motor2VEL, 0);
 }
 
-void modifyMotor1(int v) {
+
+void turnMotor1(int v) {
     SetDCMCPWM1(1, v, 0);
 }
 
-void modifyMotor2(int v) {
+void turnMotor2(int v) {
     SetDCMCPWM1(2, v, 0);
+}
+
+void Motor1Forward()
+{
+
+}
+
+void Motor2Forward()
+{
+
+}
+void Motor1Backward()
+{
+
+}
+void Motor2Backward()
+{
+
 }
 
 #define MOTOR_FREQ(freqHz)      (P1TPER = FCY  / 64 / freqHz -1)
@@ -64,14 +84,14 @@ void enableMotors() {
     LATBbits.LATB14 = 1; //dir
     LATBbits.LATB12 = 0; //dir
 
-    unsigned int period = 2499;
+    unsigned int period = 1999;
     unsigned int sptime = 0x0;
     unsigned int config1 = PWM1_EN & PWM1_IDLE_CON & PWM1_OP_SCALE1 & PWM1_IPCLK_SCALE4 & PWM1_MOD_FREE;
     unsigned int config2 = PWM1_MOD1_COMP & PWM1_PEN1L & PWM1_PDIS1H & PWM1_MOD2_COMP & PWM1_PEN2L & PWM1_PDIS2H & PWM1_PDIS3H & PWM1_PDIS3L;
     unsigned int config3 = PWM1_SEVOPS1 & PWM1_OSYNC_PWM & PWM1_UEN;
     OpenMCPWM1(period, sptime, config1, config2, config3);
-    SetDCMCPWM1(1, 3600, 0); //MOTORE R
-    SetDCMCPWM1(2, 3600, 0); //MOTORE L
+    SetDCMCPWM1(1, motor1VEL, 0); //MOTORE R
+    SetDCMCPWM1(2, motor2VEL, 0); //MOTORE L
 
 }
 
