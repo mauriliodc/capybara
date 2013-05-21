@@ -3,40 +3,23 @@ import threading
 import serial
 import signal
 
-
+#############################################################################################
 #THREAD TO UNFILL THE BUFFER
-class ThreadClass(threading.Thread):
+#############################################################################################
+class CleaningThread(threading.Thread):
 	def run(self):
 		global ser
 		while 1:
 			ser.flushInput()
 			ser.flushOutput()
 			print ser.readline()
+#############################################################################################
 
-#SERIAL PORT STUFF
-ser = serial.Serial('/dev/ttyACM0', 115200)
-ser.xonxoff = False
-ser.rtscts = False
-ser.dsrdtr = False
-ser.open()
-ser.isOpen()
-action = []
-spacing = 0
-
-ser.isOpen()
-print ser.portstr
-#THREAD
-t = ThreadClass()
-t.start()
-
-
-# Define some colors
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-
+#############################################################################################
 # This is a simple class that will help us print to the screen
 # It has nothing to do with the joysticks, just outputing the
 # information.
+#############################################################################################
 class TextPrint:
     def __init__(self):
         self.reset()
@@ -61,29 +44,79 @@ class TextPrint:
         
     def unindent(self):
         self.x -= 10
-    
+#############################################################################################
 
+#############################################################################################
+#SERIAL PORT STUFF
+#############################################################################################
+ser = serial.Serial('/dev/ttyACM0', 115200)
+ser.xonxoff = False
+ser.rtscts = False
+ser.dsrdtr = False
+ser.open()
+ser.isOpen()
+print ser.portstr
+#############################################################################################
+
+#############################################################################################
+#GLOBALS
+#--------------------
+action = []
+spacing = 0
+
+#StartingThread
+#--------------------
+t = CleaningThread()
+t.start()
+#--------------------
+
+# Define some colors
+#---------------------------
+BLACK    = (   0,   0,   0)
+WHITE    = ( 255, 255, 255)
+#---------------------------
+
+
+    
+#INIT
+#--------------
 pygame.init()
- 
+#--------------
+
+
+#SETTINGS
+#-----------------------------------------------------------
 # Set the width and height of the screen [width,height]
 size = [500, 700]
 screen = pygame.display.set_mode(size)
-
 pygame.display.set_caption("Capybara in the wild {TELEOP}")
+#-----------------------------------------------------------
 
 #Loop until the user clicks the close button.
+#-----------------------------------------------------------
 done = False
+#-----------------------------------------------------------
 
 # Used to manage how fast the screen updates
+#-----------------------------------------------------------
 clock = pygame.time.Clock()
+#-----------------------------------------------------------
 
 # Initialize the joysticks
+#-----------------------------------------------------------
 pygame.joystick.init()
-    
-# Get ready to print
-textPrint = TextPrint()
+#-----------------------------------------------------------    
 
+# Get ready to print
+#-----------------------------------------------------------
+textPrint = TextPrint()
+#-----------------------------------------------------------
+
+
+
+#########################################
 # -------- Main Program Loop -----------
+#########################################
 while done==False:
     # EVENT PROCESSING STEP
     for event in pygame.event.get(): # User did something
@@ -126,7 +159,10 @@ while done==False:
         axes = joystick.get_numaxes()
         textPrint.printa(screen, "Number of axes: {}".format(axes) )
         textPrint.indent()
-        
+
+	#================================================================================        
+	#AXIS CONTROL
+	#================================================================================
         for i in range( axes ):
             axis = joystick.get_axis( i )
             textPrint.printa(screen, "Axis {} value: {:>6.3f}".format(i, axis) )
@@ -149,7 +185,13 @@ while done==False:
 	    if i == 18 and axis != 0:
 		ser.write("$005000$")
         textPrint.unindent()
-            
+	#================================================================================
+
+
+
+	#================================================================================        
+	#BUTTON CONTROL
+	#================================================================================            
         buttons = joystick.get_numbuttons()
         textPrint.printa(screen, "Number of buttons: {}".format(buttons) )
         textPrint.indent()
@@ -158,7 +200,12 @@ while done==False:
             button = joystick.get_button( i )
             textPrint.printa(screen, "Button {:>2} value: {}".format(i,button) )
         textPrint.unindent()
-            
+	#================================================================================        
+
+
+	#================================================================================        
+	#HATS CONTROL
+	#================================================================================            
         # Hat switch. All or nothing for direction, not like joysticks.
         # Value comes back in an array.
         hats = joystick.get_numhats()
@@ -169,6 +216,7 @@ while done==False:
             hat = joystick.get_hat( i )
             textPrint.printa(screen, "Hat {} value: {}".format(i, str(hat)) )
         textPrint.unindent()
+	#================================================================================        
         
         textPrint.unindent()
 
