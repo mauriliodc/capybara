@@ -38,7 +38,7 @@ int main() {
 
     //char pos1[4];
     //char pos2[4];
-    //char posPacket[9];
+    
     
     while (1) {
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
@@ -90,9 +90,13 @@ int main() {
         //memcpy(posPacket,pos1,4*sizeof(unsigned char));
         //posPacket[4]=':';
         //memcpy(&posPacket[5],pos2,4*sizeof(unsigned char));
-        
-        //putsUART1((unsigned int*) posPacket);
-        //putsUART1((unsigned int*) "\n");
+
+        if(secAcc==500)
+        {
+        sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+        putsUART1((unsigned int*) posPacket);
+        putsUART1((unsigned int*) "\n");
+        }
     }
     return (1);
 }

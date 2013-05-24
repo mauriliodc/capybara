@@ -81,7 +81,7 @@ void enableMotors() {
     TRISBbits.TRISB14 = 0b0; //pwm
     TRISBbits.TRISB15 = 0b0; //pwm
     //DIREZIONE DEI MOTORI
-    LATBbits.LATB14 = 1; //dir
+    LATBbits.LATB14 = 0; //dir
     LATBbits.LATB12 = 0; //dir
 
     unsigned int period = 1999;

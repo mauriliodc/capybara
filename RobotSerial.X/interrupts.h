@@ -7,6 +7,7 @@
 
 #ifndef INTERRUPTS_H
 #define	INTERRUPTS_H
+char posPacket[9];
 
 char mio[] = "Board ready\n\0";
 char message[] = "Message received\n\0";
@@ -18,6 +19,9 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
         secAcc = 0;
         LED2 = 0;
+
+        
+        
     }
 
     WriteTimer1(0);
@@ -54,12 +58,14 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
 
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
+    toggleLed2();
     _QEI1IF = 0;
     
 
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI2Interrupt(void) {
+    toggleLed2();
     _QEI2IF = 0;
     
     

@@ -40,7 +40,7 @@ void comando(void) {
     putsUART1((unsigned int*)"comando 1");
     motor1VEL=atoi((const char*)ReceivedCommand->argument);
     motor2VEL=atoi((const char*)ReceivedCommand->argument);
-    LATBbits.LATB14=1;
+    LATBbits.LATB14=0;
     LATBbits.LATB12=0;
     modifyMotor1();
     modifyMotor2();
@@ -50,8 +50,8 @@ void comando2(void) {
     putsUART1((unsigned int*)"comando 2");
     motor1VEL=atoi((const char*)ReceivedCommand->argument);
     motor2VEL=atoi((const char*)ReceivedCommand->argument);
-    LATBbits.LATB14=0;
-    LATBbits.LATB12=1;
+    LATBbits.LATB14=1;
+    LATBbits.LATB12=0;
     modifyMotor1();
     modifyMotor2();
 }

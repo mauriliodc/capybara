@@ -174,7 +174,7 @@ DFLT1CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 //encoder settato a 2048 tick per giro completo
 //posto alla shaft posteriore
 //il QEI legge 2 tick (modalit? 2x)
-MAX1CNT = 1024;
+MAX1CNT = 500;
 POS1CNT = 0;
 
 //ENCODER 2
@@ -191,7 +191,7 @@ DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 //encoder settato a 2048 tick per giro completo
 //posto alla shaft posteriore
 //il QEI legge 2 tick (modalit? 2x)
-MAX2CNT = 1024;
+MAX2CNT = 500;
 POS2CNT = 0;
 }
 #endif	/* SETTINGS_H */
