@@ -14,6 +14,8 @@ int motor1VEL=5000;
 int motor2VEL=5000;
 
 int secAcc = 0;
+int millisec20=0;
+
 int bufferSize=100;
 char U1Buffer[100]="";
 int U1BufferPtr=0;

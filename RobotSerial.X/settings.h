@@ -174,8 +174,9 @@ DFLT1CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 //encoder settato a 2048 tick per giro completo
 //posto alla shaft posteriore
 //il QEI legge 2 tick (modalit? 2x)
-MAX1CNT = 500;
+MAX1CNT = 0xffff;
 POS1CNT = 0;
+ConfigIntQEI1(QEI_INT_ENABLE & QEI_INT_PRI_1);
 
 //ENCODER 2
 QEI2CONbits.QEIM 	= 0b101;	//	QEI_MODE_x2_MATCH
@@ -188,11 +189,13 @@ QEI2CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
 DFLT2CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
 DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 
+
 //encoder settato a 2048 tick per giro completo
 //posto alla shaft posteriore
 //il QEI legge 2 tick (modalit? 2x)
-MAX2CNT = 500;
+MAX2CNT = 0xffff;
 POS2CNT = 0;
+ConfigIntQEI2(QEI_INT_ENABLE & QEI_INT_PRI_1);
 }
 #endif	/* SETTINGS_H */
 

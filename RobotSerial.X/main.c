@@ -13,6 +13,7 @@
 #include <uart.h>
 #include <pwm12.h>
 #include <string.h>
+#include <qei.h>
 
 #include "defines.h"
 #include "globals.h"
@@ -20,6 +21,8 @@
 #include "utils.h"
 #include "interrupts.h"
 #include "commands.h"
+
+char ttkk[10];
 
 int main() {
     clock_settings();
@@ -91,11 +94,29 @@ int main() {
         //posPacket[4]=':';
         //memcpy(&posPacket[5],pos2,4*sizeof(unsigned char));
 
-        if(secAcc==500)
+        if(secAcc==5000)
         {
-        sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+        //sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+        sprintf(posPacket,"%f",metersW1);
+        putsUART1((unsigned int*) "SPEED1: ");
+        putsUART1((unsigned int*) posPacket);
+
+        sprintf(posPacket,"%f",metersW2);
+        putsUART1((unsigned int*) " SPEED2: ");
+        putsUART1((unsigned int*) posPacket);
+        //putsUART1((unsigned int*) "\n");
+
+
+        sprintf(posPacket,"%d",QEI1CONbits.UPDN);
+        putsUART1((unsigned int*) " DIR: ");
+        putsUART1((unsigned int*) posPacket);
+
+
+        putsUART1((unsigned int*) " POS1CNT: ");
+        sprintf(posPacket,"%d",(int)POS1CNT);
         putsUART1((unsigned int*) posPacket);
         putsUART1((unsigned int*) "\n");
+        
         }
     }
     return (1);
