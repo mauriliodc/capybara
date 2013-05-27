@@ -21,6 +21,7 @@
 #include "utils.h"
 #include "interrupts.h"
 #include "commands.h"
+#include "pid.h"
 
 char ttkk[10];
 
