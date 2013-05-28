@@ -22,6 +22,8 @@
 #include "interrupts.h"
 #include "commands.h"
 #include "pid.h"
+#include "motorController.h"
+#include "pwmController.h"
 
 char ttkk[10];
 struct PID pidmotor1;

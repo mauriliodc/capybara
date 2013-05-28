@@ -49,23 +49,6 @@ void turnMotor2(int v) {
     SetDCMCPWM1(2, v, 0);
 }
 
-void Motor1Forward()
-{
-
-}
-
-void Motor2Forward()
-{
-
-}
-void Motor1Backward()
-{
-
-}
-void Motor2Backward()
-{
-
-}
 
 #define MOTOR_FREQ(freqHz)      (P1TPER = FCY  / 64 / freqHz -1)
 #define MOTOR1_DUTY(percent)    (P1DC1 = (2UL*P1TPER+2)*percent/100)
