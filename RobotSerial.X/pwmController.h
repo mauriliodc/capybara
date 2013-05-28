@@ -24,7 +24,7 @@ struct PWMController
 };
 
 
-void PWMinitController(struct PWMController*)
+void PWMinitController(struct PWMController* p)
 {
     //TRISTATE SETTATI COME OUTPUT
     _TRISB0 = 0;
@@ -44,25 +44,25 @@ void PWMinitController(struct PWMController*)
     unsigned int config3 = PWM1_SEVOPS1 & PWM1_OSYNC_PWM & PWM1_UEN;
     OpenMCPWM1(period, sptime, config1, config2, config3);
 
-    PWMController->enabled=1;
+    p->enabled=1;
 }
 
-void PWMEnableController(struct PWMController*)
+void PWMEnableController(struct PWMController* p)
 {
-    PWMController->enabled=1;
+    p->enabled=1;
 }
 
-void PWMDisableController(struct PWMController*)
+void PWMDisableController(struct PWMController* p)
 {
-    PWMController->enabled=0;
+    p->enabled=0;
 }
 
-void PWMSetSpeed(struct PWMController*, int motor, int speed)
+void PWMSetSpeed(struct PWMController* p, int motor, int speed)
 {
     
 }
 
-int PWMGetSpeed(struct PWMController*, int motor)
+int PWMGetSpeed(struct PWMController* p, int motor)
 {
 
 }

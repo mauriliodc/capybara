@@ -24,6 +24,7 @@
 #include "pid.h"
 #include "motorController.h"
 #include "pwmController.h"
+#include "fancyTimer.h"
 
 char ttkk[10];
 struct PID pidmotor1;
@@ -35,7 +36,7 @@ int main() {
     pin_remapping();
     init_uart1();
     LED1 = 0;
-    DelayN1ms(2000);
+    //DelayN1ms(2000);
     putsUART1((unsigned int *) mio);
     initEncoders();
     enableMotors();
