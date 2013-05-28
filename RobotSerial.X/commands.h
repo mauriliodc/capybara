@@ -68,6 +68,12 @@ void comando4(void) {
     putsUART1((unsigned int*)motor2VEL);
     turnMotor2(c);
 }
+
+void comando5(void) {
+    int c=atoi((const char*)ReceivedCommand->argument);
+    requestVelocityMotor1=(float)c;
+    requestVelocityMotor2=(float)c;
+}
 //====================================================================
 
 void generateCommands() {
@@ -82,6 +88,9 @@ void generateCommands() {
 
     assignCommand("03", commandsArray[3].commandName);
     commandsArray[3].callback = &comando4;
+
+    assignCommand("04", commandsArray[4].commandName);
+    commandsArray[4].callback = &comando5;
 }
 
 void parseAndExecuteCommand() {

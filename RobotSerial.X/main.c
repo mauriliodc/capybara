@@ -24,7 +24,8 @@
 #include "pid.h"
 
 char ttkk[10];
-
+struct PID pidmotor1;
+struct PID pidmotor2;
 int main() {
     clock_settings();
     led_settings();
@@ -39,6 +40,18 @@ int main() {
     generateCommands();
 
 
+
+    PIDinitPID(&pidmotor1,
+    0.0,      //I
+    2,    //P
+    0.00,      //D
+    0.02);
+
+    PIDinitPID(&pidmotor2,
+    0.0,      //I
+    2,    //P
+    0.000,      //D
+    0.02);
 
     //char pos1[4];
     //char pos2[4];
@@ -70,12 +83,10 @@ int main() {
 
             ReceivedCommand = (struct _ReceivedCommand*) Buf;
 
-            //unsigned char argument[4];
-            //unsigned char command[2];
+         
             //memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
             //memcpy(command, ReceivedCommand->code, 2 * sizeof (unsigned char));
-            //putsUART1((unsigned int *) command);
-            //putsUART1((unsigned int *) argument);
+    
             putsUART1((unsigned int *) "Comando ricevuto");
             putsUART1((unsigned int *) Buf);
             parseAndExecuteCommand();
@@ -83,17 +94,7 @@ int main() {
             RX_hasToParse = 0;
         }
 
-        //itoa( pos1,POS1CNT, 10);
-        //itoa( pos2,POS2CNT, 10);
-
-        //TEST DA COMMENTARE
-        //sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
-
-
-        //sprintf(pos2, "%4d", POS2CNT);
-        //memcpy(posPacket,pos1,4*sizeof(unsigned char));
-        //posPacket[4]=':';
-        //memcpy(&posPacket[5],pos2,4*sizeof(unsigned char));
+        
 
         if(secAcc==5000)
         {
@@ -119,6 +120,8 @@ int main() {
         putsUART1((unsigned int*) "\n");
         
         }
+
+
     }
     return (1);
 }

@@ -167,13 +167,17 @@ while done==False:
             axis = joystick.get_axis( i )
             textPrint.printa(screen, "Axis {} value: {:>6.3f}".format(i, axis) )
 	    if i == 1 and axis < 0 :
-		argomento=str(6000-int(-1*(axis*5000)))
-	    	textPrint.printMio(screen, argomento,50)
-		ser.write("$00"+argomento+"%")
+		if -axis>0.1: 
+			argomento=str(-1*axis*1000)
+	    		textPrint.printMio(screen, argomento,50)
+			ser.write("$04"+argomento+"%")
+		else:
+			ser.write("$040000%")
+	    """
 	    if i == 1 and axis > 0 :
 		argomento=str(6000-int(1*(axis*5000)))
 	    	textPrint.printMio(screen, argomento,100)
-		ser.write("$01"+argomento+"%")
+		ser.write("$04"+argomento+"%")
 	    if i == 2 and axis < 0 :
 		argomento=str(int(-1*(axis*1000)))
 	    	textPrint.printMio(screen, argomento,150)
@@ -182,8 +186,10 @@ while done==False:
 		argomento=str(int(1*(axis*1000)))
 	    	textPrint.printMio(screen, argomento,200)
 		ser.write("$03"+argomento+"%")
+	    """
 	    if i == 18 and axis != 0:
-		ser.write("$005000$")
+		ser.write("$040000$")
+            
         textPrint.unindent()
 	#================================================================================
 

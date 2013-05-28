@@ -10,8 +10,8 @@
 
 //MOTORI
 
-int motor1VEL=5000;
-int motor2VEL=5000;
+int motor1VEL=STOPVAL;
+int motor2VEL=STOPVAL;
 
 int secAcc = 0;
 int millisec20=0;

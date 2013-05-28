@@ -7,11 +7,28 @@
 
 #ifndef INTERRUPTS_H
 #define	INTERRUPTS_H
+
+#include "pid.h"
+
 char posPacket[9];
 
 char mio[] = "Board ready\n\0";
 char message[] = "Message received\n\0";
+char PID[10];
 
+float velocityMotor1=0;
+float velocityMotor2=0;
+
+float requestVelocityMotor1=0;
+float requestVelocityMotor2=0;
+
+int tick1=0;
+int tick2=0;
+int inc=0;
+int inc2=0;
+
+extern struct PID pidmotor1;
+extern struct PID pidmotor2;
 int wrapAround1=0;
 int wrapAround2=0;
 float metersW1=0;
@@ -25,15 +42,146 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
         secAcc = 0;
         LED2 = 0;
+
+        sprintf(PID,"%f",pidmotor1.PID);
+        putsUART1((unsigned int *)"PID1: ");
+        putsUART1((unsigned int *)PID);
+
+        sprintf(PID,"%f",pidmotor2.PID);
+        putsUART1((unsigned int *)" PID2: ");
+        putsUART1((unsigned int *)PID);
+
+        sprintf(PID,"%d",POS1CNT);
+        putsUART1((unsigned int *)" ENC1: ");
+        putsUART1((unsigned int *)PID);
+
+        sprintf(PID,"%d",POS2CNT);
+        putsUART1((unsigned int *)" ENC2: ");
+        putsUART1((unsigned int *)PID);
+        
+        putsUART1((unsigned int *)"\n");
+
+        sprintf(PID,"%u",tick1);
+        putsUART1((unsigned int *)"TICK1 : ");
+        putsUART1((unsigned int *)PID);
+
+        sprintf(PID,"%u",tick2);
+        putsUART1((unsigned int *)" TICK2 : ");
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)"\n");
+
+        putsUART1((unsigned int *)"V1 RICHIESTA: ");
+        sprintf(PID,"%f",requestVelocityMotor1);
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)" V1 EFFETTIVA: ");
+        sprintf(PID,"%f",(float)(POS1CNT*METERPERTICK1));
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)" V1 INC: ");
+        sprintf(PID,"%d",inc);
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)"\n");
+
+        putsUART1((unsigned int *)"V2 RICHIESTA: ");
+        sprintf(PID,"%f",requestVelocityMotor2);
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)" V2 EFFETTIVA: ");
+        sprintf(PID,"%f",(float)(POS2CNT*METERPERTICK2));
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)" V2 INC: ");
+        sprintf(PID,"%d",inc2);
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)"\n");
+
+        putsUART1((unsigned int *)"V->1: ");
+        sprintf(PID,"%f",velocityMotor1);
+        putsUART1((unsigned int *)PID);
+
+        putsUART1((unsigned int *)" V->2: ");
+        sprintf(PID,"%f",velocityMotor2);
+        putsUART1((unsigned int *)PID);
+
+        putsUART1((unsigned int *)" KONSTANT ");
+        sprintf(PID,"%f",TICKPERMETER1);
+        putsUART1((unsigned int *)PID);
+        putsUART1((unsigned int *)"\n");
+        putsUART1((unsigned int *)"\n");
+        
     }
 
-    if(millisec20>=20)
+    if(millisec20>=20 )
     {
         millisec20=0;
-        metersW1 = (int)POS1CNT*(float)METERPERTICK1;
-        POS1CNT=0;
+//
+//        putsUART1((unsigned int *)"--------------------------------\n");
+//        sprintf(PID,"%f",pidmotor1.I);
+//        putsUART1((unsigned int *)"I: ");
+//        putsUART1((unsigned int *)PID);
+//
+//        sprintf(PID,"%f",pidmotor1.D);
+//        putsUART1((unsigned int *)" D: ");
+//        putsUART1((unsigned int *)PID);
+//
+//        sprintf(PID,"%f",pidmotor1.P);
+//        putsUART1((unsigned int *)" P: ");
+//        putsUART1((unsigned int *)PID);
+//
+//        sprintf(PID,"%f",pidmotor1.error);
+//        putsUART1((unsigned int *)" ERR: ");
+//        putsUART1((unsigned int *)PID);
+//
+//        sprintf(PID,"%f",pidmotor1.reference);
+//        putsUART1((unsigned int *)" REF: ");
+//        putsUART1((unsigned int *)PID);
+//
+//        sprintf(PID,"%f",pidmotor1.PID);
+//        putsUART1((unsigned int *)" PID: ");
+//        putsUART1((unsigned int *)PID);
+//        putsUART1((unsigned int *)"\n");
+//
+//        putsUART1((unsigned int *)"VEL RICHIESTA: ");
+//        sprintf(PID,"%f",requestVelocityMotor1);
+//        putsUART1((unsigned int *)PID);
+//        putsUART1((unsigned int *)" VEL ATTUALE: ");
+//        sprintf(PID,"%f",(float)(POS1CNT*METERPERTICK1));
+//        putsUART1((unsigned int *)PID);
+//        putsUART1((unsigned int *)"\n");
+//
+//        putsUART1((unsigned int *)"TICK RICHIESTI: ");
+//        sprintf(PID,"%d",tick1);
+//        putsUART1((unsigned int *)PID);
+//        putsUART1((unsigned int *)" TICK ATTUALI: ");
+//        sprintf(PID,"%d",POS1CNT);
+//        putsUART1((unsigned int *)PID);
+//        putsUART1((unsigned int *)"\n");
 
-        metersW2 = (int)POS2CNT*(float)METERPERTICK1;
+
+        //VALORE ATTUALE DEL MOTORE IN METRI AL SECONDO
+        PIDsetReference(&pidmotor1,(float)(POS1CNT*METERPERTICK1));
+        //VALORE RICHIESTO IN METRI AL SECONDO
+        PIDUpdate(&pidmotor1,requestVelocityMotor1/1000);
+
+        PIDsetReference(&pidmotor2,(float)(POS2CNT*METERPERTICK2));
+        PIDUpdate(&pidmotor2,requestVelocityMotor2/1000);
+        //POS1CNT=mypid.PID
+        
+        //MODIFICATORE DI VELOCITA' IN METRI AL SECONDO
+        velocityMotor1=velocityMotor1+pidmotor1.PID;
+        velocityMotor2=velocityMotor2+pidmotor2.PID;
+
+        //METRI AL SECONDO IN TICK AL SECONDO
+        tick1=(unsigned int)((velocityMotor1*TICKPERMETER1)+1);
+        tick2=(unsigned int)((velocityMotor2*TICKPERMETER2)+1);
+
+       
+        motor1VEL=(int)(tick1*0.1);
+        motor2VEL=(int)(tick2*0.1);
+        //metersW1 = (int)POS1CNT*(float)METERPERTICK1;
+        
+
+       
+        modifyMotor1();
+        modifyMotor2();
+        POS1CNT=0;
         POS2CNT=0;
     }
     WriteTimer1(0);
@@ -71,16 +219,14 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
-    toggleLed2();
-    wrapAround1 = 1;
+
     _QEI1IF = 0;
 
 
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI2Interrupt(void) {
-    toggleLed2();
-    wrapAround1 = 1;
+
     _QEI2IF = 0;
 
 
