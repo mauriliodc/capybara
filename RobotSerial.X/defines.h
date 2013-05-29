@@ -32,7 +32,7 @@
 
 
 //COMMANDS
-#define COMMAND_SIZE 5
+#define COMMAND_SIZE 7
 #define COMMAND_LENGHT 2
 
 
@@ -53,7 +53,7 @@
 #define TICKPERMETER1 0.5*(1/RADIUSWHEEL1)
 #define TICKPERMETER2 0.5*(1/RADIUSWHEEL2)
 #define INCREMENT 20
-#define STOPVAL 3900
-#define GUARDVAL 1000
+#define STOPVAL 0
+#define GUARDVAL 3500
 #endif	/* DEFINES_H */
 

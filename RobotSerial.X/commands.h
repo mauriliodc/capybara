@@ -10,6 +10,10 @@
 
 #include "globals.h"
 
+//EXTERNS
+extern struct PWM pwm1;
+extern struct PWM pwm2;
+extern struct PWMController pwmController;
 
 
 //INTERNALS
@@ -35,9 +39,9 @@ void assignCommand(const char* c, unsigned char* p) {
 }
 //COMMANDS
 //====================================================================
-
-void comando(void) {
-    putsUART1((unsigned int*)"comando 1");
+//SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
+void comando0(void) {
+    
     motor1VEL=atoi((const char*)ReceivedCommand->argument);
     motor2VEL=atoi((const char*)ReceivedCommand->argument);
     LATBbits.LATB14=1;
@@ -46,8 +50,9 @@ void comando(void) {
     modifyMotor2();
 }
 
-void comando2(void) {
-    putsUART1((unsigned int*)"comando 2");
+//SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
+void comando1(void) {
+    
     motor1VEL=atoi((const char*)ReceivedCommand->argument);
     motor2VEL=atoi((const char*)ReceivedCommand->argument);
     LATBbits.LATB14=0;
@@ -55,42 +60,57 @@ void comando2(void) {
     modifyMotor1();
     modifyMotor2();
 }
+void comando2(void) {
+    int c=atoi((const char*)ReceivedCommand->argument);
+    PWMControllerSetSpeed(&pwmController,c,1,1);
+}
+
 void comando3(void) {
-    int c=motor1VEL-atoi((const char*)ReceivedCommand->argument);
-    putsUART1((unsigned int*)"comando 3");
-    putsUART1((unsigned int*)motor1VEL);
-    turnMotor1(c);
+    int c=atoi((const char*)ReceivedCommand->argument);
+    PWMControllerSetSpeed(&pwmController,c,1,2);
 }
 
 void comando4(void) {
-    int c=motor2VEL-atoi((const char*)ReceivedCommand->argument);
-    putsUART1((unsigned int*)"comando 4");
-    putsUART1((unsigned int*)motor2VEL);
-    turnMotor2(c);
-}
-
-void comando5(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
     requestVelocityMotor1=(float)c;
     requestVelocityMotor2=(float)c;
+}
+
+
+void comando5(void) {
+    int c=atoi((const char*)ReceivedCommand->argument);
+    
+    PWMControllerSetSpeed(&pwmController,c,-1,1);
+}
+
+void comando6(void) {
+    int c=atoi((const char*)ReceivedCommand->argument);
+    
+    PWMControllerSetSpeed(&pwmController,c,-1,2);
 }
 //====================================================================
 
 void generateCommands() {
     assignCommand("00", commandsArray[0].commandName);
-    commandsArray[0].callback = &comando;
+    commandsArray[0].callback = &comando0;
 
     assignCommand("01", commandsArray[1].commandName);
-    commandsArray[1].callback = &comando2;
+    commandsArray[1].callback = &comando1;
 
     assignCommand("02", commandsArray[2].commandName);
-    commandsArray[2].callback = &comando3;
+    commandsArray[2].callback = &comando2;
 
     assignCommand("03", commandsArray[3].commandName);
-    commandsArray[3].callback = &comando4;
+    commandsArray[3].callback = &comando3;
 
     assignCommand("04", commandsArray[4].commandName);
-    commandsArray[4].callback = &comando5;
+    commandsArray[4].callback = &comando4;
+
+    assignCommand("05", commandsArray[5].commandName);
+    commandsArray[5].callback = &comando5;
+
+    assignCommand("06", commandsArray[6].commandName);
+    commandsArray[6].callback = &comando6;
 }
 
 void parseAndExecuteCommand() {

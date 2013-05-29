@@ -25,39 +25,76 @@
 #include "motorController.h"
 #include "pwmController.h"
 #include "fancyTimer.h"
+//#include "fancyTimer.h"
 
-char ttkk[10];
+struct PWM pwm1; //SINISTRO
+struct PWM pwm2; //DESTRO
+struct PWMController pwmController;
+
 struct PID pidmotor1;
 struct PID pidmotor2;
+
+struct timerController bigTimer;
+struct timerEvent anEvent;
+struct timerEvent ledEvent;
+
+
+void anEventCallback(void) {
+putsUART1((unsigned int *) "it's me! mario!\n");
+}
+
+void ledEventCallback(void) {
+toggleLed1();
+}
+
 int main() {
+
     clock_settings();
     led_settings();
     timer1_confguration();
     pin_remapping();
     init_uart1();
     LED1 = 0;
-    //DelayN1ms(2000);
+    DelayN1ms(2000);
     putsUART1((unsigned int *) mio);
     initEncoders();
-    enableMotors();
     generateCommands();
 
+    anEvent.millisecs=5000;
+    anEvent.repetitions=-1;
+    anEvent.callback=&anEventCallback;
 
+    ledEvent.millisecs=200;
+    ledEvent.repetitions=-1;
+    ledEvent.callback=&ledEventCallback;
 
+    bigTimer.events=2;
+
+    struct timerEvent* tArr[2];
+    tArr[0] = &anEvent;
+    tArr[1] = &ledEvent;
+    bigTimer.timerEventsArray=tArr;
+    
+    
+  
+    PWMinit(&pwm1,(unsigned int*)0x02CC,1 << 14); //16384 = 14th bit high
+    PWMinit(&pwm2,(unsigned int*)0x02CC,1 << 12);//4096 = 12th bit high
+    PWMinitController(&pwmController,&pwm1,&pwm2);
+   
+    
     PIDinitPID(&pidmotor1,
-    0.0,      //I
-    2,    //P
-    0.00,      //D
+    0.0,        //I
+    2,          //P
+    0.00,       //D
     0.02);
 
     PIDinitPID(&pidmotor2,
-    0.0,      //I
-    2,    //P
+    0.0,        //I
+    2,          //P
     0.000,      //D
     0.02);
 
-    //char pos1[4];
-    //char pos2[4];
+
     
     
     while (1) {
@@ -86,7 +123,6 @@ int main() {
 
             ReceivedCommand = (struct _ReceivedCommand*) Buf;
 
-         
             //memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
             //memcpy(command, ReceivedCommand->code, 2 * sizeof (unsigned char));
     

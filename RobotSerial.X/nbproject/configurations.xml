@@ -11,6 +11,10 @@
       <itemPath>defines.h</itemPath>
       <itemPath>commands.h</itemPath>
       <itemPath>pid.h</itemPath>
+      <itemPath>fancyTimer.h</itemPath>
+      <itemPath>motorController.h</itemPath>
+      <itemPath>pwmController.h</itemPath>
+      <itemPath>encoderController.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -35,7 +39,7 @@
         <targetDevice>dsPIC33FJ128MC802</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit2PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.11</languageToolchainVersion>
         <platform>2</platform>

@@ -69,8 +69,8 @@ void enableMotors() {
 
     unsigned int period = 1999;
     unsigned int sptime = 0x0;
-    unsigned int config1 = PWM1_EN & PWM1_IDLE_CON & PWM1_OP_SCALE1 & PWM1_IPCLK_SCALE4 & PWM1_MOD_FREE;
-    unsigned int config2 = PWM1_MOD1_COMP & PWM1_PEN1L & PWM1_PDIS1H & PWM1_MOD2_COMP & PWM1_PEN2L & PWM1_PDIS2H & PWM1_PDIS3H & PWM1_PDIS3L;
+    unsigned int config1 = PWM1_EN & PWM1_IDLE_CON & PWM1_OP_SCALE1 & PWM1_IPCLK_SCALE1 & PWM1_MOD_UPDN;
+    unsigned int config2 = PWM1_MOD1_IND & PWM1_PEN1L & PWM1_PDIS1H & PWM1_MOD2_IND & PWM1_PEN2L & PWM1_PDIS2H & PWM1_PDIS3H & PWM1_PDIS3L;
     unsigned int config3 = PWM1_SEVOPS1 & PWM1_OSYNC_PWM & PWM1_UEN;
     OpenMCPWM1(period, sptime, config1, config2, config3);
     SetDCMCPWM1(1, motor1VEL, 0); //MOTORE R

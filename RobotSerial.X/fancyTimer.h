@@ -18,7 +18,7 @@ struct timerEvent{
     void (*callback)(void);
 };
 
-struct timerAggregator
+struct timerController
 {
     struct timerEvent** timerEventsArray;
     int millisecsStash;
@@ -26,7 +26,7 @@ struct timerAggregator
     
 };
 
-void triggerEvent(struct timerAggregator* t)
+void triggerEvent(struct timerController* t)
 {
     int i=0;
     //increment the millisecs accumulator

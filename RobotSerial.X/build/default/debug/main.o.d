@@ -5,4 +5,9 @@ globals.h  \
 settings.h  \
 utils.h  \
  interrupts.h  \
-commands.h 
+pid.h  \
+commands.h  \
+motorController.h  \
+pwmController.h  \
+ encoderController.h  \
+fancyTimer.h 
