@@ -1,7 +1,7 @@
 import sys
 import threading
 import serial
-
+import time
 
 #############################################################################################
 #THREAD TO UNFILL THE BUFFER
@@ -13,6 +13,7 @@ class CleaningThread(threading.Thread):
 		while 1:
 			ser.flushInput()
 			ser.flushOutput()
+			time.sleep(0.01)
 			
 		
 #############################################################################################
@@ -129,8 +130,8 @@ while 1:
 					command="$06"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\>"+command
-				#else:
-					#print 'You stopped moving the right joystick'
+				else:
+					ser.write("$060000%")
 			if action[7] == '03': # RIGHT STICK UP/DOWN
 				if num >= 128:
 					#print 'You moved the right joystick upward to %' + percent254
@@ -145,8 +146,8 @@ while 1:
 					command="$05"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\>"+command
-				#else:
-					#print 'You stopped moving the right joystick' 
+				else:
+					ser.write("$050000%")
 			action = []
 
 

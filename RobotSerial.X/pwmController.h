@@ -117,5 +117,13 @@ void PWMControllerSetSpeed(struct PWMController* p, int speed,int direction,int 
     SetDCMCPWM1(2, p->pwm2->speed, 0); //MOTORE L
 }
 
+
+//******************************************************************************
+//******************************************************************************
+
+struct PWM pwm1; //SINISTRO
+struct PWM pwm2; //DESTRO
+struct PWMController pwmController;
+
 #endif	/* PWMCONTROLLER_H */
 

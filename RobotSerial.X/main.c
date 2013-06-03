@@ -17,6 +17,9 @@
 
 #include "defines.h"
 #include "globals.h"
+
+#include "signatures.h"
+
 #include "settings.h"
 #include "utils.h"
 #include "interrupts.h"
@@ -25,27 +28,8 @@
 #include "motorController.h"
 #include "pwmController.h"
 #include "fancyTimer.h"
-//#include "fancyTimer.h"
 
-struct PWM pwm1; //SINISTRO
-struct PWM pwm2; //DESTRO
-struct PWMController pwmController;
-
-struct PID pidmotor1;
-struct PID pidmotor2;
-
-struct timerController bigTimer;
-struct timerEvent anEvent;
-struct timerEvent ledEvent;
-
-
-void anEventCallback(void) {
-putsUART1((unsigned int *) "it's me! mario!\n");
-}
-
-void ledEventCallback(void) {
-toggleLed1();
-}
+#include "callbacks.h"
 
 int main() {
 
@@ -57,10 +41,10 @@ int main() {
     LED1 = 0;
     DelayN1ms(2000);
     putsUART1((unsigned int *) mio);
-    initEncoders();
+    
     generateCommands();
 
-    anEvent.millisecs=5000;
+    anEvent.millisecs=500;
     anEvent.repetitions=-1;
     anEvent.callback=&anEventCallback;
 
@@ -68,31 +52,58 @@ int main() {
     ledEvent.repetitions=-1;
     ledEvent.callback=&ledEventCallback;
 
-    bigTimer.events=2;
-
-    struct timerEvent* tArr[2];
-    tArr[0] = &anEvent;
-    tArr[1] = &ledEvent;
-    bigTimer.timerEventsArray=tArr;
     
     
-  
+    //ENCODER INIT
+    //---------------------------------------------------------------------------
+    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,2,&encoder1Callback);
+    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,2,&encoder2Callback);
+    initEncoderController(&encoderController,&encoder1,&encoder2);
+    //---------------------------------------------------------------------------
+    
+    //PWM INIT
+    //---------------------------------------------------------------------------
     PWMinit(&pwm1,(unsigned int*)0x02CC,1 << 14); //16384 = 14th bit high
     PWMinit(&pwm2,(unsigned int*)0x02CC,1 << 12);//4096 = 12th bit high
     PWMinitController(&pwmController,&pwm1,&pwm2);
-   
-    
+    //---------------------------------------------------------------------------
+
+    //PID INIT
+    //---------------------------------------------------------------------------
     PIDinitPID(&pidmotor1,
     0.0,        //I
     2,          //P
     0.00,       //D
     0.02);
-
     PIDinitPID(&pidmotor2,
     0.0,        //I
     2,          //P
     0.000,      //D
     0.02);
+    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,2);
+    //---------------------------------------------------------------------------
+
+    //MOTOR CONTROLLER INIT
+    //-------------------------------------------------------------------------------------------------------
+    initMotorController(&motorController, &leftMotor, &rightMotor, &pwmController, &encoderController, &pid);
+    //-------------------------------------------------------------------------------------------------------
+
+    //TIMER EVENTS
+    bigTimer.events=0;
+    struct timerEvent* tArr[FANCYTIMEREVENTS];
+    tArr[0] = &anEvent;
+    tArr[1] = &ledEvent;
+    tArr[2] = &enc1Event;
+    tArr[3] = &enc2Event;
+    tArr[4] = &pidUpdateEvent;
+    bigTimer.timerEventsArray=tArr;
+    bigTimer.events=FANCYTIMEREVENTS;
+    
+  
+    
+   
+    pid.p1Ref=10;
+    
 
 
     

@@ -55,5 +55,9 @@
 #define INCREMENT 20
 #define STOPVAL 0
 #define GUARDVAL 3500
+
+
+//TIMER
+#define FANCYTIMEREVENTS 5
 #endif	/* DEFINES_H */
 

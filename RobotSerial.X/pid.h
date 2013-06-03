@@ -8,6 +8,8 @@
 #ifndef PID_H
 #define	PID_H
 
+#include "fancyTimer.h"
+
 struct PID {
     float kI;
     float I;
@@ -28,8 +30,19 @@ struct PID {
     float iWindupThreshold;
 
     int isInitialized;
+
+    
 };
 
+
+struct PIDController
+{
+    struct PID* p1;
+    struct PID* p2;
+    struct timerEvent* event;
+    float p1Ref;
+    float p2Ref;
+};
 
 //HOW TO USE IS:
 
@@ -87,5 +100,38 @@ void PIDUpdate(struct PID* s, float input) {
         s->PID = s->P + s->I + s->D;
     }
 }
+
+
+void InitPIDController(struct PIDController* p, struct PID* p1, struct PID* p2,struct timerEvent* event, int millisecs)
+{
+    p->p1=p1;
+    p->p2=p2;
+    p->event=event;
+
+    p->event->millisecs=millisecs;
+    p->event->repetitions=-1;
+    p->event->callback=&pidCallback;
+}
+
+
+void updatePIDs(struct PIDController* p)
+{
+    PIDUpdate(p->p1,p->p1Ref);
+    PIDUpdate(p->p2,p->p2Ref);
+}
+
+void modifyPIDsRefs(struct PIDController* p, float r1, float r2)
+{
+    p->p1Ref=r1;
+    p->p2Ref=r2;
+}
+
+
+//******************************************************************************
+//******************************************************************************
+struct PID pidmotor1;
+struct PID pidmotor2;
+struct PIDController pid;
+
 #endif	/* PID_H */
 

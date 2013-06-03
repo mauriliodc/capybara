@@ -48,7 +48,16 @@ void triggerEvent(struct timerController* t)
             }
         }
     }
+    i=0;
 }
 
+//******************************************************************************
+//******************************************************************************
+struct timerController bigTimer;
+struct timerEvent anEvent;
+struct timerEvent ledEvent;
+struct timerEvent enc1Event;
+struct timerEvent enc2Event;
+struct timerEvent pidUpdateEvent;
 #endif	/* FANCYTIMER_H */
 

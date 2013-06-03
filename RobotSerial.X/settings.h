@@ -150,52 +150,6 @@ void init_uart1() {
     IFS0bits.U1RXIF = 0;
 }
 
-void initEncoders() {
-/*---------------------------------------------------------------------------*/
-/* QEI1	[4]           			    									     */
-/*---------------------------------------------------------------------------*/
-/*
-OpenQEI(QEI_MODE_x4_MATCH & QEI_INPUTS_NOSWAP & QEI_IDLE_STOP
-		& QEI_NORMAL_IO & QEI_INDEX_RESET_DISABLE,
-		QEI_QE_CLK_DIVIDE_1_128 & QEI_QE_OUT_ENABLE & POS_CNT_ERR_INT_DISABLE);
-*/
-//MALCOM INIZIO
-//ENCODER 1
-QEI1CONbits.QEIM 	= 0b101;	//	QEI_MODE_x2_MATCH
-QEI1CONbits.SWPAB 	= 0;	//	QEI_INPUTS_SWAP
-QEI1CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
-QEI1CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE
-QEI1CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
-QEI1CONbits.POSRES	= 1;	//	POS_CNT_ERR_INT_DISABLE
 
-DFLT1CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
-DFLT1CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
-
-//encoder settato a 2048 tick per giro completo
-//posto alla shaft posteriore
-//il QEI legge 2 tick (modalit? 2x)
-MAX1CNT = 0xffff;
-POS1CNT = 0;
-ConfigIntQEI1(QEI_INT_ENABLE & QEI_INT_PRI_1);
-
-//ENCODER 2
-QEI2CONbits.QEIM 	= 0b101;	//	QEI_MODE_x2_MATCH
-QEI2CONbits.SWPAB 	= 0;	//	QEI_INPUTS_SWAP
-QEI2CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
-QEI2CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE
-QEI2CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
-QEI2CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
-
-DFLT2CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
-DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
-
-
-//encoder settato a 2048 tick per giro completo
-//posto alla shaft posteriore
-//il QEI legge 2 tick (modalit? 2x)
-MAX2CNT = 0xffff;
-POS2CNT = 0;
-ConfigIntQEI2(QEI_INT_ENABLE & QEI_INT_PRI_1);
-}
 #endif	/* SETTINGS_H */
 
