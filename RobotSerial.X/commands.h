@@ -62,12 +62,12 @@ void comando1(void) {
 }
 void comando2(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    PWMControllerSetSpeed(&pwmController,c,1,1);
+    pid.p1Ref=c;
 }
 
 void comando3(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    PWMControllerSetSpeed(&pwmController,c,1,2);
+    pid.p2Ref=c;
 }
 
 void comando4(void) {
@@ -79,14 +79,12 @@ void comando4(void) {
 
 void comando5(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    
-    PWMControllerSetSpeed(&pwmController,c,-1,1);
+    pid.p1Ref=-c;
 }
 
 void comando6(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    
-    PWMControllerSetSpeed(&pwmController,c,-1,2);
+    pid.p2Ref=-c;;
 }
 //====================================================================
 

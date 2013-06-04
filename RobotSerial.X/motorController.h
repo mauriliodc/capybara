@@ -41,6 +41,29 @@ void initMotorController(struct MotorController* m, struct MOTOR* m1, struct MOT
 }
 
 
+void setMotorSpeed(struct MotorController* m, int motor, int speed ){
+
+    int percentage=5000/100*speed;
+    if (motor==1)
+    {
+        m->motor1->speed=speed;
+
+        if(speed>0)
+           PWMControllerSetSpeed(m->pwmController,percentage,1,1);
+        if(speed<0)
+           PWMControllerSetSpeed(m->pwmController,-percentage,-1,1);
+
+    }
+    if (motor==2)
+    {
+        m->motor2->speed=speed;
+        if(speed>0)
+           PWMControllerSetSpeed(m->pwmController,percentage,1,2);
+        if(speed<0)
+           PWMControllerSetSpeed(m->pwmController,-percentage,-1,2);
+    }
+}
+
 
 //*************************************************************
 //*************************************************************

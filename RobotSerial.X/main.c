@@ -56,8 +56,8 @@ int main() {
     
     //ENCODER INIT
     //---------------------------------------------------------------------------
-    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,2,&encoder1Callback);
-    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,2,&encoder2Callback);
+    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,20,&encoder1Callback);
+    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,20,&encoder2Callback);
     initEncoderController(&encoderController,&encoder1,&encoder2);
     //---------------------------------------------------------------------------
     
@@ -71,16 +71,16 @@ int main() {
     //PID INIT
     //---------------------------------------------------------------------------
     PIDinitPID(&pidmotor1,
-    0.0,        //I
+    0,        //I
     2,          //P
-    0.00,       //D
+    0,       //D
     0.02);
     PIDinitPID(&pidmotor2,
-    0.0,        //I
+    0,        //I
     2,          //P
-    0.000,      //D
+    0,      //D
     0.02);
-    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,2);
+    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,20);
     //---------------------------------------------------------------------------
 
     //MOTOR CONTROLLER INIT
@@ -100,13 +100,10 @@ int main() {
     bigTimer.events=FANCYTIMEREVENTS;
     
   
-    
-   
-    pid.p1Ref=10;
-    
+//    setMotorSpeed(&motorController,1,10);
+//    setMotorSpeed(&motorController,2,10);
 
 
-    
     
     while (1) {
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
