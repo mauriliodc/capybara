@@ -27,6 +27,7 @@ struct PID {
     float error;
     float previous_error;
     float reference;
+    float request;
     float iWindupThreshold;
 
     int isInitialized;
@@ -73,7 +74,7 @@ void PIDinitPID(struct PID* s, float I, float P, float D, float secs) {
     s->error = 0;
     s->previous_error = 0;
     s->reference = 0;
-    s->iWindupThreshold = 10;
+    s->iWindupThreshold = 7500;
     s->isInitialized = 1;
 }
 
@@ -82,17 +83,26 @@ void PIDsetReference(struct PID* s, float r) {
     s->reference = r;
 }
 
-void PIDUpdate(struct PID* s, float input) {
+void PIDsetRequest(struct PID* s, float r) {
+    
+    s->request = r;
+}
+
+void PIDUpdate(struct PID* s) {
     if (s->isInitialized == 1) {
         //compute error
-        s->error = input - s->reference;
+        s->error = s->request - s->reference;
         //compute P
         s->P = s->kP * s->error;
         //compute I
-        s->I = s->kI * (s->I + s->error * s->DT);
-//        if (s->I > s->iWindupThreshold) {
-//            s->I = s->iWindupThreshold;
-//        }
+        s->I += s->kI * ( s->error * s->DT);
+        
+        if (s->I > s->iWindupThreshold) {
+            s->I = s->iWindupThreshold;
+        }
+        if (s->I < -s->iWindupThreshold) {
+            s->I = -s->iWindupThreshold;
+        }
         //compute D
         s->D = ((s->error - s->previous_error) / s->DT) * s->kD;
         s->previous_error = s->error;
@@ -111,13 +121,16 @@ void InitPIDController(struct PIDController* p, struct PID* p1, struct PID* p2,s
     p->event->millisecs=millisecs;
     p->event->repetitions=-1;
     p->event->callback=&pidCallback;
+    p->event->runInHandler=1;
+    p->event->executeNow=0;
+
 }
 
 
 void updatePIDs(struct PIDController* p)
 {
-    PIDUpdate(p->p1,p->p1Ref);
-    PIDUpdate(p->p2,p->p2Ref);
+    PIDUpdate(p->p1);
+    PIDUpdate(p->p2);
 }
 
 void modifyPIDsRefs(struct PIDController* p, float r1, float r2)

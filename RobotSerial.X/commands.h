@@ -9,12 +9,14 @@
 #define	COMMANDS_H
 
 #include "globals.h"
+#include "pid.h"
+#include "motorController.h"
 
 //EXTERNS
 extern struct PWM pwm1;
 extern struct PWM pwm2;
 extern struct PWMController pwmController;
-
+extern struct MotorController motorController;
 
 //INTERNALS
 //====================================================================
@@ -41,50 +43,37 @@ void assignCommand(const char* c, unsigned char* p) {
 //====================================================================
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
 void comando0(void) {
-    
-    motor1VEL=atoi((const char*)ReceivedCommand->argument);
-    motor2VEL=atoi((const char*)ReceivedCommand->argument);
-    LATBbits.LATB14=1;
-    LATBbits.LATB12=1;
-    modifyMotor1();
-    modifyMotor2();
+  
 }
 
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
 void comando1(void) {
-    
-    motor1VEL=atoi((const char*)ReceivedCommand->argument);
-    motor2VEL=atoi((const char*)ReceivedCommand->argument);
-    LATBbits.LATB14=0;
-    LATBbits.LATB12=0;
-    modifyMotor1();
-    modifyMotor2();
+
 }
 void comando2(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1Ref=c;
+    pid.p1->request=c;
+    
 }
 
 void comando3(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p2Ref=c;
+    pid.p1->request=-c;
 }
 
 void comando4(void) {
-    int c=atoi((const char*)ReceivedCommand->argument);
-    requestVelocityMotor1=(float)c;
-    requestVelocityMotor2=(float)c;
+    
 }
 
 
 void comando5(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1Ref=-c;
+    pid.p2->request=(float)c;
 }
 
 void comando6(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p2Ref=-c;;
+    pid.p2->request=(float)-c;
 }
 //====================================================================
 

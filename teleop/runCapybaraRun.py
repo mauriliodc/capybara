@@ -119,15 +119,15 @@ while 1:
 			if action[7] == '01': # LEFT STICK UP/DOWN
 				if num >= 128:
 					#print 'You moved the right joystick upward to %' + percent254
-                                        magnitude=str(add_nulls(int(percent254)*20,4))
-					command="$03"+magnitude+"%"
+                                        magnitude=str(add_nulls(int(percent254),4))
+					command="$02"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\> "+command
 				elif num <= 127 \
 				and num != 0:
 					#print 'You moved the right joystick downward to %' + percent128
-					magnitude=str(add_nulls(int(percent128)*20,4))
-					command="$06"+magnitude+"%"
+					magnitude=str(add_nulls(int(percent128),4))
+					command="$03"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\>"+command
 				else:
@@ -135,15 +135,15 @@ while 1:
 			if action[7] == '03': # RIGHT STICK UP/DOWN
 				if num >= 128:
 					#print 'You moved the right joystick upward to %' + percent254
-					magnitude=str(add_nulls(int(percent254)*20,4))
-					command="$02"+magnitude+"%"
+					magnitude=str(add_nulls(int(percent254),4))
+					command="$05"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\>"+command
 				elif num <= 127 \
 				and num != 0:
 					#print 'You moved the right joystick downward to %' + percent128
-					magnitude=str(add_nulls(int(percent128)*20,4))
-					command="$05"+magnitude+"%"
+					magnitude=str(add_nulls(int(percent128),4))
+					command="$06"+magnitude+"%"
 					ser.write(command)
 					#print "CLIENT\>"+command
 				else:

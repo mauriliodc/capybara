@@ -16,6 +16,8 @@ struct timerEvent{
     //  n = how many times trigger the event
     int repetitions;
     void (*callback)(void);
+    int executeNow;
+    int runInHandler;
 };
 
 struct timerController
@@ -23,8 +25,9 @@ struct timerController
     struct timerEvent** timerEventsArray;
     int millisecsStash;
     int events;
-    
 };
+
+
 
 void triggerEvent(struct timerController* t)
 {
@@ -42,13 +45,30 @@ void triggerEvent(struct timerController* t)
             //check if the event has to be executed
             if(t->timerEventsArray[i]->repetitions!=0)
             {
-                t->timerEventsArray[i]->callback();
-                //if is not a recurrent event, decrement his counter
-                if(t->timerEventsArray[i]->repetitions!=-1) t->timerEventsArray[i]->repetitions--;
+                if (t->timerEventsArray[i]->runInHandler){
+                    t->timerEventsArray[i]->callback();
+                    //if is not a recurrent event, decrement his counter
+                    if(t->timerEventsArray[i]->repetitions!=-1) t->timerEventsArray[i]->repetitions--;
+                } else
+                    t->timerEventsArray[i]->executeNow = 1;
             }
         }
     }
    
+}
+
+void handleTimerEvents(struct timerController* t)
+{
+    int i=0;
+    for(i=0;i<t->events;i++){
+        if(t->timerEventsArray[i]->repetitions!=0) {
+            if (!t->timerEventsArray[i]->runInHandler){
+                t->timerEventsArray[i]->executeNow = 0;
+                t->timerEventsArray[i]->callback();
+            }
+        }
+    }
+
 }
 
 //******************************************************************************

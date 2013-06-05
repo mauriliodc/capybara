@@ -5,6 +5,7 @@
  * Created on May 8, 2013, 12:43 PM
  */
 
+int acc;
 #include <p33Fxxxx.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +32,11 @@
 
 #include "callbacks.h"
 
+
+
 int main() {
+
+    acc=0;
 
     clock_settings();
     led_settings();
@@ -44,20 +49,25 @@ int main() {
     
     generateCommands();
 
-    anEvent.millisecs=500;
+    anEvent.millisecs=1;
     anEvent.repetitions=-1;
     anEvent.callback=&anEventCallback;
+    anEvent.runInHandler=0;
+    anEvent.executeNow=0;
+
 
     ledEvent.millisecs=200;
     ledEvent.repetitions=-1;
     ledEvent.callback=&ledEventCallback;
+    ledEvent.runInHandler=0;
+    ledEvent.executeNow=0;
 
     
     
     //ENCODER INIT
     //---------------------------------------------------------------------------
-    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,20,&encoder1Callback);
-    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,20,&encoder2Callback);
+    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,2,&encoder1Callback);
+    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,2,&encoder2Callback);
     initEncoderController(&encoderController,&encoder1,&encoder2);
     //---------------------------------------------------------------------------
     
@@ -71,16 +81,16 @@ int main() {
     //PID INIT
     //---------------------------------------------------------------------------
     PIDinitPID(&pidmotor1,
-    0,        //I
-    2,          //P
-    0,       //D
-    0.02);
+    30,        //I
+    30,          //P
+    0.2,       //D
+    0.002);
     PIDinitPID(&pidmotor2,
-    0,        //I
-    2,          //P
-    0,      //D
-    0.02);
-    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,20);
+    30,        //I
+    30,          //P
+    0.2,       //D
+    0.002);
+    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,2);
     //---------------------------------------------------------------------------
 
     //MOTOR CONTROLLER INIT
@@ -89,7 +99,7 @@ int main() {
     //-------------------------------------------------------------------------------------------------------
 
     //TIMER EVENTS
-    bigTimer.events=0;
+    bigTimer.events=2;
     struct timerEvent* tArr[FANCYTIMEREVENTS];
     tArr[0] = &anEvent;
     tArr[1] = &ledEvent;
@@ -99,13 +109,10 @@ int main() {
     bigTimer.timerEventsArray=tArr;
     bigTimer.events=FANCYTIMEREVENTS;
     
-  
-//    setMotorSpeed(&motorController,1,10);
-//    setMotorSpeed(&motorController,2,10);
-
 
     
     while (1) {
+        handleTimerEvents(&bigTimer);
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
             U1STAbits.OERR = 0;
         }
@@ -143,30 +150,30 @@ int main() {
 
         
 
-        if(secAcc==5000)
-        {
-        //sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
-        sprintf(posPacket,"%f",metersW1);
-        putsUART1((unsigned int*) "SPEED1: ");
-        putsUART1((unsigned int*) posPacket);
-
-        sprintf(posPacket,"%f",metersW2);
-        putsUART1((unsigned int*) " SPEED2: ");
-        putsUART1((unsigned int*) posPacket);
-        //putsUART1((unsigned int*) "\n");
-
-
-        sprintf(posPacket,"%d",QEI1CONbits.UPDN);
-        putsUART1((unsigned int*) " DIR: ");
-        putsUART1((unsigned int*) posPacket);
-
-
-        putsUART1((unsigned int*) " POS1CNT: ");
-        sprintf(posPacket,"%d",(int)POS1CNT);
-        putsUART1((unsigned int*) posPacket);
-        putsUART1((unsigned int*) "\n");
-        
-        }
+//        if(secAcc==5000)
+//        {
+//        //sprintf(posPacket, "%04d:%04d", POS1CNT,POS2CNT);
+//        sprintf(posPacket,"%f",metersW1);
+//        putsUART1((unsigned int*) "SPEED1: ");
+//        putsUART1((unsigned int*) posPacket);
+//
+//        sprintf(posPacket,"%f",metersW2);
+//        putsUART1((unsigned int*) " SPEED2: ");
+//        putsUART1((unsigned int*) posPacket);
+//        //putsUART1((unsigned int*) "\n");
+//
+//
+//        sprintf(posPacket,"%d",QEI1CONbits.UPDN);
+//        putsUART1((unsigned int*) " DIR: ");
+//        putsUART1((unsigned int*) posPacket);
+//
+//
+//        putsUART1((unsigned int*) " POS1CNT: ");
+//        sprintf(posPacket,"%d",(int)POS1CNT);
+//        putsUART1((unsigned int*) posPacket);
+//        putsUART1((unsigned int*) "\n");
+//
+//        }
 
 
     }

@@ -85,10 +85,6 @@ void PWMinitController(struct PWMController* p, struct PWM* p1, struct PWM* p2)
     SetDCMCPWM1(2, p->pwm2->speed, 0); //MOTORE L
 }
 
-void PWMControllerDisable(struct PWMController* p)
-{
-
-}
 
 void PWMControllerSetSpeed(struct PWMController* p, int speed,int direction,int motor)
 {

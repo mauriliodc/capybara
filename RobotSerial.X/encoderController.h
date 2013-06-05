@@ -12,7 +12,6 @@
 
 struct _encoder
 {
-    unsigned int tickPerQuantum;
     unsigned int* ticks;
     struct timerEvent* resetPositionCounter;
 };
@@ -27,6 +26,8 @@ struct encoderController{
 void initEncoder(struct _encoder* e,unsigned int* positionCounter,struct timerEvent* t, unsigned int dt, void *callback)
 {
     e->resetPositionCounter=t;
+    t->runInHandler=1;
+    t->executeNow=0;
     e->ticks=positionCounter;
     e->resetPositionCounter->millisecs=dt;
     e->resetPositionCounter->repetitions=-1;
