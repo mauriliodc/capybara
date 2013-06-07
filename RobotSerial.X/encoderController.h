@@ -12,7 +12,7 @@
 
 struct _encoder
 {
-    unsigned int* ticks;
+    int* ticks;
     struct timerEvent* resetPositionCounter;
 };
 
@@ -72,7 +72,7 @@ QEI2CONbits.SWPAB 	= 1;	//	QEI_INPUTS_SWAP
 QEI2CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
 QEI2CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE
 QEI2CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
-QEI2CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
+QEI2CONbits.POSRES	= 1;	//	POS_CNT_ERR_INT_DISABLE
 
 DFLT2CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
 DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE

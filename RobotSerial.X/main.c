@@ -5,7 +5,7 @@
  * Created on May 8, 2013, 12:43 PM
  */
 
-int acc;
+
 #include <p33Fxxxx.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,21 +36,20 @@ int acc;
 
 int main() {
 
-    acc=0;
-    int step=1;
+    int step=2;
     clock_settings();
     led_settings();
     timer1_confguration();
     pin_remapping();
     init_uart1();
     LED1 = 0;
-    DelayN1ms(2000);
+    //DelayN1ms(2000);
     putsUART1((unsigned int *) mio);
     
     generateCommands();
 
-    anEvent.millisecs=100;
-    anEvent.repetitions=0;
+    anEvent.millisecs=500;
+    anEvent.repetitions=-1;
     anEvent.callback=&anEventCallback;
     anEvent.runInHandler=0;
     anEvent.executeNow=0;
@@ -81,15 +80,15 @@ int main() {
     //PID INIT
     //---------------------------------------------------------------------------
     PIDinitPID(&pidmotor1,
-    80,        //I
-    80,          //P
-    0.2,       //D
-    (float)step/1000);
+    5,        //I
+    10,        //P
+    1,       //D
+    step);
     PIDinitPID(&pidmotor2,
-    80,        //I
-    80,        //P
-    0.2,       //D
-    (float)step/1000);
+    5,        //I
+    10,        //P
+    1,       //D
+    step);
     InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,step);
     //---------------------------------------------------------------------------
 
@@ -109,9 +108,11 @@ int main() {
     bigTimer.timerEventsArray=tArr;
     bigTimer.events=FANCYTIMEREVENTS;
 
-    
+    //setMotorSpeed(&motorController,1,10);
+    //setMotorSpeed1(&motorController, 30);
     while (1) {
         handleTimerEvents(&bigTimer);
+
         if (U1STAbits.OERR) { // non mi interessano i caratteri ev. in attesa...
             U1STAbits.OERR = 0;
         }
@@ -119,28 +120,11 @@ int main() {
             continue;
         }
 
-        /*
-        while (RX_hasToSend) {
-            U1TXREG = Buf[sender];
-            while (U1STAbits.UTXBF == 1);
-            //Buf[sender] = '\0';
-            if (sender == (MAX_BUFF - 1)) {
-                RX_hasToSend = 0;
-
-                sender = 0;
-            } else {
-                sender = sender + 1;
-            }
-        }
-         */
         if (RX_hasToParse) {
 
             ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-
-            //memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
-            //memcpy(command, ReceivedCommand->code, 2 * sizeof (unsigned char));
     
-            putsUART1((unsigned int *) "Comando ricevuto");
+            putsUART1((unsigned int *) ">>");
             putsUART1((unsigned int *) CommandBuf);
             putsUART1((unsigned int *) "\n");
             parseAndExecuteCommand();

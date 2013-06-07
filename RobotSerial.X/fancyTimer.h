@@ -23,7 +23,7 @@ struct timerEvent{
 struct timerController
 {
     struct timerEvent** timerEventsArray;
-    int millisecsStash;
+    unsigned int millisecsStash;
     int events;
 };
 
@@ -35,12 +35,12 @@ void triggerEvent(struct timerController* t)
     //increment the millisecs accumulator
     t->millisecsStash++;
     //eventually reset the millisecs accumulator
-    if(t->millisecsStash==10000) t->millisecsStash=0;
+    if(t->millisecsStash==65000) t->millisecsStash=0;
     //check for each event in the list which one has to be triggered
     for(i=0;i<t->events;i++)
     {
         //execute the event if the modulo between the millisecs accumulator is zero
-        if(t->millisecsStash % t->timerEventsArray[i]->millisecs==0)
+        if(t->millisecsStash % t->timerEventsArray[i]->millisecs==0)  //A ? B * (A / B).
         {
             //check if the event has to be executed
             if(t->timerEventsArray[i]->repetitions!=0)

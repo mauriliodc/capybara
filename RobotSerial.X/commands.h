@@ -30,7 +30,7 @@ struct CommandsAndFunctions commandsArray[COMMAND_SIZE];
 
 int compareCommands(unsigned char* ReceivedCommandCode, unsigned char* CommandCode) {
 
-    if( strncmp((const char*)ReceivedCommandCode,(const char*)CommandCode,2)==0 ) return 1;
+    if (strncmp((const char*) ReceivedCommandCode, (const char*) CommandCode, 2) == 0) return 1;
     else return 0;
 
 
@@ -42,40 +42,44 @@ void assignCommand(const char* c, unsigned char* p) {
 //COMMANDS
 //====================================================================
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
+
 void comando0(void) {
-  
+    int c = atoi((const char*) ReceivedCommand->argument);
+    setMotorSpeed1(&motorController, c);
 }
 
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
-void comando1(void) {
 
+void comando1(void) {
+    int c = atoi((const char*) ReceivedCommand->argument);
+    setMotorSpeed2(&motorController, c);
 }
+
 void comando2(void) {
-    int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1->request=(float)c;
-    
+    int c = atoi((const char*) ReceivedCommand->argument);
+    pid.p1->request = c;
+
 }
 
 void comando3(void) {
-    int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1->request=(float)-c;
+    int c = atoi((const char*) ReceivedCommand->argument);
+    pid.p1->request = -c;
 }
 
 void comando4(void) {
-    
+
 }
 
-
 void comando5(void) {
-    int c=atoi((const char*)ReceivedCommand->argument);
-    
-    pid.p2->request=(float)c;
+    int c = atoi((const char*) ReceivedCommand->argument);
+
+    pid.p2->request = c;
 }
 
 void comando6(void) {
-    int c=atoi((const char*)ReceivedCommand->argument);
-    
-    pid.p2->request=(float)-c;
+    int c = atoi((const char*) ReceivedCommand->argument);
+
+    pid.p2->request = -c;
 }
 //====================================================================
 

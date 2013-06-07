@@ -44,6 +44,8 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
     /* Clear Timer interrupt flag */
 }
 
+
+//DISABILITATO
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
     IFS0bits.U1TXIF = 0;
 }
@@ -72,6 +74,7 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = 0;
 }
 
+//DISABILITATI
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
 
     _QEI1IF = 0;

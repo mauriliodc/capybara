@@ -117,7 +117,7 @@ void pin_remapping() {
 void init_uart1() {
     CloseUART1();
     ConfigIntUART1(UART_RX_INT_EN // RX interrupt enable
-            & UART_TX_INT_EN // TX interrupt disable
+            & UART_TX_INT_DIS // TX interrupt disable
             & UART_RX_INT_PR2 // RX interrupt priority 2
             & UART_TX_INT_PR2); // TX interrupt priority 2
     /* Configuration du registre U1MODE */

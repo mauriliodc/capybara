@@ -18,26 +18,44 @@ extern struct timerController bigTimer;
 
 void anEventCallback(void) {
  //putsUART1((unsigned int *) "ping!\n");
-    char a[20];
-    sprintf(a,"I: %f ",pid.p1->I);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"D: %f ",pid.p1->D);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"P: %f ",pid.p1->P);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"DT: %f ",pid.p1->DT);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"REF: %f ",pid.p1->reference);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"REQ: %f ",pid.p1->request);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"ERR: %f ",pid.p1->error);
-    putsUART1((unsigned int *) a);
-    sprintf(a,"PID: %f ",pid.p1->PID);
-    putsUART1((unsigned int *) a);
-    putsUART1((unsigned int *) "\n");
-    sprintf(a,"m1: %d \n",(int)((pid.p1->request+pid.p1->PID)/25));
-    putsUART1((unsigned int *) a);
+//    char a[20];
+//    sprintf(a,"I: %d ",pid.p1->I);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"D: %d ",pid.p1->D);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"P: %d ",pid.p1->P);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"DT: %d ",pid.p1->DT);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"REF: %d ",pid.p1->reference);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"REQ: %d ",pid.p1->request);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"ERR: %d ",pid.p1->error);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"PID: %d ",pid.p1->PID);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"m1: %d \n",(int)(pid.p1->request+(pid.p1->PID)/100));
+//    putsUART1((unsigned int *) a);
+
+//    sprintf(a,"I: %d ",pid.p2->I);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"D: %d ",pid.p2->D);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"P: %d ",pid.p2->P);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"DT: %d ",pid.p2->DT);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"REF: %d ",pid.p2->reference);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"REQ: %d ",pid.p2->request);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"ERR: %d ",pid.p2->error);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"PID: %d ",pid.p2->PID);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"m1: %d \n",(int)(pid.p2->request+(pid.p2->PID)/100));
+//    putsUART1((unsigned int *) a);
 }
 
 void ledEventCallback(void) {
@@ -50,9 +68,10 @@ void encoder1Callback(void)
 //    putsUART1((unsigned int *) "e1: ");
 //    putsUART1((unsigned int *) itoa(pos,*(encoder1.ticks),10));
 //    putsUART1((unsigned int *) "\n");
-//    sprintf(pos,"%d \n",bigTimer.millisecsStash);
-//    putsUART1((unsigned int *) pos);
-    PIDsetReference(pid.p1,(int)(*(encoder1.ticks)));
+
+    pid.p1->reference = *(encoder1.ticks);
+
+
     *(encoder1.ticks)=0;
 }
 
@@ -63,18 +82,19 @@ void encoder2Callback(void)
 //    putsUART1((unsigned int *) "e2: ");
 //    putsUART1((unsigned int *) itoa(pos,*(encoder2.ticks),10));
 //    putsUART1((unsigned int *) "\n");
-    PIDsetReference(pid.p2,(int)(*(encoder2.ticks)));
+    pid.p2->reference = *(encoder2.ticks);
     *(encoder2.ticks)=0;
 }
 
 
 void pidCallback(void)
 {
-    updatePIDs(&pid);
-    setMotorSpeed(&motorController, 1, (int)(pid.p1->request+(int)(pid.p1->PID/25)));
-    setMotorSpeed(&motorController, 2, (int)(pid.p2->request+(int)(pid.p2->PID/25)));
 
-
+o    updatePIDs(&pid);
+    setMotorSpeed1(&motorController, (int)(pid.p1->request+(pid.p1->PID)));
+    setMotorSpeed2(&motorController, (int)(pid.p2->request+(pid.p2->PID)));
+    int i = 0;
+    i++;
 }
 
 #endif	/* CALLBACKS_H */

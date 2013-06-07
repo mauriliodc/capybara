@@ -9,30 +9,27 @@
 #define	PID_H
 
 #include "fancyTimer.h"
+typedef int PIDtype;
 
 struct PID {
-    float kI;
-    float I;
 
-    float kP;
-    float P;
+    PIDtype DT;
+    PIDtype kP;
+    PIDtype kI;
+    PIDtype kI_times_DT;
+    PIDtype kD;
+    PIDtype kD_div_DT;
+    PIDtype iWindupThreshold;
 
-    float kD;
-    float D;
 
-    float PID;
+    PIDtype P, I, D, PID;
 
-    float DT;
 
-    float error;
-    float previous_error;
-    float reference;
-    float request;
-    float iWindupThreshold;
+    PIDtype error;
+    PIDtype previous_error;
+    PIDtype reference;
+    PIDtype request;
 
-    int isInitialized;
-
-    
 };
 
 
@@ -59,60 +56,57 @@ struct PIDController
 
  */
 
-void PIDinitPID(struct PID* s, float I, float P, float D, float secs) {
+void PIDinitPID(struct PID* s, PIDtype I, PIDtype P, PIDtype D, PIDtype secs) {
     s->kI = I;
     s->kP = P;
     s->kD = D;
+    s->DT = secs;
+    
+    s->kD_div_DT = s->kD/s->DT;
+    s->kI_times_DT = s->kI*s->DT;
 
+    s->reference = 0;
+    s->iWindupThreshold = 5000;
+    
+    s->error = 0;
+    s->previous_error = 0;
     s->I = 0;
     s->P = 0;
     s->D = 0;
-
     s->PID = 0;
 
-    s->DT = secs;
-    s->error = 0;
-    s->previous_error = 0;
-    s->reference = 0;
-    s->iWindupThreshold = 1100;
-    s->isInitialized = 1;
 }
 
-void PIDsetReference(struct PID* s, float r) {
+inline void PIDsetReference(struct PID* s, PIDtype r) {
     //reference rappresenta la variabile da controllare, input rappresenta il controllo
     s->reference = r;
 }
 
-void PIDsetRequest(struct PID* s, float r) {
+inline void PIDsetRequest(struct PID* s, PIDtype r) {
     
     s->request = r;
 }
 
-void PIDUpdate(struct PID* s) {
-    if (s->isInitialized == 1) {
-        //compute error
-        s->error = s->request - s->reference;
-        //compute P
-        s->P = s->kP * s->error;
-        //compute I
-        s->I += s->kI * ( s->error * s->DT);
-        
-        if (s->I > s->iWindupThreshold) {
-            s->I = s->iWindupThreshold;
-        }
-        if (s->I < -s->iWindupThreshold) {
-            s->I = -s->iWindupThreshold;
-        }
-        //compute D
-        s->D = ((s->error - s->previous_error) / s->DT) * s->kD;
-        s->previous_error = s->error;
-        //compute the PID
-        s->PID = s->P + s->I + s->D;
-    }
+inline void PIDUpdate(struct PID* s) {
+    //compute error
+    s->error = s->request - s->reference;
+    //compute P
+    s->P = s->kP * s->error;
+    //compute I
+    s->I += s->kI_times_DT *  s->error;
+
+    s->I = (s->I > s->iWindupThreshold) ? s->iWindupThreshold : s->I;
+    s->I = (s->I < -s->iWindupThreshold) ? -s->iWindupThreshold : s->I;
+
+    s->D = (s->error - s->previous_error) * s->kD_div_DT;
+    s->previous_error = s->error;
+    //compute the PID
+    s->PID = s->P + s->I + s->D;
+    
 }
 
 
-void InitPIDController(struct PIDController* p, struct PID* p1, struct PID* p2,struct timerEvent* event, int millisecs)
+void InitPIDController(struct PIDController* p, struct PID* p1, struct PID* p2,struct timerEvent* event, PIDtype millisecs)
 {
     p->p1=p1;
     p->p2=p2;
@@ -127,16 +121,10 @@ void InitPIDController(struct PIDController* p, struct PID* p1, struct PID* p2,s
 }
 
 
-void updatePIDs(struct PIDController* p)
+inline void updatePIDs(struct PIDController* p)
 {
     PIDUpdate(p->p1);
     PIDUpdate(p->p2);
-}
-
-void modifyPIDsRefs(struct PIDController* p, float r1, float r2)
-{
-    p->p1Ref=r1;
-    p->p2Ref=r2;
 }
 
 

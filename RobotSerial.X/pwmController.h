@@ -30,24 +30,11 @@ void PWMinit(struct PWM* p,volatile unsigned int* d, int offset)
     p->directionPTR=offset;
 }
 
-void PWMForward(struct PWM* p)
+
+inline void PWMSetDirection(struct PWM* p,int direction)
 {
-
-    (*p->directionRegister)=(*(p->directionRegister))|p->directionPTR;
-    
-}
-
-void PWMBackward(struct PWM* p)
-{
-
-    (*p->directionRegister)=(*(p->directionRegister))&(p->directionPTR^0b1111111111111111);
-    
-}
-
-void PWMSetDirection(struct PWM* p,int direction)
-{
-    if(direction==1)   PWMForward(p);
-    if(direction==-1)  PWMBackward(p);
+    if(direction==1)   (*p->directionRegister)=(*(p->directionRegister))|p->directionPTR;
+    if(direction==-1)  (*p->directionRegister)=(*(p->directionRegister))&(p->directionPTR^0b1111111111111111);
 }
 
 void PWMinitController(struct PWMController* p, struct PWM* p1, struct PWM* p2)
@@ -78,39 +65,55 @@ void PWMinitController(struct PWMController* p, struct PWM* p1, struct PWM* p2)
     p->pwm2->speed=0;
     p->pwm1->direction=0;
     p->pwm2->direction=0;
-    PWMForward(p->pwm1);
-    PWMForward(p->pwm2);
+    PWMSetDirection(p->pwm1,0);
+    PWMSetDirection(p->pwm2,0);
     
     SetDCMCPWM1(1, p->pwm1->speed, 0); //MOTORE R
     SetDCMCPWM1(2, p->pwm2->speed, 0); //MOTORE L
 }
 
 
-void PWMControllerSetSpeed(struct PWMController* p, int speed,int direction,int motor)
+//void PWMControllerSetSpeed(struct PWMController* p, int speed,int direction,int motor)
+//{
+//    //if motor 1 or 2 set speed and direction to a single motor
+//    //if motor 0 set speed and direction to both motors
+//
+//    if(motor==1)
+//    {
+//        p->pwm1->speed=speed;
+//        PWMSetDirection(p->pwm1,direction);
+//    }
+//    if(motor==2)
+//    {
+//        p->pwm2->speed=speed;
+//        PWMSetDirection(p->pwm2,direction);
+//    }
+//    if(motor==0)
+//    {
+//       p->pwm1->speed=speed;
+//       p->pwm2->speed=speed;
+//       PWMSetDirection(p->pwm1,direction);
+//       PWMSetDirection(p->pwm2,direction);
+//    }
+//
+//    SetDCMCPWM1(1, p->pwm1->speed, 0); //MOTORE R
+//    SetDCMCPWM1(2, p->pwm2->speed, 0); //MOTORE L
+//}
+
+
+inline void PWM1SetSpeed(struct PWMController* p, int speed,int direction)
 {
-    //if motor 1 or 2 set speed and direction to a single motor
-    //if motor 0 set speed and direction to both motors
-    
-    if(motor==1)
-    {
+
         p->pwm1->speed=speed;
         PWMSetDirection(p->pwm1,direction);
-    }
-    if(motor==2)
-    {
+        SetDCMCPWM1(1, p->pwm1->speed, 0);
+}
+inline void PWM2SetSpeed(struct PWMController* p, int speed,int direction)
+{
+
         p->pwm2->speed=speed;
         PWMSetDirection(p->pwm2,direction);
-    }
-    if(motor==0)
-    {
-       p->pwm1->speed=speed;
-       p->pwm2->speed=speed;
-       PWMSetDirection(p->pwm1,direction);
-       PWMSetDirection(p->pwm2,direction);
-    }
-
-    SetDCMCPWM1(1, p->pwm1->speed, 0); //MOTORE R
-    SetDCMCPWM1(2, p->pwm2->speed, 0); //MOTORE L
+        SetDCMCPWM1(2, p->pwm2->speed, 0);
 }
 
 
