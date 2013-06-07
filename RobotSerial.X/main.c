@@ -37,7 +37,7 @@ int acc;
 int main() {
 
     acc=0;
-
+    int step=1;
     clock_settings();
     led_settings();
     timer1_confguration();
@@ -49,8 +49,8 @@ int main() {
     
     generateCommands();
 
-    anEvent.millisecs=1;
-    anEvent.repetitions=-1;
+    anEvent.millisecs=100;
+    anEvent.repetitions=0;
     anEvent.callback=&anEventCallback;
     anEvent.runInHandler=0;
     anEvent.executeNow=0;
@@ -66,8 +66,8 @@ int main() {
     
     //ENCODER INIT
     //---------------------------------------------------------------------------
-    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,2,&encoder1Callback);
-    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,2,&encoder2Callback);
+    initEncoder(&encoder1,(unsigned int*)0x01E4,&enc1Event,step,&encoder1Callback);
+    initEncoder(&encoder2,(unsigned int*)0x01F4,&enc2Event,step,&encoder2Callback);
     initEncoderController(&encoderController,&encoder1,&encoder2);
     //---------------------------------------------------------------------------
     
@@ -81,16 +81,16 @@ int main() {
     //PID INIT
     //---------------------------------------------------------------------------
     PIDinitPID(&pidmotor1,
-    30,        //I
-    30,          //P
+    80,        //I
+    80,          //P
     0.2,       //D
-    0.002);
+    (float)step/1000);
     PIDinitPID(&pidmotor2,
-    30,        //I
-    30,          //P
+    80,        //I
+    80,        //P
     0.2,       //D
-    0.002);
-    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,2);
+    (float)step/1000);
+    InitPIDController(&pid,&pidmotor1,&pidmotor2,&pidUpdateEvent,step);
     //---------------------------------------------------------------------------
 
     //MOTOR CONTROLLER INIT
@@ -99,7 +99,7 @@ int main() {
     //-------------------------------------------------------------------------------------------------------
 
     //TIMER EVENTS
-    bigTimer.events=2;
+    bigTimer.events=0;
     struct timerEvent* tArr[FANCYTIMEREVENTS];
     tArr[0] = &anEvent;
     tArr[1] = &ledEvent;
@@ -108,7 +108,6 @@ int main() {
     tArr[4] = &pidUpdateEvent;
     bigTimer.timerEventsArray=tArr;
     bigTimer.events=FANCYTIMEREVENTS;
-    
 
     
     while (1) {
@@ -136,15 +135,16 @@ int main() {
          */
         if (RX_hasToParse) {
 
-            ReceivedCommand = (struct _ReceivedCommand*) Buf;
+            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
 
             //memcpy(argument, ReceivedCommand->argument, 4 * sizeof (unsigned char));
             //memcpy(command, ReceivedCommand->code, 2 * sizeof (unsigned char));
     
             putsUART1((unsigned int *) "Comando ricevuto");
-            putsUART1((unsigned int *) Buf);
+            putsUART1((unsigned int *) CommandBuf);
+            putsUART1((unsigned int *) "\n");
             parseAndExecuteCommand();
-            memset(Buf, 0, sizeof (Buf));
+            //memset(Buf, 0, sizeof (Buf));
             RX_hasToParse = 0;
         }
 

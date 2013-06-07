@@ -27,6 +27,7 @@ int U1States=0;
 int RX_hasToSend=0;
 int RX_hasToParse=0;
 unsigned char Buf[MAX_BUFF];
+unsigned char CommandBuf[MAX_BUFF];
 unsigned char commandCode[2];
 
 struct _ReceivedCommand

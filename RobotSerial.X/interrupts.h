@@ -63,6 +63,7 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
             i++;
         }
         if (charRX == RX_footer) {
+            memcpy(CommandBuf,Buf,MAX_BUFF);
             RX_hasToSend = 1;
             RX_hasToParse = 1;
             i = 0;

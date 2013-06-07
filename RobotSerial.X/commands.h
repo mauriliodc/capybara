@@ -52,13 +52,13 @@ void comando1(void) {
 }
 void comando2(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1->request=c;
+    pid.p1->request=(float)c;
     
 }
 
 void comando3(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
-    pid.p1->request=-c;
+    pid.p1->request=(float)-c;
 }
 
 void comando4(void) {
@@ -68,11 +68,13 @@ void comando4(void) {
 
 void comando5(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
+    
     pid.p2->request=(float)c;
 }
 
 void comando6(void) {
     int c=atoi((const char*)ReceivedCommand->argument);
+    
     pid.p2->request=(float)-c;
 }
 //====================================================================

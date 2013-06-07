@@ -70,13 +70,9 @@ void encoder2Callback(void)
 
 void pidCallback(void)
 {
-
-    
-    
-
     updatePIDs(&pid);
-    setMotorSpeed(&motorController, 1, (pid.p1->request+pid.p1->PID)/25);
-    setMotorSpeed(&motorController, 2, (pid.p2->request+pid.p2->PID)/25);
+    setMotorSpeed(&motorController, 1, (int)(pid.p1->request+(int)(pid.p1->PID/25)));
+    setMotorSpeed(&motorController, 2, (int)(pid.p2->request+(int)(pid.p2->PID/25)));
 
 
 }

@@ -74,7 +74,7 @@ void PIDinitPID(struct PID* s, float I, float P, float D, float secs) {
     s->error = 0;
     s->previous_error = 0;
     s->reference = 0;
-    s->iWindupThreshold = 7500;
+    s->iWindupThreshold = 1100;
     s->isInitialized = 1;
 }
 

@@ -48,7 +48,7 @@ void setMotorSpeed(struct MotorController* m, int motor, int speed ){
     {
         m->motor1->speed=speed;
 
-        if(speed>0)
+        if(speed>=0)
            PWMControllerSetSpeed(m->pwmController,percentage,1,1);
         if(speed<0)
            PWMControllerSetSpeed(m->pwmController,-percentage,-1,1);
@@ -57,7 +57,7 @@ void setMotorSpeed(struct MotorController* m, int motor, int speed ){
     if (motor==2)
     {
         m->motor2->speed=speed;
-        if(speed>0)
+        if(speed>=0)
            PWMControllerSetSpeed(m->pwmController,percentage,1,2);
         if(speed<0)
            PWMControllerSetSpeed(m->pwmController,-percentage,-1,2);
