@@ -68,16 +68,13 @@ void encoder1Callback(void)
 //    putsUART1((unsigned int *) "e1: ");
 //    putsUART1((unsigned int *) itoa(pos,*(encoder1.ticks),10));
 //    putsUART1((unsigned int *) "\n");
-
     pid.p1->reference = *(encoder1.ticks);
-
-
     *(encoder1.ticks)=0;
 }
 
 void encoder2Callback(void)
 {
-//    char pos[10];
+    char pos[10];
 //
 //    putsUART1((unsigned int *) "e2: ");
 //    putsUART1((unsigned int *) itoa(pos,*(encoder2.ticks),10));
@@ -90,11 +87,10 @@ void encoder2Callback(void)
 void pidCallback(void)
 {
 
-o    updatePIDs(&pid);
+    updatePIDs(&pid);
     setMotorSpeed1(&motorController, (int)(pid.p1->request+(pid.p1->PID)));
     setMotorSpeed2(&motorController, (int)(pid.p2->request+(pid.p2->PID)));
-    int i = 0;
-    i++;
+
 }
 
 #endif	/* CALLBACKS_H */

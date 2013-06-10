@@ -45,13 +45,13 @@ inline void setMotorSpeed1(struct MotorController* m, int speed ){
 
     m->motor1->speed=speed;
     int sign = speed>0?1:-1;
-    PWM1SetSpeed(m->pwmController,speed,sign);
+    PWM1SetSpeed(m->pwmController,speed*sign,sign);
 }
 
 inline void setMotorSpeed2(struct MotorController* m, int speed ){
     m->motor2->speed=speed;
     int sign = speed>0?1:-1;
-    PWM2SetSpeed(m->pwmController,speed,sign);
+    PWM2SetSpeed(m->pwmController,speed*sign,sign);
 }
 
 

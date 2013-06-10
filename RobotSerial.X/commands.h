@@ -52,7 +52,7 @@ void comando0(void) {
 
 void comando1(void) {
     int c = atoi((const char*) ReceivedCommand->argument);
-    setMotorSpeed2(&motorController, c);
+    setMotorSpeed1(&motorController, -c);
 }
 
 void comando2(void) {

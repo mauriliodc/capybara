@@ -108,8 +108,8 @@ int main() {
     bigTimer.timerEventsArray=tArr;
     bigTimer.events=FANCYTIMEREVENTS;
 
-    //setMotorSpeed(&motorController,1,10);
-    //setMotorSpeed1(&motorController, 30);
+ 
+
     while (1) {
         handleTimerEvents(&bigTimer);
 

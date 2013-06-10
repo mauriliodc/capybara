@@ -74,7 +74,6 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = 0;
 }
 
-//DISABILITATI
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
 
     _QEI1IF = 0;
