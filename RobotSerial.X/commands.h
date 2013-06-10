@@ -45,14 +45,16 @@ void assignCommand(const char* c, unsigned char* p) {
 
 void comando0(void) {
     int c = atoi((const char*) ReceivedCommand->argument);
-    setMotorSpeed1(&motorController, c);
+    pid.p1->request = c;
+    pid.p2->request = c;
 }
 
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
 
 void comando1(void) {
     int c = atoi((const char*) ReceivedCommand->argument);
-    setMotorSpeed1(&motorController, -c);
+    pid.p1->request = -c;
+    pid.p2->request = -c;
 }
 
 void comando2(void) {
