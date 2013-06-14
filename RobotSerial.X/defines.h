@@ -42,9 +42,9 @@
 #define TICKENC2 500
 #define RATIOGEAR1 17
 #define RATIOGEAR2 17
-#define BASELINE 0.40
-#define RADIUSWHEEL1 0.06
-#define RADIUSWHEEL2 0.06
+#define BASELINE 0.33     //meters
+#define RADIUSWHEEL1 0.07 //meters
+#define RADIUSWHEEL2 0.07 //meters
 #define DEGREEPERTICK 0.02
 #define PI 3.14
 #define METERPERTICK1 DEGREEPERTICK*2*RADIUSWHEEL1

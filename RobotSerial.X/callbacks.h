@@ -16,7 +16,27 @@
 
 extern struct timerController bigTimer;
 
-void anEventCallback(void) {
+void odoMetryCallback(void) {
+    char a[30];
+//    sprintf(a,"1: %d \n",encoder1.odoTicks);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"2: %d \n",encoder2.odoTicks);
+    
+    putsUART1((unsigned int *) a);
+    float sS=((float)encoder1.odoTicks*METERPERTICK1+(float)encoder2.odoTicks*METERPERTICK2)/2;
+    Teta+=((float)encoder2.odoTicks*METERPERTICK2-(float)encoder1.odoTicks*METERPERTICK1)/BASELINE;
+    posX+=sS*cos(Teta);
+    posY+=sS*sin(Teta);
+
+    sprintf(a,"#x%f@\n",posX);
+    putsUART1((unsigned int *) a);
+    sprintf(a,"#y%f@\n",posY);
+    putsUART1((unsigned int *) a);
+    sprintf(a,"#t%f@\n",Teta);
+    putsUART1((unsigned int *) a);
+
+    encoder1.odoTicks=0;
+    encoder2.odoTicks=0;
  //putsUART1((unsigned int *) "ping!\n");
 //    char a[20];
 //    sprintf(a,"I: %d ",pid.p1->I);
@@ -69,6 +89,7 @@ void encoder1Callback(void)
 //    putsUART1((unsigned int *) itoa(pos,*(encoder1.ticks),10));
 //    putsUART1((unsigned int *) "\n");
     pid.p1->reference = *(encoder1.ticks);
+    encoder1.odoTicks+=*(encoder1.ticks);
     *(encoder1.ticks)=0;
 }
 
@@ -80,6 +101,7 @@ void encoder2Callback(void)
 //    putsUART1((unsigned int *) itoa(pos,*(encoder2.ticks),10));
 //    putsUART1((unsigned int *) "\n");
     pid.p2->reference = *(encoder2.ticks);
+    encoder2.odoTicks+=*(encoder2.ticks);
     *(encoder2.ticks)=0;
 }
 

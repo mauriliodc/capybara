@@ -13,6 +13,7 @@
 struct _encoder
 {
     int* ticks;
+    int odoTicks;
     struct timerEvent* resetPositionCounter;
 };
 
@@ -26,6 +27,7 @@ struct encoderController{
 void initEncoder(struct _encoder* e,unsigned int* positionCounter,struct timerEvent* t, unsigned int dt, void *callback)
 {
     e->resetPositionCounter=t;
+    e->odoTicks=*(e->ticks);
     t->runInHandler=1;
     t->executeNow=0;
     e->ticks=positionCounter;
@@ -39,7 +41,7 @@ void initEncoderController(struct encoderController* ec,struct _encoder* e1, str
     ec->enc1=e1;
     ec->enc2=e2;
 
-    /*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 /* QEI1	[4]           			    									     */
 /*---------------------------------------------------------------------------*/
 /*

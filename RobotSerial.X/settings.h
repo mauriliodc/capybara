@@ -24,7 +24,6 @@ _FOSCSEL(FNOSC_PRIPLL);
 // Enable clock switching and configure POSC in XT mode
 _FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
 // Disabling watchdog
-
 _FWDT(FWDTEN_OFF)
 
 

@@ -1,0 +1,117 @@
+import sys
+import threading
+import serial
+import time
+
+#############################################################################################
+#THREAD TO UNFILL THE BUFFER
+#############################################################################################
+class CleaningThread(threading.Thread):
+	def run(self):
+		global ser
+		global threadIsRunning
+		while 1:
+			ser.flushInput()
+			ser.flushOutput()
+			time.sleep(0.01)
+			
+		
+#############################################################################################
+
+
+
+
+
+
+def add_nulls(num, cnt=2):
+  cnt = cnt - len(str(num))
+  nulls = '0' * cnt
+  return '%s%s' % (nulls, num)
+
+
+#############################################################################################
+#SERIAL PORT STUFF
+#############################################################################################
+ser = serial.Serial('/dev/ttyACM0', 115200)
+ser.xonxoff = False
+ser.rtscts = False
+ser.dsrdtr = False
+ser.open()
+ser.isOpen()
+print ser.portstr
+#############################################################################################
+
+
+#StartingThread
+#--------------------
+t = CleaningThread()
+t.start()
+#--------------------
+
+
+pipe = open('/dev/input/js0','r')
+action = []
+spacing = 0
+while 1:
+	for character in pipe.read(1):
+		action += ['%02X' % ord(character)]
+		
+		if len(action) == 16:
+			time.sleep(0.01)
+			print action
+			num = int(action[5], 16) # Translate back to integer form
+			percent254 = str(((float(num)-128.0)/126.0)-100)[4:6] # Calculate the percentage of push
+			percent128 = str((float(num)/127.0))[2:4]
+
+			if percent254 == '.0':
+				percent254 = '100'
+			if percent128 == '0':
+				percent128 = '100'
+			
+			if action[7] == '01' and num == 0:
+				ser.write("$050000%")
+				print "stop right"
+			if action[7] == '03' and num == 0:
+				ser.write("$060000%")
+				print "stop right"
+
+			if action[7] == '01': # LEFT STICK UP/DOWN
+				print num
+				if num >= 128 and num <=220:
+					#print 'You moved the right joystick upward to %' + percent254
+                                        magnitude=str(add_nulls(int(percent254)/2,4))
+					command="$05"+magnitude+"%"
+					ser.write(command)
+					print "CLIENT\> "+command
+				elif num <= 127 and num >= 20 \
+				and num != 0:
+					#print 'You moved the right joystick downward to %' + percent128
+					magnitude=str(add_nulls(int(percent128)/2,4))
+					command="$06"+magnitude+"%"
+					ser.write(command)
+					print "CLIENT\>"+command
+				else:
+					ser.write("$050000%")
+					print "stop right"
+
+			if action[7] == '03': # RIGHT STICK UP/DOWN
+				print num
+				if num >= 128 and num <=220:
+					#print 'You moved the right joystick upward to %' + percent254
+					magnitude=str(add_nulls(int(percent254)/2,4))
+					command="$02"+magnitude+"%"
+					ser.write(command)
+					print "CLIENT\>"+command
+				elif num <= 127 and num >= 20 \
+				and num != 0:
+					#print 'You moved the right joystick downward to %' + percent128
+					magnitude=str(add_nulls(int(percent128)/2,4))
+					command="$03"+magnitude+"%"
+					ser.write(command)
+					print "CLIENT\>"+command
+				else:
+					ser.write("$020000%")
+					print "stop left"
+			action = []
+
+

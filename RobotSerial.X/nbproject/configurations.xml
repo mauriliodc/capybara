@@ -17,6 +17,7 @@
       <itemPath>encoderController.h</itemPath>
       <itemPath>callbacks.h</itemPath>
       <itemPath>signatures.h</itemPath>
+      <itemPath>platform_defs.c</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

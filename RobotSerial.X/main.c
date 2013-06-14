@@ -30,6 +30,12 @@
 #include "pwmController.h"
 #include "fancyTimer.h"
 
+
+float posX;
+float posY;
+float Teta;
+float deltaOdom=0.05;
+
 #include "callbacks.h"
 
 
@@ -48,9 +54,9 @@ int main() {
     
     generateCommands();
 
-    anEvent.millisecs=500;
+    anEvent.millisecs=100;
     anEvent.repetitions=-1;
-    anEvent.callback=&anEventCallback;
+    anEvent.callback=&odoMetryCallback;
     anEvent.runInHandler=0;
     anEvent.executeNow=0;
 
@@ -123,10 +129,9 @@ int main() {
         if (RX_hasToParse) {
 
             ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-    
-            putsUART1((unsigned int *) ">>");
-            putsUART1((unsigned int *) CommandBuf);
-            putsUART1((unsigned int *) "\n");
+//            putsUART1((unsigned int *) ">>");
+//            putsUART1((unsigned int *) CommandBuf);
+//            putsUART1((unsigned int *) "\n");
             parseAndExecuteCommand();
             //memset(Buf, 0, sizeof (Buf));
             RX_hasToParse = 0;
