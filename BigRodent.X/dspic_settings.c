@@ -137,10 +137,11 @@ void Led_init() {
 void Micro_init()
 {
     Clock_init();
-    Pin_init();
-    Led_init();
-    Uart1_init();
     Timer1_init();
     Timer2_init();
+    Pin_init();
+    Led_init();
+    //Uart1_init();
+   
    
 }

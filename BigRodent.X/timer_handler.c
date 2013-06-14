@@ -78,8 +78,9 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
                 e->_lastTickUpperHalfExecuted = handler->_tick;
             }
             time_t t1 = getTime();
+            
             e->_lastUpperHalfExecutionTime = t1 - t0;
-            e->_toBeExecuted = (e->_lowerHalf!=0);
+            e->_toBeExecuted = (*e->_lowerHalf!=0);
         }
     }
 }
@@ -95,8 +96,8 @@ void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler) 
             if (e->_toBeExecuted && e->_lowerHalf) {
                 int t0 = getTime();
                 if (dt >= e->_period) {
-                    (*e->_lowerHalf)(e);
-                    e->_lastTickUpperHalfExecuted = handler->_tick;
+                    (e->_lowerHalf)(e);
+                    
                 }
                 time_t t1 = getTime();
                 e->_lastLowerHalfExecutionTime = t1 - t0;
