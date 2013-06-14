@@ -114,6 +114,17 @@ void Timer1_init() {
             TMR1_VALUE);
 }
 
+void Timer2_init() {
+    ConfigIntTimer2(T2_INT_PRIOR_1 & T2_INT_OFF);
+    WriteTimer2(0);
+    OpenTimer2(T2_ON &
+            T2_GATE_OFF &
+            T2_IDLE_STOP &
+            T2_PS_1_1 &
+            T2_SOURCE_INT,
+            TMR2_VALUE);
+}
+
 
 void Led_init() {
     //tristate settings as output
@@ -129,5 +140,7 @@ void Micro_init()
     Pin_init();
     Led_init();
     Uart1_init();
+    Timer1_init();
+    Timer2_init();
    
 }

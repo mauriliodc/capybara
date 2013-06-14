@@ -9,11 +9,11 @@
 #define	INTERRUPTS_HANDLERS_H
 #include "timer_handler.h"
 
-
+extern struct TimerEventHandler tHandler;
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
-    
+    TimerEventHandler_handleIRQEvents(&tHandler);
     IFS0bits.T1IF = 0;
     
 }

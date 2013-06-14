@@ -15,7 +15,7 @@
 #define FOSC FIN*(M/(N1*N2)) //is in the range of 12.5 MHz to 80 MHz, which generates device operating speeds of 6.25-40 MIPS
 #define FCY FOSC/2 // FCY defines the MIPS
 #define TMR1_VALUE 40000 //1 millisecond
-
+#define TMR2_VALUE 40 // 1 microseconds
 //UART BAUDRATE
 #define BAUDRATE 115200
 #define BRGVAL (FCY/(4*BAUDRATE))-1

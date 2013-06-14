@@ -13,17 +13,17 @@
  * 
  */
 
-EventCallback inner() {
+void inner(struct TimerEvent* t) {
     char tmp[50] = "inner\n";
     putsUART1((unsigned int *) tmp);
-    return 0;
 }
 
-EventCallback outer() {
+void outer(struct TimerEvent* t) {
     char tmp[50] = "outer\n";
     putsUART1((unsigned int *) tmp);
-    return 0;
 }
+
+struct TimerEventHandler tHandler;
 
 int main() {
     Micro_init();
@@ -74,23 +74,15 @@ int main() {
     //TIMER TEST
     //=================================================
     struct TimerEvent t1;
+    EventCallback innerEvent = &inner;
+    EventCallback outerEvent = &outer;
     
-
-
-    struct TimerEventHandler tHandler;
-
-    tHandler._events[0]->_flags = ENABLED;
-    tHandler._events[0]->_period = 2;
-    tHandler._events[0]->_upperHalf=inner(&t1);
-    tHandler._events[0]->_lowerHalf=outer(&t1);
-    tHandler._events[0]->_lastLowerHalfExecutionTime=0;
-    tHandler._events[0]->_lastTickUpperHalfExecuted=0;
-    tHandler._events[0]->_lastUpperHalfExecutionTime=0;
-    tHandler._events[0]->_toBeExecuted=1;
+    TimerEvent_init(&t1,innerEvent,outerEvent,10);
 
     TimerEventHandler_init(&tHandler);
+    TimerEventHandler_setEvent(&tHandler,0,&t1);
     TimerEventHandler_setRunning(&tHandler,1);
-
+    TimerEventHandler_setRunning(&tHandler,1);
     //=================================================
 
     while (1) {

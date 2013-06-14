@@ -10,7 +10,7 @@
 
 #include "platform_defs.h"
 
-#define MAX_EVENTS 10
+#define MAX_EVENTS 1
 
 struct TimerEvent;
 struct TimerEventHandler;
@@ -25,26 +25,28 @@ typedef struct TimerEvent{
   EventCallback _lowerHalf; // callback for the outer loop
   int16_t _period;
   int16_t _lastTickUpperHalfExecuted;
-  int16_t _lastUpperHalfExecutionTime;
-  int16_t _lastLowerHalfExecutionTime;
+  time_t _lastUpperHalfExecutionTime;
+  time_t _lastLowerHalfExecutionTime;
   TimerEventFlags _flags;
   int _toBeExecuted;
 } TimerEvent;
 
 
 typedef struct TimerEventHandler {
-  TimerEvent (*_events)[MAX_EVENTS];
+  TimerEvent *_events[MAX_EVENTS];
   int16_t _running;
   int16_t _tick;
 } TimerEventHandler;
 
 
 
+void TimerEvent_init(struct TimerEvent* event, EventCallback upperHalf, EventCallback lowerHalf, int16_t period);
+
 void TimerEventHandler_init(TimerEventHandler* handler);
 
 uchar8_t TimerEventHandler_num(const  TimerEventHandler* handler);
 
-void TimerEventHandler_setEvent(const struct TimerEventHandler* handler, uchar8_t numEvent, EventCallback upperHalf, EventCallback bottomHAlf, int16_t period);
+void TimerEventHandler_setEvent(struct TimerEventHandler* handler,uchar8_t numEvent, struct TimerEvent* event);
 
 void TimerEventHandler_setEventEnabled(struct TimerEventHandler* handler, uchar8_t numEvent, int enable);
 

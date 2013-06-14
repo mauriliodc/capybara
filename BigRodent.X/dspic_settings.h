@@ -34,5 +34,7 @@ void Pin_init();
 void Uart1_init();
 void Micro_init();
 void Led_init();
+void Timer1_init();
+void Timer2_init();
 #endif	/* DSPIC_SETTINGS_H */
 
