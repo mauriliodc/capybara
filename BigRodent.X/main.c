@@ -14,11 +14,11 @@
  */
 
 void inner(struct TimerEvent* t) {
-    toggleLed1();
+    putsUART1((unsigned int *) "inner\n");
 }
 
 void outer(struct TimerEvent* t) {
-    toggleLed2();
+    putsUART1((unsigned int *) "outer\n");
 }
 
 struct TimerEventHandler tHandler;
@@ -75,7 +75,7 @@ int main() {
     EventCallback innerEvent = &inner;
     EventCallback outerEvent = &outer;
     
-    TimerEvent_init(&t1,inner,outerEvent,200);
+    TimerEvent_init(&t1,innerEvent,outerEvent,5);
 
     TimerEventHandler_init(&tHandler);
     TimerEventHandler_setEvent(&tHandler,0,&t1);
@@ -86,6 +86,8 @@ int main() {
     while (1) {
         
         TimerEventHandler_handleScheduledEvents(&tHandler);
+
+
         //RUNNING TESTS
         //***********************************************************************************************
         //        char tmp[50];

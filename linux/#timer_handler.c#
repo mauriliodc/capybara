@@ -72,17 +72,17 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
         TimerEvent* e = handler->_events[i];
         if (e->_flags | ENABLED) {
             int16_t dt = handler->_tick - e->_lastTickUpperHalfExecuted;
-            
+            printf("DT: %d\n",dt);
             if (dt >= e->_period) {
             	mtime_t t0 = getTime();
             	if (e->_upperHalf)
             		(e->_upperHalf)(e);
                 e->_lastTickUpperHalfExecuted = handler->_tick;
-                mtime_t t1 = getTime();
+                mtime_t t1 = getTime();            
                 e->_lastUpperHalfExecutionTime = t1 - t0;
                 e->_toBeExecuted = (e->_lowerHalf!=0);
 
-
+                
             }
         }
     }
@@ -91,17 +91,17 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
 void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler) {
     uint8_t i;
     if (!handler->_running)
-        return;
+        return; 
     for (i = 0; i < MAX_EVENTS; i++)
       {
         TimerEvent* e = handler->_events[i];
 	if (e->_flags | ENABLED) {
             int16_t dt = handler->_tick - e->_lastUpperHalfExecutionTime;
-	    
+	    printf("TO BE %d\n", e->_toBeExecuted);
             if (e->_toBeExecuted && e->_lowerHalf) {
                 int t0 = getTime();
                 if (dt >= e->_period) {
-                    (e->_lowerHalf)(e);
+                    (e->_lowerHalf)(e);         
                 }
                 mtime_t t1 = getTime();
                 e->_lastLowerHalfExecutionTime = t1 - t0;

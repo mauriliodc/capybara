@@ -9,4 +9,4 @@ int getTime(){
 
 #endif
 
-time_t getTime() { return (time_t)ReadTimer2(); }
+mtime_t getTime() { return (mtime_t)ReadTimer2(); }

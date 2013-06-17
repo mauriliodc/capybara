@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   platform_defs.h
  * Author: malcom
  *
@@ -17,7 +17,7 @@ typedef uint8_t uchar8_t;
 
 //TYPES
 //----------------------------------------------------------
-#ifdef __dsPIC33FJ128MC802__
+#ifdef _MICROCHIP_
 typedef unsigned int uint8_t;
 typedef int int16_t;
 typedef char int8_t ;
@@ -32,3 +32,4 @@ typedef void(*irq_handler_t)();
 mtime_t getTime();
 
 #endif	/* PLATFORM_DEFS_H */
+

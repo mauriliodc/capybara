@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   timer_handler.h
  * Author: malcom
  *
@@ -17,7 +17,7 @@ struct TimerEventHandler;
 enum TimerEventFlags;
 typedef void (*EventCallback) (struct TimerEvent* t);
 
-
+        
 typedef enum TimerEventFlags {ENABLED = 1,DISABLED =0} TimerEventFlags;
 
 typedef struct TimerEvent{
@@ -63,3 +63,4 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler);
 void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler);
 
 #endif	/* TIMER_HANDLER_H */
+
