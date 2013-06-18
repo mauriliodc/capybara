@@ -13,6 +13,8 @@
       <itemPath>interrupts_handlers.h</itemPath>
       <itemPath>pwm_controller.h</itemPath>
       <itemPath>timer_handler.h</itemPath>
+      <itemPath>control_algorithm.h</itemPath>
+      <itemPath>motor_controller.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -28,6 +30,8 @@
       <itemPath>encoder_controller.c</itemPath>
       <itemPath>pwm_controller.c</itemPath>
       <itemPath>timer_handler.c</itemPath>
+      <itemPath>control_algorithm.c</itemPath>
+      <itemPath>motor_controller.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -43,7 +47,7 @@
         <targetDevice>dsPIC33FJ128MC802</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>PICkit2PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.11</languageToolchainVersion>
         <platform>2</platform>
@@ -169,44 +173,13 @@
         <property key="output-file-format" value="elf"/>
         <property key="save-temps" value="false"/>
       </C30Global>
-      <Simulator>
-        <property key="animationupdates.realtimewatchupdates" value="false"/>
-        <property key="animationupdates.steptime" value=""/>
-        <property key="animationupdates.updatetime" value=""/>
-        <property key="breakoptions.coreerrors" value="Ignore"/>
-        <property key="breakoptions.corewarnings" value="Ignore"/>
-        <property key="breakoptions.peripheralerrors" value="Ignore"/>
-        <property key="breakoptions.peripheralwarnings" value="Ignore"/>
-        <property key="breakoptions.stimulusmessages.notes" value="Ignore"/>
-        <property key="breakoptions.stimulusmessags.errors" value="Ignore"/>
-        <property key="breakoptions.stimulusmessags.warnings" value="Ignore"/>
-        <property key="breakoptions.wdtwarnings" value="Ignore"/>
-        <property key="codecoverage.enabled" value="Disable"/>
-        <property key="codecoverage.enableoutputtofile" value="false"/>
-        <property key="codecoverage.outputfile" value=""/>
-        <property key="oscillator.auxfrequency" value="120"/>
-        <property key="oscillator.auxfrequencyunit" value="Mega"/>
-        <property key="oscillator.frequency" value="40000000"/>
-        <property key="oscillator.frequencyunit" value="None"/>
-        <property key="oscillator.rcfrequency" value="250"/>
-        <property key="oscillator.rcfrequencyunit" value="Kilo"/>
-        <property key="performancedata.show" value="false"/>
-        <property key="periphADC1.altscl" value="false"/>
-        <property key="periphADC1.minTacq" value=""/>
-        <property key="periphADC1.tacqunits" value="microseconds"/>
-        <property key="periphADC2.altscl" value="false"/>
-        <property key="periphADC2.minTacq" value=""/>
-        <property key="periphADC2.tacqunits" value="microseconds"/>
-        <property key="tracecontrol.include.timestamp" value="false"/>
-        <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.timestamp" value="2"/>
-        <property key="tracecontrol.tracebufmax" value="54600"/>
-        <property key="tracecontrol.tracefile" value="/home/malcom/mpdeftrace.log"/>
-        <property key="tracecontrol.traceresetonrun" value="false"/>
-        <property key="uart1io.output" value="window"/>
-        <property key="uart1io.outputfile" value=""/>
-        <property key="uart1io.uartioenabled" value="true"/>
-      </Simulator>
+      <PICkit2PlatformTool>
+        <property key="pk2settings.3state" value="false"/>
+        <property key="pk2settings.preserveee" value="false"/>
+        <property key="pk2settings.setvddvoltage" value="3.20"/>
+        <property key="pk2settings.userpgmexec" value="true"/>
+        <property key="pk2settings.usetargetpower" value="false"/>
+      </PICkit2PlatformTool>
     </conf>
   </confs>
 </configurationDescriptor>

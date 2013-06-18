@@ -19,6 +19,6 @@
 #include "interrupts_handlers.h"
 #include "pwm_controller.h"
 #include "timer_handler.h"
-
+#include "control_algorithm.h"
 #endif	/* HEADERS_H */
 

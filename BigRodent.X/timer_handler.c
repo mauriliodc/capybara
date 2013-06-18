@@ -79,7 +79,7 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
             		(e->_upperHalf)(e);
                 e->_lastTickUpperHalfExecuted = handler->_tick;
                 mtime_t t1 = getTime();
-                e->_lastUpperHalfExecutionTime = t1 - t0;
+                e->_lastUpperHalfExecutionTime = t1 - t0;               
                 e->_toBeExecuted = (e->_lowerHalf!=0);
 
 

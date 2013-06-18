@@ -24,11 +24,11 @@ typedef struct TimerEvent{
   EventCallback _upperHalf; // callback for the irq
   EventCallback _lowerHalf; // callback for the outer loop
   int16_t _period;
-  volatile int16_t _lastTickUpperHalfExecuted;
-  volatile mtime_t _lastUpperHalfExecutionTime;
-  volatile mtime_t _lastLowerHalfExecutionTime;
-  volatile TimerEventFlags _flags;
-  volatile int _toBeExecuted;
+  int16_t _lastTickUpperHalfExecuted;
+  mtime_t _lastUpperHalfExecutionTime;
+  mtime_t _lastLowerHalfExecutionTime;
+  TimerEventFlags _flags;
+  int _toBeExecuted;
 } TimerEvent;
 
 

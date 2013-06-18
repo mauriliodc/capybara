@@ -8,20 +8,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "headers.h"
+#include "motor_controller.h"
 
 /*
  * 
  */
-
-void inner(struct TimerEvent* t) {
-    putsUART1((unsigned int *) "inner\n");
-}
-
-void outer(struct TimerEvent* t) {
-    putsUART1((unsigned int *) "outer\n");
-}
-
+struct PIDControlAlgorithm pid;
+struct EncoderController ec;
+struct PWMController pwmc;
 struct TimerEventHandler tHandler;
+struct MotorController LeftMotorController;
+
+//void inner(struct TimerEvent* t) {
+//    toggleLed1();
+//    PWMController_setDutycycle(&pwmc, 0, ControlAlgorithm_update((struct ControlAlgorithm*)(&pid),EncoderController_setTicks(&ec,0,0),10));
+//}
+//
+//void outer(struct TimerEvent* t) {
+//    char a[200];
+//    sprintf(a,"P: %d I: %d  D: %d  ERR: %d TICK: %d MEASUR: %d PID: %d EXEC: %d \n",   pid._Pi,
+//                                                                    pid._I,
+//                                                                    pid._D,
+//                                                                    pid._error,
+//                                                                    *ec.encoders[0]->ticks,
+//                                                                    pid._base._measure,
+//                                                                    pid._base._control,
+//                                                                    t->_lastUpperHalfExecutionTime);
+//    putsUART1((unsigned int *) a);
+//}
+
+
 
 int main() {
     Micro_init();
@@ -33,7 +49,7 @@ int main() {
     //=================================================
     struct Encoder e1;
     struct Encoder e2;
-    struct EncoderController ec;
+    
 
     EncoderController_init(&ec);
     ec.encoders[0] = &e1;
@@ -46,7 +62,7 @@ int main() {
 
     //PWM TEST
     //=================================================
-    struct PWMController pwmc;
+    
     pwmc.minPeriod = 0;
     pwmc.maxPeriod = 5000;
     struct PWM p1;
@@ -60,28 +76,32 @@ int main() {
     pwmc.pwms[1] = &p2;
 
     PWMController_init(&pwmc, 1999);
-    //PWMController_setPeriod(&pwmc,1000,1);
-    //PWMController_setPeriod(&pwmc,1000,2);
-    PWMController_setDutycycle(&pwmc, 0, 10);
-    PWMController_setDutycycle(&pwmc, 1, 30);
-    
+//    PWMController_setDutycycle(&pwmc, 0, 10);
+//    PWMController_setDutycycle(&pwmc, 1, 20);
     //=================================================
 
+
+    //PID TEST
+    //=================================================
+    PIDControlAlgorithm_init(&pid,10,5,1,500,2);
+    //=================================================
+
+    MotorController_init(   &LeftMotorController,
+                            &ec,   0,
+                            &pwmc, 0,
+                            1 << 14,(unsigned int*)0x02CC,
+                            (struct ControlAlgorithm*)&pid,2);
 
 
     //TIMER TEST
     //=================================================
-    struct TimerEvent t1;
-    EventCallback innerEvent = &inner;
-    EventCallback outerEvent = &outer;
-    
-    TimerEvent_init(&t1,innerEvent,outerEvent,5);
-
     TimerEventHandler_init(&tHandler);
-    TimerEventHandler_setEvent(&tHandler,0,&t1);
-    TimerEventHandler_setRunning(&tHandler,1);
+    TimerEventHandler_setEvent(&tHandler,0,&LeftMotorController.event);
     TimerEventHandler_setRunning(&tHandler,1);
     //=================================================
+
+
+    MotorController_setDesiredSpeed(&LeftMotorController,-50);
 
     while (1) {
         
@@ -90,13 +110,13 @@ int main() {
 
         //RUNNING TESTS
         //***********************************************************************************************
-        //        char tmp[50];
-        //        sprintf(tmp, "ENCODERS %d %d \n", EncoderController_ticks(&ec, 0), EncoderController_ticks(&ec, 1));
-        //        putsUART1((unsigned int *) tmp);
-        //        sprintf(tmp, "PERIOD %d %d \n", PWMController_period(&pwmc, 0), PWMController_period(&pwmc, 1));
-        //        putsUART1((unsigned int *) tmp);
-        //        sprintf(tmp, "DUTY %d %d \n", PWMController_dutycycle(&pwmc, 0), PWMController_dutycycle(&pwmc, 1));
-        //        putsUART1((unsigned int *) tmp);
+//                char tmp[50];
+//                sprintf(tmp, "ENCODERS %d %d \n", EncoderController_ticks(&ec, 0), EncoderController_ticks(&ec, 1));
+//                putsUART1((unsigned int *) tmp);
+//                sprintf(tmp, "PERIOD %d %d \n", PWMController_period(&pwmc, 0), PWMController_period(&pwmc, 1));
+//                putsUART1((unsigned int *) tmp);
+//                sprintf(tmp, "DUTY %d %d \n", PWMController_dutycycle(&pwmc, 0), PWMController_dutycycle(&pwmc, 1));
+//                putsUART1((unsigned int *) tmp);
         //***********************************************************************************************
 
     }

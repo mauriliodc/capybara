@@ -54,6 +54,7 @@ int16_t EncoderController_ticks(const struct EncoderController* controller, uint
 
 int16_t EncoderController_setTicks(struct EncoderController* controller, uint8_t numEncoder, int16_t ticks)
 {
+    int16_t saved_ticks=*controller->encoders[numEncoder]->ticks;
     *controller->encoders[numEncoder]->ticks=ticks;
-    return *controller->encoders[numEncoder]->ticks;
+    return saved_ticks;
 }
