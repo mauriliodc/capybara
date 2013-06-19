@@ -29,7 +29,7 @@ void MotorController_UpperHandler(struct TimerEvent* t)
     mc->_measuredSpeed=EncoderController_setTicks(mc->_ec, mc->_encoderNum, 0);
     mc->_measuredDistance+=mc->_measuredSpeed;
     int16_t control=ControlAlgorithm_update(mc->_ca,mc->_measuredSpeed,mc->_desiredSpeed);
-    MotorController_setPWM(mc,control);
+    MotorController_setPWM(mc,control+mc->_desiredSpeed);
 }
 
 void MotorController_setPWM(struct MotorController* mc, int16_t speed)
@@ -50,7 +50,7 @@ void MotorController_LowerHandler(struct TimerEvent* t)
     struct MotorController* mc = (struct MotorController*)t;
     struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
     char a[200];
-    sprintf(a,"P: %d I: %d  D: %d  ERR: %d TICK: %d MEASUR: %d DESIRED: %d PID: %d EXEC: %d \n", ca->_Pi,
+    sprintf(a,"P: %d I: %d  D: %d  ERR: %d TICK: %d MEASUR: %d DESIRED: %d PID: %d EXEC: %d  DUTY: %d\n", ca->_Pi,
                                                                     ca->_I,
                                                                     ca->_D,
                                                                     ca->_error,
@@ -58,7 +58,9 @@ void MotorController_LowerHandler(struct TimerEvent* t)
                                                                     ca->_base._measure,
                                                                     MotorController_desiredSpeed(mc),
                                                                     ca->_base._control,
-                                                                    t->_lastUpperHalfExecutionTime);
+                                                                    t->_lastUpperHalfExecutionTime,
+                                                                    PWMController_dutycycle(mc->_pwms,mc->_pwnNum)
+                                                                    );
     putsUART1((unsigned int *) a);
 
 }

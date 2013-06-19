@@ -24,9 +24,6 @@ struct PWM
 struct PWMController
 {
     struct PWM* pwms[2];
-    uint16_t minPeriod;
-    uint16_t maxPeriod;
-    uint16_t ratioPeriodDutyCycle;
 };
 
 void PWMController_init(struct PWMController* controller, uint16_t period);

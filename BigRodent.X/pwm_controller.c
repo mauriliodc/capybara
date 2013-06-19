@@ -20,7 +20,6 @@ void PWMController_init(struct PWMController* controller, uint16_t period)
     unsigned int config3 = PWM1_SEVOPS1 & PWM1_OSYNC_PWM & PWM1_UEN;
     OpenMCPWM1(period, sptime, config1, config2, config3);
 
-    controller->ratioPeriodDutyCycle=(controller->maxPeriod-controller->minPeriod)/1000;
 
 }
 
@@ -31,16 +30,13 @@ uint8_t PWMController_num(const struct PWMController* controller)
 
 int16_t PWMController_period(const struct  PWMController* controller,uint8_t numPwm)
 {
-    return 5000; //TODO to refine
+    return controller->pwms[numPwm]->period;
 
 }
 
 void PWMController_setPeriod(struct PWMController* controller, uint16_t period,uint8_t numPwm)
 {
-    //TODO to refine
-//    controller->pwms[numPwm]->period=period;
-//    controller->pwms[numPwm]->dutyCycle=period/controller->ratioPeriodDutyCycle; //TODO to refined
-//    SetDCMCPWM1(numPwm--, period,0);
+    controller->pwms[numPwm]->period=period;
 }
 
 uint16_t PWMController_dutycycle(const struct PWMController* controller, uint8_t numPwm)
@@ -51,6 +47,5 @@ uint16_t PWMController_dutycycle(const struct PWMController* controller, uint8_t
 void PWMController_setDutycycle(struct PWMController* controller, uint8_t numPwm, uint16_t dutycycle)
 {
     controller->pwms[numPwm]->dutyCycle=dutycycle;
-    controller->pwms[numPwm]->period=controller->ratioPeriodDutyCycle*dutycycle;
-    SetDCMCPWM1(numPwm+1, controller->ratioPeriodDutyCycle*dutycycle,0);
+    SetDCMCPWM1(numPwm+1, dutycycle,0);
 }

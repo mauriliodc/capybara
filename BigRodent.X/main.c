@@ -36,9 +36,6 @@ struct MotorController LeftMotorController;
 //                                                                    t->_lastUpperHalfExecutionTime);
 //    putsUART1((unsigned int *) a);
 //}
-
-
-
 int main() {
     Micro_init();
     //DelayN1s(1);
@@ -63,8 +60,6 @@ int main() {
     //PWM TEST
     //=================================================
     
-    pwmc.minPeriod = 0;
-    pwmc.maxPeriod = 5000;
     struct PWM p1;
     p1.dutyCycle = 0;
     p1.period = 0;
@@ -75,15 +70,17 @@ int main() {
     pwmc.pwms[0] = &p1;
     pwmc.pwms[1] = &p2;
 
-    PWMController_init(&pwmc, 1999);
-//    PWMController_setDutycycle(&pwmc, 0, 10);
-//    PWMController_setDutycycle(&pwmc, 1, 20);
+    PWMController_init(&pwmc, 1024); //39khz
+    //PWMController_setDutycycle(&pwmc, 0, 1227);
+    //PWMController_setDutycycle(&pwmc, 1, 95);
+    //PWMController_setPeriod(&pwmc, 2000,0);
+    //PWMController_setPeriod(&pwmc, 2000,1);
     //=================================================
 
 
     //PID TEST
     //=================================================
-    PIDControlAlgorithm_init(&pid,10,5,1,500,2);
+    PIDControlAlgorithm_init(&pid,10,5,1,800,2,2);
     //=================================================
 
     MotorController_init(   &LeftMotorController,
@@ -101,7 +98,7 @@ int main() {
     //=================================================
 
 
-    MotorController_setDesiredSpeed(&LeftMotorController,-50);
+    MotorController_setDesiredSpeed(&LeftMotorController,230);
 
     while (1) {
         

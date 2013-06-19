@@ -17,7 +17,7 @@ void EncoderController_init(struct EncoderController* controller)
     QEI1CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
     QEI1CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
 
-    DFLT1CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
+    DFLT1CONbits.QECK	= 0;	//	QEI_QE_CLK_DIVIDE_1_128
     DFLT1CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 
     MAX1CNT = 0xffff;
@@ -32,7 +32,7 @@ void EncoderController_init(struct EncoderController* controller)
     QEI2CONbits.PCDOUT	= 0;	//	QEI_NORMAL_IO
     QEI2CONbits.POSRES	= 0;	//	POS_CNT_ERR_INT_DISABLE
 
-    DFLT2CONbits.QECK	= 6;	//	QEI_QE_CLK_DIVIDE_1_128
+    DFLT2CONbits.QECK	= 0;	//	QEI_QE_CLK_DIVIDE_1_128
     DFLT2CONbits.QEOUT	= 1;	//	QEI_QE_OUT_ENABLE
 
     MAX2CNT = 0xffff;

@@ -8,6 +8,7 @@
 #ifndef INTERRUPTS_HANDLERS_H
 #define	INTERRUPTS_HANDLERS_H
 #include "timer_handler.h"
+#include "motor_controller.h"
 
 extern struct TimerEventHandler tHandler;
 
