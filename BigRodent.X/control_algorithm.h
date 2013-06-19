@@ -19,8 +19,6 @@ struct ControlAlgorithm {
   int16_t _input; 
   int16_t _control; 
   ControlFn_t _controlFn;
-  int16_t _kc;
-  int16_t _kc_inverse; //TODO divisione 1/int?
 };
 
 
@@ -39,6 +37,9 @@ struct PIDControlAlgorithm{
   int16_t _period;
   int16_t _error;
   int16_t _previous_error;
+
+  int16_t _kc;
+  int16_t _kc_inverse; //TODO divisione 1/int?
 };
 
 int16_t ControlAlgorithm_update(struct ControlAlgorithm* ca, int16_t measure, int16_t input);

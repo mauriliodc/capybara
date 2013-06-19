@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometry_handler.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/odometry_handler.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometry_handler.o
 
 
 CFLAGS=
@@ -127,6 +127,12 @@ ${OBJECTDIR}/motor_controller.o: motor_controller.c  nbproject/Makefile-${CND_CO
 	${MP_CC} $(MP_EXTRA_CC_PRE)  motor_controller.c  -o ${OBJECTDIR}/motor_controller.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/motor_controller.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/motor_controller.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/odometry_handler.o: odometry_handler.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/odometry_handler.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  odometry_handler.c  -o ${OBJECTDIR}/odometry_handler.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/odometry_handler.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/odometry_handler.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
@@ -181,6 +187,12 @@ ${OBJECTDIR}/motor_controller.o: motor_controller.c  nbproject/Makefile-${CND_CO
 	@${RM} ${OBJECTDIR}/motor_controller.o.d 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  motor_controller.c  -o ${OBJECTDIR}/motor_controller.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/motor_controller.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/motor_controller.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/odometry_handler.o: odometry_handler.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/odometry_handler.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  odometry_handler.c  -o ${OBJECTDIR}/odometry_handler.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/odometry_handler.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/odometry_handler.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

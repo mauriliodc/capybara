@@ -15,6 +15,7 @@
       <itemPath>timer_handler.h</itemPath>
       <itemPath>control_algorithm.h</itemPath>
       <itemPath>motor_controller.h</itemPath>
+      <itemPath>odometry_handler.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,6 +33,7 @@
       <itemPath>timer_handler.c</itemPath>
       <itemPath>control_algorithm.c</itemPath>
       <itemPath>motor_controller.c</itemPath>
+      <itemPath>odometry_handler.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

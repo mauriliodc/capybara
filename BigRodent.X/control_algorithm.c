@@ -14,7 +14,8 @@ void PIDControlAlgorithm_fn(struct ControlAlgorithm* _ca) {
     ca->_D = (ca->_error - ca->_previous_error) * ca->_KD_div_PERIOD;
     ca->_previous_error = ca->_error;
 
-    ca->_base._control=ca->_Pi+ca->_I+ca->_D+ca->_base._input;
+    ca->_base._control=(ca->_Pi+ca->_I+ca->_D+ca->_base._input)*ca->_kc;
+    
 }
 
 void PIDControlAlgorithm_init(struct PIDControlAlgorithm* ca, int16_t KP, int16_t KI, int16_t KD, int16_t windup, int16_t period, int16_t kc) {
@@ -36,8 +37,8 @@ void PIDControlAlgorithm_init(struct PIDControlAlgorithm* ca, int16_t KP, int16_
 
     ca->_base._control = 0;
     ca->_base._measure = 0;
-    ca->_base._kc=kc;
-    ca->_base._kc_inverse=1/kc;
+    ca->_kc=kc;
+    ca->_kc_inverse=1/kc;
 
     ca->_base._controlFn = &PIDControlAlgorithm_fn;
 }
@@ -46,6 +47,6 @@ int16_t ControlAlgorithm_update(struct ControlAlgorithm* ca, int16_t measure, in
     ca->_measure = measure;
     ca->_input = input;
     ca->_controlFn(ca);
-    return ca->_control*ca->_kc;
+    return ca->_control;
 }
 
