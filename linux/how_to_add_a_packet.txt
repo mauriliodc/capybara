@@ -1,0 +1,20 @@
+1) copy a simple packet (like the speed message), and rename the things substituting speed wih your things
+2) add in the .h all the fields you need
+
+3) write the serialization functions (just replace the name of the fields with the ones you need to be serialized)
+   (write, read and print)
+
+5) write a single line description string for the command"
+
+4) write the initialization functions. The global variable of the message type should be only in the .h
+   (initHandler, and initHeader) [just copy and replace]
+
+5) go in the file packets.h and add your initHandler there.
+
+Everything is easy.
+
+If you want to continue sending commands as you did before, it is sufficient that
+- you enclose them in quotes "like this"
+- you implement and install a handler for the strings
+- standard strings and packed commands can coexist in a stream.
+

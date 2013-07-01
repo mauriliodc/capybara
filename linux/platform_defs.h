@@ -11,6 +11,7 @@
 #ifdef _LINUX_
 #include <sys/time.h>
 #include <stdint.h> // in linux-gcc the  types come for free
+#include <string.h>
 typedef int mtime_t;
 typedef uint8_t uchar8_t;
 #endif

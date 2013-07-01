@@ -1,7 +1,4 @@
 #include "platform_defs.h"
-
-
-
 #ifdef _LINUX_
 
 

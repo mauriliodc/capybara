@@ -8,19 +8,19 @@ void inner(struct TimerEvent* t) {
 }
 
 void outer(struct TimerEvent* t) {
-	printf("out\n");
+	printf("]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]out\n");
 	printf("EXECUTION TIME: %d\n",t->_lastLowerHalfExecutionTime);
 	
 }
 
 struct TimerEventHandler tHandler;
 
-void main()
+int main()
 {
 	struct TimerEvent t1;
 	EventCallback innerEvent = &inner;
 	EventCallback outerEvent = &outer;
-	TimerEvent_init(&t1,innerEvent,outerEvent,100);
+	TimerEvent_init(&t1,innerEvent,outerEvent,10);
 	TimerEventHandler_init(&tHandler);
 	TimerEventHandler_setEvent(&tHandler,0,&t1);
 	TimerEventHandler_setRunning(&tHandler,1);
