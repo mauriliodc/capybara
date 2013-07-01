@@ -8,16 +8,9 @@
 #ifndef PACKETS_H
 #define	PACKETS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+#include "state_packet.h"
 
-
-
-
-#ifdef	__cplusplus
-}
-#endif
+void Packets_init();
 
 #endif	/* PACKETS_H */
 

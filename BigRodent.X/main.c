@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
+#include "hexmessage.h"
+
+#include "packets.h"
 
 /*
  * 
@@ -33,8 +36,23 @@ int RX_hasToSend=0;
 int RX_hasToParse=0;
 
 
- 
+
+#define MAX_BUFFER_SIZE 1024
+StatePacket outState = {
+    {0}, // this is the type, should be set by initSpeedPacket;
+    0,
+    0,0,
+    {0, 0, 0},
+    {0,0, 0},
+    0.0, 0.0,
+    0, 0.0,
+    0,
+    0, 0};
+
+HexMessage outputStream;
 int main() {
+
+
 
 
     Micro_init();
@@ -132,6 +150,84 @@ int main() {
     TimerEventHandler_setRunning(&tHandler,1);
 
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
+
+
+    //-------------------------------------------------------------------------
+  Packets_init();
+  StatePacket_initHeader(&outState);
+
+//  QueryCommandsPacket outQuery = {{0}, -1};
+//  QueryCommandsPacket_initHeader(&outQuery);
+//
+//  SpeedPacket outSpeed = {{0}, 0.1, 0.2};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  SpeedPacket_initHeader(&outSpeed);
+//
+//  PIDPacket outPID = {{0}, 0, {1,2,3}, {1,2,3}};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  PIDPacket_initHeader(&outPID);
+//
+//  OdometryCalibPacket outOdom = {{0}, 0, 1e-3, 1e-3, 0.25};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  OdometryCalibPacket_initHeader(&outOdom);
+
+
+  // construct  a buffer
+  char buffer[MAX_BUFFER_SIZE];
+  HexMessage_setBuffer(&outputStream, buffer,MAX_BUFFER_SIZE);
+  memset(buffer, 0, MAX_BUFFER_SIZE);
+
+
+//  // write the query for the num of messages"
+//  if(Packet_write(&msg,(const struct PacketHeader*)&outQuery)!=Ok)
+//    printf("write error\n");
+//  *msg.current=0;
+//  printf("%s\n",msg.start);
+//  HexMessage_reset(&msg);
+
+//  // query the description of each message
+//  int j;
+//  for (j=0; j< PacketHandler_maxPacketTypes(); j++){
+//    outQuery.type = j;
+//    if(Packet_write(&msg,(const struct PacketHeader*)&outQuery)!=Ok)
+//      printf("write error\n");
+//    *msg.current=0;
+//    printf("%s\n",msg.start);
+//    HexMessage_reset(&msg);
+//  }
+
+
+
+//    if(Packet_write(&msg,(const struct PacketHeader*)&outSpeed)!=Ok)
+//      printf("write error\n");
+//    *msg.current=0;
+//    printf("%s\n",msg.start);
+//    HexMessage_reset(&msg);
+//
+//    if(Packet_write(&msg,(const struct PacketHeader*)&outPID)!=Ok)
+//      printf("write error\n");
+//    *msg.current=0;
+//    printf("%s\n",msg.start);
+//    HexMessage_reset(&msg);
+//
+//    if(Packet_write(&msg,(const struct PacketHeader*)&outOdom)!=Ok)
+//      printf("write error\n");
+//    *msg.current=0;
+//    printf("%s\n",msg.start);
+//    HexMessage_reset(&msg);
+  
+
+
+
+
+
+
+
+
+
+
+
+    //--------------------------------------------------------------------------
     while (1) {
 
         
@@ -150,6 +246,16 @@ int main() {
             parseAndExecuteCommand();
             RX_hasToParse = 0;
         }
+
+        if(outputStream.current>outputStream.start)
+        {
+            
+            *outputStream.current++='\n';
+            *outputStream.current++=0;
+            putsUART1((unsigned int*)outputStream.start);
+            HexMessage_reset(&outputStream);
+        }
+
 
     }
     return (EXIT_SUCCESS);

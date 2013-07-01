@@ -4,18 +4,26 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f2" displayName="Controllers" projectFiles="true">
+        <itemPath>encoder_controller.h</itemPath>
+        <itemPath>motor_controller.h</itemPath>
+        <itemPath>pwm_controller.h</itemPath>
+        <itemPath>control_algorithm.h</itemPath>
+        <itemPath>odometer.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Messages" projectFiles="true">
+        <itemPath>hexmessage.h</itemPath>
+        <itemPath>packet_handler.h</itemPath>
+        <itemPath>packets.h</itemPath>
+        <itemPath>state_packet.h</itemPath>
+      </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>
       <itemPath>dspic_settings.h</itemPath>
       <itemPath>defines.h</itemPath>
       <itemPath>generic_utils.h</itemPath>
-      <itemPath>encoder_controller.h</itemPath>
       <itemPath>interrupts_handlers.h</itemPath>
-      <itemPath>pwm_controller.h</itemPath>
       <itemPath>timer_handler.h</itemPath>
-      <itemPath>control_algorithm.h</itemPath>
-      <itemPath>motor_controller.h</itemPath>
-      <itemPath>odometer.h</itemPath>
       <itemPath>commands.h</itemPath>
       <itemPath>message_buffer.h</itemPath>
     </logicalFolder>
@@ -26,16 +34,24 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f2" displayName="Controller" projectFiles="true">
+        <itemPath>encoder_controller.c</itemPath>
+        <itemPath>motor_controller.c</itemPath>
+        <itemPath>pwm_controller.c</itemPath>
+        <itemPath>odometer.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Messages" projectFiles="true">
+        <itemPath>hexmessage.c</itemPath>
+        <itemPath>packet_handler.c</itemPath>
+        <itemPath>packets.c</itemPath>
+        <itemPath>state_packet.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>platform_defs.c</itemPath>
       <itemPath>dspic_settings.c</itemPath>
       <itemPath>generic_utils.c</itemPath>
-      <itemPath>encoder_controller.c</itemPath>
-      <itemPath>pwm_controller.c</itemPath>
       <itemPath>timer_handler.c</itemPath>
       <itemPath>control_algorithm.c</itemPath>
-      <itemPath>motor_controller.c</itemPath>
-      <itemPath>odometer.c</itemPath>
       <itemPath>message_buffer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -179,6 +195,11 @@
         <property key="save-temps" value="false"/>
       </C30Global>
       <PICkit2PlatformTool>
+        <property key="pk2settings.3state" value="false"/>
+        <property key="pk2settings.preserveee" value="false"/>
+        <property key="pk2settings.setvddvoltage" value=""/>
+        <property key="pk2settings.userpgmexec" value="true"/>
+        <property key="pk2settings.usetargetpower" value="false"/>
       </PICkit2PlatformTool>
     </conf>
   </confs>

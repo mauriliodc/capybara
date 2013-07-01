@@ -1,11 +1,14 @@
 #include "odometer.h"
 #include "motor_controller.h"
 #include "message_buffer.h"
+#include "state_packet.h"
 #include <math.h>
 
 #define PI 3.14159265
 #define RATIO_RAD_GRAD PI/180
 
+extern StatePacket outState;
+extern HexMessage outputStream;
 void DifferentialDrive_UpperHandler(struct TimerEvent* t)
 {
     struct Odometer* oh = (struct Odometer*)t;
@@ -55,17 +58,36 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t)
 
 
      
-    char a[100];
-    //sprintf(a,"# %d %d %d %d %d %d %d @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,t->_lastTickUpperHalfExecuted,t->_lastLowerHalfExecutionTime);
-    sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
-    putsUART1((unsigned int*)a);
+//    char a[100];
+//    //sprintf(a,"# %d %d %d %d %d %d %d @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,t->_lastTickUpperHalfExecuted,t->_lastLowerHalfExecutionTime);
+//    sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
+//    putsUART1((unsigned int*)a);
+
+
     //transmissionBuffer_write(dd->_base._tbuf,a);
 
 //    sprintf(a,"x: %d y:%d theta:%d \n",dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta);
 //    putsUART1((unsigned int *) a);
 //    sprintf(a,"m1: %d m2:%d \n",oh->_distance[0],oh->_distance[1]);
 //    putsUART1((unsigned int *) "lower\n");
-
+    outState.seq++;
+    outState.leftEncoder=oh->_distance[0];
+    outState.rightEncoder=oh->_distance[1];
+    outState.incrementalOdometry[0]=dd->_base._pose._x;
+    outState.incrementalOdometry[1]=dd->_base._pose._y;
+    outState.incrementalOdometry[2]=dd->_base._pose._theta;
+    outState.globalOdometry[0]=dd->_base._globalPose._x;
+    outState.globalOdometry[1]=dd->_base._globalPose._y;
+    outState.globalOdometry[2]=dd->_base._globalPose._theta;
+    outState.batteryVoltage=0;
+    outState.leftPWMCurrent=0;
+    outState.rightPWMCurrent=0;
+    outState.rotationalAcceleration=0;
+    outState.rotationalVelocity=0;
+    outState.translationalAcceleration=0;
+    outState.translationalVelocity=0;
+    Packet_write(&outputStream,(const struct PacketHeader*)&outState);
+    
 }
 
 
