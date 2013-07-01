@@ -178,8 +178,8 @@
         <property key="output-file-format" value="elf"/>
         <property key="save-temps" value="false"/>
       </C30Global>
-      <ICD3PlatformTool>
-      </ICD3PlatformTool>
+      <PICkit2PlatformTool>
+      </PICkit2PlatformTool>
     </conf>
   </confs>
 </configurationDescriptor>
