@@ -8,6 +8,7 @@
 #ifndef ENCODER_CONTROLLER_H
 #define	ENCODER_CONTROLLER_H
 
+#include <p33FJ128MC802.h>
 #include "platform_defs.h"
 #include <qei.h>
 

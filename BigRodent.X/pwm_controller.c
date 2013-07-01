@@ -44,8 +44,9 @@ uint16_t PWMController_dutycycle(const struct PWMController* controller, uint8_t
     return controller->pwms[numPwm]->dutyCycle;
 }
 
-void PWMController_setDutycycle(struct PWMController* controller, uint8_t numPwm, uint16_t dutycycle)
+void PWMController_setDutycycle(struct PWMController* controller, uint8_t numPwm, int16_t dutycycle)
 {
     controller->pwms[numPwm]->dutyCycle=dutycycle;
+
     SetDCMCPWM1(numPwm+1, dutycycle,0);
 }

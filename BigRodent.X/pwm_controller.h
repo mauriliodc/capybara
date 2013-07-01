@@ -36,7 +36,7 @@ void PWMController_setPeriod(struct PWMController* controller, uint16_t period,u
 
 uint16_t PWMController_dutycycle(const struct PWMController* controller, uint8_t pwmNum);
 
-void PWMController_setDutycycle(struct PWMController* controller, uint8_t pwmNum, uint16_t dutycycle);
+void PWMController_setDutycycle(struct PWMController* controller, uint8_t pwmNum, int16_t dutycycle);
 
 
 #endif	/* PWM_CONTROLLER_H */

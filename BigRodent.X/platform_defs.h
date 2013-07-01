@@ -8,6 +8,8 @@
 #ifndef PLATFORM_DEFS_H
 #define	PLATFORM_DEFS_H
 
+#include <p33FJ128MC802.h>
+
 #ifdef _LINUX_
 #include <sys/time.h>
 #include <stdint.h> // in linux-gcc the  types come for free
@@ -24,6 +26,8 @@ typedef char int8_t ;
 typedef unsigned int uint16_t;
 typedef unsigned char uchar8_t;
 typedef int16_t mtime_t;
+typedef float long_t;
+typedef long long int very_long_t;
 //----------------------------------------------------------
 #endif
 

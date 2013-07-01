@@ -20,8 +20,8 @@ struct MotorController
     uint8_t _pwnNum;
     uint8_t  _encoderNum;
     int16_t _measuredDistance;
-    int16_t _directionPin;
-    uint16_t* _directionPTR;
+    int _directionPin;
+    unsigned int* _directionPTR;
     uint16_t _period;
 
 };
@@ -36,12 +36,16 @@ void MotorController_setPWM(struct MotorController* mc, int16_t speed);
 void  MotorController_setDesiredSpeed(struct MotorController* controller,int16_t speed);
 int16_t MotorController_desiredSpeed(struct MotorController* controller);
 int16_t MotorController_measuredSpeed(struct MotorController* controller);
+
 int16_t MotorController_measuredDistance(struct MotorController* controller);
 int16_t MotorController_setMeasuredDistance(struct MotorController* controller, uint16_t ticks);
+
 int16_t MotorController_maxPositiveSpeedIncrement(struct MotorController* controller);
 int16_t  MotorController_maxNegativeSpeedIncrement(struct MotorController* controller);
 void  MotorController_setMaxPositiveSpeedIncrement(struct MotorController* controller, int16_t inc);
 void  MotorController_setMaxNegativeSpeedIncrement(struct MotorController* controller, int16_t inc);
+
+
 int16_t MotorController_maxSpeed(struct MotorController* controller);
 void MotorController_setMaxSpeed(struct MotorController* controller, int16_t inc);
 

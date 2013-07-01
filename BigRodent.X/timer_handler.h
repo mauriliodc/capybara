@@ -10,7 +10,7 @@
 
 #include "platform_defs.h"
 #include "stdio.h"
-#define MAX_EVENTS 1
+#define MAX_EVENTS 4
 
 struct TimerEvent;
 struct TimerEventHandler;

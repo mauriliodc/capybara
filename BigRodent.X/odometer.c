@@ -1,7 +1,10 @@
 #include "odometer.h"
 #include "motor_controller.h"
+#include "message_buffer.h"
 #include <math.h>
 
+#define PI 3.14159265
+#define RATIO_RAD_GRAD PI/180
 
 void DifferentialDrive_UpperHandler(struct TimerEvent* t)
 {
@@ -9,35 +12,69 @@ void DifferentialDrive_UpperHandler(struct TimerEvent* t)
     uint8_t i;
     for(i=0;i<MOTORS_NUM;i++)
     {
-        oh->_distance[i]=MotorController_setMeasuredDistance(oh->mc[i],0);
+        oh->_distance[i]=(long_t)MotorController_setMeasuredDistance(oh->mc[i],0);
     }
+
+//     putsUART1((unsigned int *) "uppper\n");
+//     char a[100];
+//    sprintf(a,"m1: %d m2:%d \n",oh->_distance[0],oh->_distance[1]);
+//    putsUART1((unsigned int *) a);
 }
 
 void DifferentialDrive_LowerHandler(struct TimerEvent* t)
 {
+    
     struct DifferentialDriveOdometer* dd = (struct DifferentialDriveOdometer*) t;
+    struct Odometer* oh = (struct Odometer*)t;
+//    long_t s=  dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius+
+//                dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
+//
+//    dd->_base._pose._theta=(dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius-
+//                            dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius)/dd->_baseline;
+//
+//    dd->_base._pose._x=s*cos(dd->_base._pose._theta);
+//    dd->_base._pose._y=s*sin(dd->_base._pose._theta);
+//
+//    dd->_base._globalPose._x=dd->_base._pose._x;
+//    dd->_base._globalPose._y=dd->_base._pose._y;
+//    dd->_base._globalPose._theta=dd->_base._pose._theta;
 
-    int16_t s=  dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius+
-                dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
+    long_t dl=dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius;
+    long_t dr=dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
+    long_t r = (dl+dr)/2;
 
-    dd->_base._pose._theta=(dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius-
-                            dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius)/dd->_baseline;
-
-    dd->_base._pose._x=s*cos(dd->_base._pose._theta);
-    dd->_base._pose._y=s*sin(dd->_base._pose._theta);
+    dd->_base._pose._theta= (dr-dl)/(2*dd->_baseline);
+    dd->_base._pose._x=r*(cos(dd->_base._globalPose._theta));
+    dd->_base._pose._y=r*(sin(dd->_base._globalPose._theta));
 
     dd->_base._globalPose._x+=dd->_base._pose._x;
     dd->_base._globalPose._y+=dd->_base._pose._y;
     dd->_base._globalPose._theta+=dd->_base._pose._theta;
+
+
+
+
+     
+    char a[100];
+    //sprintf(a,"# %d %d %d %d %d %d %d @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,t->_lastTickUpperHalfExecuted,t->_lastLowerHalfExecutionTime);
+    sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
+    putsUART1((unsigned int*)a);
+    //transmissionBuffer_write(dd->_base._tbuf,a);
+
+//    sprintf(a,"x: %d y:%d theta:%d \n",dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta);
+//    putsUART1((unsigned int *) a);
+//    sprintf(a,"m1: %d m2:%d \n",oh->_distance[0],oh->_distance[1]);
+//    putsUART1((unsigned int *) "lower\n");
+
 }
 
 
 void DifferentialDriveOdometryHandler_init( struct DifferentialDriveOdometer* dd,
-                                            uint16_t baseline,
+                                            long_t baseline,
                                             struct MotorController *leftMc,struct MotorController *rightMc,
-                                            uint16_t leftWheelRadius,uint16_t rightWheelRadius,
-                                            uint16_t leftEncoderDegreesPerTicks, uint16_t rightEncoderDegreesPerTicks,
-                                            uint16_t period)
+                                            long_t leftWheelRadius,long_t rightWheelRadius,
+                                            long_t leftEncoderDegreesPerTicks, long_t rightEncoderDegreesPerTicks,
+                                            long_t period,struct trasmissionBuffer* t)
 {
 
 
@@ -50,6 +87,7 @@ void DifferentialDriveOdometryHandler_init( struct DifferentialDriveOdometer* dd
     dd->_base._period=period;
     dd->_base.mc[0]=leftMc;
     dd->_base.mc[1]=rightMc;
+    dd->_base._tbuf=t;
    
 }
 
@@ -82,7 +120,7 @@ struct pose Odometer_setPose(struct Odometer* oh,struct pose p)
     return tmp;
 }
 
-struct pose Odometer_setPoseElements(struct Odometer* oh, int16_t x,int16_t y, int16_t theta)
+struct pose Odometer_setPoseElements(struct Odometer* oh, long_t x,long_t y, long_t theta)
 {
     struct pose tmp;
     tmp._x=oh->_pose._x;
@@ -117,7 +155,7 @@ struct pose Odometer_setGlobalPose(struct Odometer* oh, struct pose p)
     return tmp;
 }
 
-struct pose Odometer_setGlobalPoseElements(struct Odometer* oh, int16_t x,int16_t y, int16_t theta)
+struct pose Odometer_setGlobalPoseElements(struct Odometer* oh, long_t x,long_t y, long_t theta)
 {
 
     struct pose tmp;

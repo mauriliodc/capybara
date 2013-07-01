@@ -32,8 +32,8 @@ void Pin_init() {
                 "bclr OSCCON, #6 ");
 
     //UART
-    RPINR18bits.U1RXR = 2; //INPUT
-    RPOR1bits.RP3R = 3; //OUTPUT
+    RPINR18bits.U1RXR = 3; //INPUT
+    RPOR1bits.RP2R = 3; //OUTPUT
 
     //ENCODER
     //***************************

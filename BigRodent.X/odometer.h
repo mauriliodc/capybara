@@ -11,38 +11,38 @@
 #include "platform_defs.h"
 #include "motor_controller.h"
 #include "timer_handler.h"
+#include "message_buffer.h"
 
 #define MOTORS_NUM 2
 
 struct Odometer;
 
 struct pose{
-    int16_t _x;
-    int16_t _y;
-    int16_t _theta;
+    long_t _x;
+    long_t _y;
+    long_t _theta;
 };
 
 struct Odometer
 {
     TimerEvent event;
     struct MotorController* mc[MOTORS_NUM];
-    uint16_t _period;
-    uint16_t _distance[MOTORS_NUM];
+    long_t _period;
+    long_t _distance[MOTORS_NUM];
     struct pose _pose;
     struct pose _globalPose;
-
-
+    struct trasmissionBuffer* _tbuf;
 
 };
 
 struct DifferentialDriveOdometer
 {
     struct Odometer _base;
-    uint16_t _baseline;
-    uint16_t _leftWheelRadius;
-    uint16_t _rightWheelRadius;
-    uint16_t _leftEncoderDegreesPerTicks;
-    uint16_t _rightEncoderDegreesPerTicks;
+    long_t _baseline;
+    long_t _leftWheelRadius;
+    long_t _rightWheelRadius;
+    long_t _leftEncoderDegreesPerTicks;
+    long_t _rightEncoderDegreesPerTicks;
 
 };
 
@@ -51,19 +51,20 @@ void DifferentialDrive_UpperHandler(struct TimerEvent* t);
 void DifferentialDrive_LowerHandler(struct TimerEvent* t);
 
 void DifferentialDriveOdometryHandler_init( struct DifferentialDriveOdometer* dd,
-                                            uint16_t baseline,
+                                            long_t baseline,
                                             struct MotorController *leftMc, struct MotorController *rightMc,
-                                            uint16_t leftWheelRadius,uint16_t rightWheelRadius,
-                                            uint16_t leftEncoderDegreesPerTicks, uint16_t rightEncoderDegreesPerTicks,
-                                            uint16_t period);
+                                            long_t leftWheelRadius,long_t rightWheelRadius,
+                                            long_t leftEncoderDegreesPerTicks, long_t rightEncoderDegreesPerTicks,
+                                            long_t period,
+                                            struct trasmissionBuffer*);
 
 
 
 struct pose Odometer_getPose(struct Odometer* oh);
 struct pose Odometer_setPose(struct Odometer* oh,struct pose p);
-struct pose Odometer_setPoseElements(struct Odometer* oh, int16_t x,int16_t y, int16_t theta);
+struct pose Odometer_setPoseElements(struct Odometer* oh, long_t x,long_t y, long_t theta);
 struct pose Odometer_getGlobalPose(struct Odometer* oh);
 struct pose Odometer_setGlobalPose(struct Odometer* oh, struct pose p);
-struct pose Odometer_setGlobalPoseElements(struct Odometer* oh, int16_t x,int16_t y, int16_t theta);
+struct pose Odometer_setGlobalPoseElements(struct Odometer* oh, long_t x,long_t y, long_t theta);
 #endif	/* ODOMETRY_HANDLER_H */
 

@@ -8,7 +8,8 @@
 #ifndef HEADERS_H
 #define	HEADERS_H
 
-#include <p33Fxxxx.h>
+//#include <p33Fxxxx.h>
+#include <p33FJ128MC802.h>
 #include <uart.h>
 
 #include "defines.h"
@@ -20,5 +21,9 @@
 #include "pwm_controller.h"
 #include "timer_handler.h"
 #include "control_algorithm.h"
+#include "motor_controller.h"
+#include "odometer.h"
+#include "message_buffer.h"
+
 #endif	/* HEADERS_H */
 

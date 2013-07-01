@@ -15,7 +15,9 @@
       <itemPath>timer_handler.h</itemPath>
       <itemPath>control_algorithm.h</itemPath>
       <itemPath>motor_controller.h</itemPath>
-      <itemPath>odometry_handler.h</itemPath>
+      <itemPath>odometer.h</itemPath>
+      <itemPath>commands.h</itemPath>
+      <itemPath>message_buffer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -33,7 +35,8 @@
       <itemPath>timer_handler.c</itemPath>
       <itemPath>control_algorithm.c</itemPath>
       <itemPath>motor_controller.c</itemPath>
-      <itemPath>odometry_handler.c</itemPath>
+      <itemPath>odometer.c</itemPath>
+      <itemPath>message_buffer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -175,13 +178,8 @@
         <property key="output-file-format" value="elf"/>
         <property key="save-temps" value="false"/>
       </C30Global>
-      <PICkit2PlatformTool>
-        <property key="pk2settings.3state" value="false"/>
-        <property key="pk2settings.preserveee" value="false"/>
-        <property key="pk2settings.setvddvoltage" value="3.20"/>
-        <property key="pk2settings.userpgmexec" value="true"/>
-        <property key="pk2settings.usetargetpower" value="false"/>
-      </PICkit2PlatformTool>
+      <ICD3PlatformTool>
+      </ICD3PlatformTool>
     </conf>
   </confs>
 </configurationDescriptor>

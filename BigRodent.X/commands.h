@@ -9,6 +9,7 @@
 #define	COMMANDS_H
 
 #include "motor_controller.h"
+#include "odometer.h"
 //INTERNALS
 //====================================================================
 struct _ReceivedCommand
@@ -30,6 +31,8 @@ struct CommandsAndFunctions {
 
 struct CommandsAndFunctions commandsArray[7];
 
+extern struct DifferentialDriveOdometer odo;
+
 int compareCommands(unsigned char* ReceivedCommandCode, unsigned char* CommandCode) {
 
     if (strncmp((const char*) ReceivedCommandCode, (const char*) CommandCode, 2) == 0) return 1;
@@ -46,14 +49,14 @@ void assignCommand(const char* c, unsigned char* p) {
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
 
 void comando0(void) {
-    int c = atoi((const char*) ReceivedCommand->argument);
+    //int c = atoi((const char*) ReceivedCommand->argument);
     
 }
 
 //SETTO VELOCITA' E DIREZIONE AD ENTRAMBI I MOTORI
 
 void comando1(void) {
-    int c = atoi((const char*) ReceivedCommand->argument);
+    //int c = atoi((const char*) ReceivedCommand->argument);
    
 }
 
@@ -70,6 +73,12 @@ void comando3(void) {
 }
 
 void comando4(void) {
+    odo._base._globalPose._x=0;
+    odo._base._globalPose._y=0;
+    odo._base._globalPose._theta=0;
+    odo._base._pose._x=0;
+    odo._base._pose._y=0;
+    odo._base._pose._theta=0;
 
 }
 

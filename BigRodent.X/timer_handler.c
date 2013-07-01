@@ -96,13 +96,13 @@ void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler) 
       {
         TimerEvent* e = handler->_events[i];
 	if (e->_flags | ENABLED) {
-            int16_t dt = handler->_tick - e->_lastUpperHalfExecutionTime;
+
+            //int16_t dt = handler->_tick - e->_lastUpperHalfExecutionTime;
 	    
             if (e->_toBeExecuted && e->_lowerHalf) {
-                int t0 = getTime();
-                if (dt >= e->_period) {
-                    (e->_lowerHalf)(e);
-                }
+               
+               int t0 = getTime();
+                (e->_lowerHalf)(e);
                 mtime_t t1 = getTime();
                 e->_lastLowerHalfExecutionTime = t1 - t0;
                 e->_toBeExecuted = 0;
