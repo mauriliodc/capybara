@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   interrupts_handlers.h
  * Author: malcom
  *
@@ -23,7 +23,7 @@ int MAX_BUFF=100;
 extern int i;
 char charRX;
 const char RX_header='$';
-const char RX_footer='a';
+const char RX_footer='%';
 extern int RX_hasToSend;
 extern int RX_hasToParse;
 
@@ -33,14 +33,15 @@ char buffa[100];
 char* bstart=buffa;
 char* bcurr=buffa;
 char* bend=(buffa+100);
+int receiving_command=0;
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
 
-    
+
     TimerEventHandler_handleIRQEvents(&tHandler);
     IFS0bits.T1IF = 0;
-    
+
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
@@ -80,13 +81,23 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
     char c=ReadUART1();
-    if (bcurr<bend-1){
-        *bcurr++ =c;
+    if(c==RX_header && !receiving_command)
+    {
+        receiving_command=1;
+        *bcurr =c;
+        bcurr++;
+    }
+    else if (bcurr<bend-1 && receiving_command){
+        *bcurr =c;
+        bcurr++;
         if (c==RX_footer){
             int size = bcurr-bstart;
-            if(inputStream.end-inputStream.current>size) {
+            if(inputStream.end-inputStream.current>size+1) {
                 memcpy(inputStream.current,bstart,size);
                 inputStream.current += size;
+                *inputStream.current='\0';
+                *inputStream.current++;
+                receiving_command=0;
             }
             bcurr = bstart;
         }
@@ -95,4 +106,3 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
 }
 
 #endif	/* INTERRUPTS_HANDLERS_H */
-
