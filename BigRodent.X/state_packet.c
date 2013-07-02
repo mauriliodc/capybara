@@ -84,3 +84,25 @@ int  StatePacket_initHandler(int16_t type){
 void StatePacket_initHeader(StatePacket* packet){
   packet->header.type=StatePacket_type;
 }
+
+
+
+void StatePacket_initVoid(StatePacket* p)
+{
+    p->batteryVoltage=0;
+    p->globalOdometry[0]=0;
+    p->globalOdometry[1]=0;
+    p->globalOdometry[2]=0;
+    p->incrementalOdometry[0]=0;
+    p->incrementalOdometry[1]=0;
+    p->incrementalOdometry[2]=0;
+    p->leftEncoder=0;
+    p->leftPWMCurrent=0;
+    p->rightEncoder=0;
+    p->rightPWMCurrent=0;
+    p->rotationalAcceleration=0;
+    p->rotationalVelocity=0;
+    p->translationalAcceleration=0;
+    p->translationalVelocity=0;
+
+}

@@ -31,23 +31,14 @@ struct trasmissionBuffer TransmissionBuffer;
 //TODO TEMPORANEO
 char CommandBuf[100];
 char Buf[100];
-int i=0;
-int RX_hasToSend=0;
-int RX_hasToParse=0;
+int i = 0;
+int RX_hasToSend = 0;
+int RX_hasToParse = 0;
 
 
 
 #define MAX_BUFFER_SIZE 200
-StatePacket outState = {
-    {0}, // this is the type, should be set by initSpeedPacket;
-    0,
-    0,0,
-    {0, 0, 0},
-    {0,0, 0},
-    0.0, 0.0,
-    0, 0.0,
-    0,
-    0, 0};
+StatePacket outState;
 
 char outputBuffer[MAX_BUFFER_SIZE];
 char inputBuffer[MAX_BUFFER_SIZE];
@@ -59,20 +50,17 @@ int main() {
 
 
 
-
     Micro_init();
-//    #if !__DEBUG
-//    DelayN1s(1);
-//    #endif
     generateCommands();
     putsUART1((unsigned int *) ">>>>>>>>>>>>>>>>>>>>>>>>>>>Micro is up and running<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
+    
 
-
+    memset(buffa,'\0',100);
     //ENCODER TEST
     //=================================================
     struct Encoder e1;
     struct Encoder e2;
-    
+
 
     EncoderController_init(&ec);
     ec.encoders[0] = &e1;
@@ -85,7 +73,7 @@ int main() {
 
     //PWM TEST
     //=================================================
-    
+
     struct PWM p1;
     p1.dutyCycle = 0;
     p1.period = 0;
@@ -97,125 +85,113 @@ int main() {
     pwmc.pwms[1] = &p2;
 
     PWMController_init(&pwmc, 1024); //39khz
-    
+
     //=================================================
 
 
-    //PID TEST
+    //PID INIT
     //=================================================
-    PIDControlAlgorithm_init(&leftPID,10,5,1,800,2,2);
-    PIDControlAlgorithm_init(&rightPID,10,5,1,800,2,2);
+    PIDControlAlgorithm_init(&leftPID, 10, 5, 1, 800, 2, 2);
+    PIDControlAlgorithm_init(&rightPID, 10, 5, 1, 800, 2, 2);
     //=================================================
     putsUART1((unsigned int *) "MOTOR INIT\n");
-    MotorController_init(   &RightMotorController,
-                            &ec,   0,
-                            &pwmc, 0,
-                            1 << 14,(unsigned int*)0x02CC,
-                            (struct ControlAlgorithm*)&leftPID,leftPID._period);
+    MotorController_init(&RightMotorController,
+            &ec, 0,
+            &pwmc, 0,
+            1 << 14, (unsigned int*) 0x02CC,
+            (struct ControlAlgorithm*) &leftPID, leftPID._period);
     putsUART1((unsigned int *) "MOTOR INIT\n");
-    MotorController_init(   &LeftMotorController,
-                            &ec,   1,
-                            &pwmc, 1,
-                            1 << 12,(unsigned int*)0x02CC,
-                            (struct ControlAlgorithm*)&rightPID,rightPID._period);
+    MotorController_init(&LeftMotorController,
+            &ec, 1,
+            &pwmc, 1,
+            1 << 12, (unsigned int*) 0x02CC,
+            (struct ControlAlgorithm*) &rightPID, rightPID._period);
     putsUART1((unsigned int *) "DIFFERENTIAL INIT\n");
-   DifferentialDriveOdometryHandler_init( &odo,
-                                            0.4, //baseling
-                                            &LeftMotorController,&RightMotorController,
-                                            0.1,0.1, //radius
-                                            0.000349066, 0.000349066, //radians per ticks
-                                            100, //period
-                                            &TransmissionBuffer); //trasmissionbuffer
+    DifferentialDriveOdometryHandler_init(&odo,
+            0.4, //baseling
+            &LeftMotorController, &RightMotorController,
+            0.1, 0.1, //radius
+            0.000349066, 0.000349066, //radians per ticks
+            100, //period
+            &TransmissionBuffer); //trasmissionbuffer
 
 
     //TRANSMISSION BUFFER
     putsUART1((unsigned int *) "TRANSMISSION INIT\n");
-    transmissionBuffer_init(&TransmissionBuffer,200);
-    
+    transmissionBuffer_init(&TransmissionBuffer, 200);
+
 
     //TIMER TEST
     //=================================================
     putsUART1((unsigned int *) "TIMER INIT\n");
     TimerEventHandler_init(&tHandler);
     putsUART1((unsigned int *) "RIGHT MOTOR EVENT\n");
-    TimerEventHandler_setEvent(&tHandler,0,&RightMotorController.event);
+    TimerEventHandler_setEvent(&tHandler, 0, &RightMotorController.event);
     putsUART1((unsigned int *) "LEFT MOTOR EVENT\n");
-    TimerEventHandler_setEvent(&tHandler,1,&LeftMotorController.event);
+    TimerEventHandler_setEvent(&tHandler, 1, &LeftMotorController.event);
     putsUART1((unsigned int *) "ODO EVENT\n");
-    TimerEventHandler_setEvent(&tHandler,2,&odo._base.event);
+    TimerEventHandler_setEvent(&tHandler, 2, &odo._base.event);
     putsUART1((unsigned int *) "TRANSMISSION EVENT\n");
-    TimerEventHandler_setEvent(&tHandler,3,&TransmissionBuffer.event);
-    
+    TimerEventHandler_setEvent(&tHandler, 3, &TransmissionBuffer.event);
+
     //=================================================
 
 
     //MotorController_setDesiredSpeed(&RightMotorController,50);
     //MotorController_setDesiredSpeed(&LeftMotorController,50);
     putsUART1((unsigned int *) "STARTING SCHEDULER\n");
-    TimerEventHandler_setRunning(&tHandler,1);
+    TimerEventHandler_setRunning(&tHandler, 1);
+
+
+    //PACKET HANDLER
+    putsUART1((unsigned int *) "STARTING MESSAGE HANDLER\n");
+    StatePacket_initVoid(&outState);
+    Packets_init();
+    StatePacket_initHeader(&outState);
+    // construct  a buffer
+    HexMessage_setBuffer(&outputStream, outputBuffer, MAX_BUFFER_SIZE);
+    memset(outputBuffer, 0, MAX_BUFFER_SIZE);
+    HexMessage_setBuffer(&inputStream, inputBuffer, MAX_BUFFER_SIZE);
+    memset(inputBuffer, 0, MAX_BUFFER_SIZE);
 
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
 
 
-    //-------------------------------------------------------------------------
-  Packets_init();
-  StatePacket_initHeader(&outState);
-
-//  QueryCommandsPacket outQuery = {{0}, -1};
-//  QueryCommandsPacket_initHeader(&outQuery);
-//
-//  SpeedPacket outSpeed = {{0}, 0.1, 0.2};
-//  // !!!!! remmeber to initialize the header after creating a packet
-//  SpeedPacket_initHeader(&outSpeed);
-//
-//  PIDPacket outPID = {{0}, 0, {1,2,3}, {1,2,3}};
-//  // !!!!! remmeber to initialize the header after creating a packet
-//  PIDPacket_initHeader(&outPID);
-//
-//  OdometryCalibPacket outOdom = {{0}, 0, 1e-3, 1e-3, 0.25};
-//  // !!!!! remmeber to initialize the header after creating a packet
-//  OdometryCalibPacket_initHeader(&outOdom);
 
 
-  // construct  a buffer
-  HexMessage_setBuffer(&outputStream, outputBuffer,MAX_BUFFER_SIZE);
-  memset(outputBuffer, 0, MAX_BUFFER_SIZE);
-  HexMessage_setBuffer(&inputStream, inputBuffer,MAX_BUFFER_SIZE);
-  memset(inputBuffer, 0, MAX_BUFFER_SIZE);
-
-  //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     while (1) {
 
-        
+
         TimerEventHandler_handleScheduledEvents(&tHandler);
 
-        
-        
-        if(U1STAbits.OERR) U1STAbits.OERR =0;
-//        if (RX_hasToParse) {
-//            memcpy(inputBuffer,CommandBuf,sizeof()
-//
-//
-//            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-////            putsUART1((unsigned int *) ">>");
-////            putsUART1((unsigned int *) CommandBuf);
-////            putsUART1((unsigned int *) "\n");
-////            memset(Buf, 0, sizeof (Buf));
-//            parseAndExecuteCommand();
-//            RX_hasToParse = 0;
-//        }
 
-        if (inputStream.current>inputStream.start){
-            putsUART1((unsigned int*)inputStream.start);
+
+        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+        //        if (RX_hasToParse) {
+        //            memcpy(inputBuffer,CommandBuf,sizeof()
+        //
+        //
+        //            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
+        ////            putsUART1((unsigned int *) ">>");
+        ////            putsUART1((unsigned int *) CommandBuf);
+        ////            putsUART1((unsigned int *) "\n");
+        ////            memset(Buf, 0, sizeof (Buf));
+        //            parseAndExecuteCommand();
+        //            RX_hasToParse = 0;
+        //        }
+
+        if (inputStream.current > inputStream.start) {
+            putsUART1((unsigned int*) "- inizio echo -\n");
+            putsUART1((unsigned int*) inputStream.start);
             HexMessage_reset(&inputStream);
-            putsUART1((unsigned int*)"dove cazzo stanno i doppi apici\n");
+            putsUART1((unsigned int*) "\n- fine echo -\n");
         }
 
-        if(outputStream.current>outputStream.start)
-        {
-            
-            *outputStream.current++='\n';
-            *outputStream.current++=0;
+        if (outputStream.current > outputStream.start) {
+
+            *outputStream.current++ = '\n';
+            *outputStream.current++ = 0;
             //putsUART1((unsigned int*)outputStream.start);
             HexMessage_reset(&outputStream);
         }

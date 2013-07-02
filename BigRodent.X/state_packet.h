@@ -23,7 +23,7 @@ enum HexMessageStatus StatePacket_read(HexMessage* msg, PacketHeader* state); //
 */
 
 int  StatePacket_initHandler(int16_t type);
-
+void StatePacket_initVoid(StatePacket* packet);
 void StatePacket_initHeader(StatePacket* packet);
 
 #endif
