@@ -37,7 +37,7 @@ int RX_hasToParse=0;
 
 
 
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 200
 StatePacket outState = {
     {0}, // this is the type, should be set by initSpeedPacket;
     0,
@@ -49,7 +49,12 @@ StatePacket outState = {
     0,
     0, 0};
 
+char outputBuffer[MAX_BUFFER_SIZE];
+char inputBuffer[MAX_BUFFER_SIZE];
+
 HexMessage outputStream;
+HexMessage inputStream;
+
 int main() {
 
 
@@ -173,61 +178,12 @@ int main() {
 
 
   // construct  a buffer
-  char buffer[MAX_BUFFER_SIZE];
-  HexMessage_setBuffer(&outputStream, buffer,MAX_BUFFER_SIZE);
-  memset(buffer, 0, MAX_BUFFER_SIZE);
+  HexMessage_setBuffer(&outputStream, outputBuffer,MAX_BUFFER_SIZE);
+  memset(outputBuffer, 0, MAX_BUFFER_SIZE);
+  HexMessage_setBuffer(&inputStream, inputBuffer,MAX_BUFFER_SIZE);
+  memset(inputBuffer, 0, MAX_BUFFER_SIZE);
 
-
-//  // write the query for the num of messages"
-//  if(Packet_write(&msg,(const struct PacketHeader*)&outQuery)!=Ok)
-//    printf("write error\n");
-//  *msg.current=0;
-//  printf("%s\n",msg.start);
-//  HexMessage_reset(&msg);
-
-//  // query the description of each message
-//  int j;
-//  for (j=0; j< PacketHandler_maxPacketTypes(); j++){
-//    outQuery.type = j;
-//    if(Packet_write(&msg,(const struct PacketHeader*)&outQuery)!=Ok)
-//      printf("write error\n");
-//    *msg.current=0;
-//    printf("%s\n",msg.start);
-//    HexMessage_reset(&msg);
-//  }
-
-
-
-//    if(Packet_write(&msg,(const struct PacketHeader*)&outSpeed)!=Ok)
-//      printf("write error\n");
-//    *msg.current=0;
-//    printf("%s\n",msg.start);
-//    HexMessage_reset(&msg);
-//
-//    if(Packet_write(&msg,(const struct PacketHeader*)&outPID)!=Ok)
-//      printf("write error\n");
-//    *msg.current=0;
-//    printf("%s\n",msg.start);
-//    HexMessage_reset(&msg);
-//
-//    if(Packet_write(&msg,(const struct PacketHeader*)&outOdom)!=Ok)
-//      printf("write error\n");
-//    *msg.current=0;
-//    printf("%s\n",msg.start);
-//    HexMessage_reset(&msg);
-  
-
-
-
-
-
-
-
-
-
-
-
-    //--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
     while (1) {
 
         
@@ -236,15 +192,23 @@ int main() {
         
         
         if(U1STAbits.OERR) U1STAbits.OERR =0;
-        if (RX_hasToParse) {
+//        if (RX_hasToParse) {
+//            memcpy(inputBuffer,CommandBuf,sizeof()
+//
+//
+//            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
+////            putsUART1((unsigned int *) ">>");
+////            putsUART1((unsigned int *) CommandBuf);
+////            putsUART1((unsigned int *) "\n");
+////            memset(Buf, 0, sizeof (Buf));
+//            parseAndExecuteCommand();
+//            RX_hasToParse = 0;
+//        }
 
-            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-//            putsUART1((unsigned int *) ">>");
-//            putsUART1((unsigned int *) CommandBuf);
-//            putsUART1((unsigned int *) "\n");
-//            memset(Buf, 0, sizeof (Buf));
-            parseAndExecuteCommand();
-            RX_hasToParse = 0;
+        if (inputStream.current>inputStream.start){
+            putsUART1((unsigned int*)inputStream.start);
+            HexMessage_reset(&inputStream);
+            putsUART1((unsigned int*)"dove cazzo stanno i doppi apici\n");
         }
 
         if(outputStream.current>outputStream.start)
@@ -252,7 +216,7 @@ int main() {
             
             *outputStream.current++='\n';
             *outputStream.current++=0;
-            putsUART1((unsigned int*)outputStream.start);
+            //putsUART1((unsigned int*)outputStream.start);
             HexMessage_reset(&outputStream);
         }
 
