@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
+#include "hexmessage.h"
+
+#include "packets.h"
 
 /*
  * 
@@ -33,8 +36,28 @@ int RX_hasToSend=0;
 int RX_hasToParse=0;
 
 
- 
+
+#define MAX_BUFFER_SIZE 200
+StatePacket outState = {
+    {0}, // this is the type, should be set by initSpeedPacket;
+    0,
+    0,0,
+    {0, 0, 0},
+    {0,0, 0},
+    0.0, 0.0,
+    0, 0.0,
+    0,
+    0, 0};
+
+char outputBuffer[MAX_BUFFER_SIZE];
+char inputBuffer[MAX_BUFFER_SIZE];
+
+HexMessage outputStream;
+HexMessage inputStream;
+
 int main() {
+
+
 
 
     Micro_init();
@@ -132,6 +155,35 @@ int main() {
     TimerEventHandler_setRunning(&tHandler,1);
 
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
+
+
+    //-------------------------------------------------------------------------
+  Packets_init();
+  StatePacket_initHeader(&outState);
+
+//  QueryCommandsPacket outQuery = {{0}, -1};
+//  QueryCommandsPacket_initHeader(&outQuery);
+//
+//  SpeedPacket outSpeed = {{0}, 0.1, 0.2};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  SpeedPacket_initHeader(&outSpeed);
+//
+//  PIDPacket outPID = {{0}, 0, {1,2,3}, {1,2,3}};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  PIDPacket_initHeader(&outPID);
+//
+//  OdometryCalibPacket outOdom = {{0}, 0, 1e-3, 1e-3, 0.25};
+//  // !!!!! remmeber to initialize the header after creating a packet
+//  OdometryCalibPacket_initHeader(&outOdom);
+
+
+  // construct  a buffer
+  HexMessage_setBuffer(&outputStream, outputBuffer,MAX_BUFFER_SIZE);
+  memset(outputBuffer, 0, MAX_BUFFER_SIZE);
+  HexMessage_setBuffer(&inputStream, inputBuffer,MAX_BUFFER_SIZE);
+  memset(inputBuffer, 0, MAX_BUFFER_SIZE);
+
+  //--------------------------------------------------------------------------
     while (1) {
 
         
@@ -140,16 +192,34 @@ int main() {
         
         
         if(U1STAbits.OERR) U1STAbits.OERR =0;
-        if (RX_hasToParse) {
+//        if (RX_hasToParse) {
+//            memcpy(inputBuffer,CommandBuf,sizeof()
+//
+//
+//            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
+////            putsUART1((unsigned int *) ">>");
+////            putsUART1((unsigned int *) CommandBuf);
+////            putsUART1((unsigned int *) "\n");
+////            memset(Buf, 0, sizeof (Buf));
+//            parseAndExecuteCommand();
+//            RX_hasToParse = 0;
+//        }
 
-            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-//            putsUART1((unsigned int *) ">>");
-//            putsUART1((unsigned int *) CommandBuf);
-//            putsUART1((unsigned int *) "\n");
-//            memset(Buf, 0, sizeof (Buf));
-            parseAndExecuteCommand();
-            RX_hasToParse = 0;
+        if (inputStream.current>inputStream.start){
+            putsUART1((unsigned int*)inputStream.start);
+            HexMessage_reset(&inputStream);
+            putsUART1((unsigned int*)"dove cazzo stanno i doppi apici\n");
         }
+
+        if(outputStream.current>outputStream.start)
+        {
+            
+            *outputStream.current++='\n';
+            *outputStream.current++=0;
+            //putsUART1((unsigned int*)outputStream.start);
+            HexMessage_reset(&outputStream);
+        }
+
 
     }
     return (EXIT_SUCCESS);
