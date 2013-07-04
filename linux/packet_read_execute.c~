@@ -119,7 +119,7 @@ int main(int argc, char** argv){
 	printf("%c",c);
 	//usleep(500);
   }
-  data_in[i]='\0';
+  data_in[i]='\0'
   
   PacketHandler_setStringExecuteFn(onStringReceived);
   HexMessage_setBuffer(&outputStream, outputBuffer, MAX_BUFFER_SIZE);

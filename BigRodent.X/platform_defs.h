@@ -27,8 +27,8 @@ typedef unsigned int uint16_t;
 typedef unsigned char uchar8_t;
 typedef int16_t mtime_t;
 typedef float long_t;
-typedef long long int very_long_t;
-typedef long int int32_t;
+typedef long long  very_long_t;
+typedef long  int32_t;
 //----------------------------------------------------------
 #endif
 

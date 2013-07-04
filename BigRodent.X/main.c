@@ -161,12 +161,7 @@ int main() {
 
     //--------------------------------------------------------------------------
     while (1) {
-
-
         TimerEventHandler_handleScheduledEvents(&tHandler);
-
-
-
         if (U1STAbits.OERR) U1STAbits.OERR = 0;
         //        if (RX_hasToParse) {
         //            memcpy(inputBuffer,CommandBuf,sizeof()
@@ -182,14 +177,12 @@ int main() {
         //        }
 
         if (inputStream.current > inputStream.start) {
-            putsUART1((unsigned int*) "- inizio echo -\n");
-            putsUART1((unsigned int*) inputStream.start);
+            ReceivedCommand=(struct _ReceivedCommand*)inputStream.start;
+            parseAndExecuteCommand();
             HexMessage_reset(&inputStream);
-            putsUART1((unsigned int*) "\n- fine echo -\n");
         }
 
         if (outputStream.current > outputStream.start) {
-
             *outputStream.current++ = '\n';
             *outputStream.current++ = 0;
             putsUART1((unsigned int*)outputStream.start);

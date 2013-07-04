@@ -13,7 +13,7 @@ int HexMessage_nextIsString(const HexMessage *msg){
 }
 
 enum HexMessageStatus HexMessage_writeHex(HexMessage* msg, const void* buf, int size){
-  const unsigned char* b=buf;
+  const unsigned char* b=(const unsigned char*)buf;
   int i;
   for (i=0; i<size; i++, b++){
     if (msg->end-msg->current<2)
@@ -47,7 +47,7 @@ enum HexMessageStatus HexMessage_writeString(HexMessage *msg, const char* s){
 }
 
 enum HexMessageStatus HexMessage_readHex(HexMessage *msg, void* buf, int size){
-  unsigned char* dest=buf;
+  unsigned char* dest=(unsigned char*)buf;
   int i;
   for (i=0; i<size; i++, dest++){
     if (msg->end-msg->current<2)
