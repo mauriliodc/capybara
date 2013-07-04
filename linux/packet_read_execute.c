@@ -111,6 +111,7 @@ int main(int argc, char** argv){
   set_interface_attribs (fd,115200, 0);
   set_blocking (fd, 1);
   char c;
+  write(fd,"$030050%\n                 $030050%\n",sizeof(char)*8);
   while( c!='\n')
   {
 	if(!read(fd, &c, sizeof(char))) continue;
