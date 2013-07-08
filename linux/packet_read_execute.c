@@ -3,9 +3,13 @@
 #include "packets.h"
 #include <string.h>
 #include <unistd.h>  /* UNIX standard function definitions */
-#include <fcntl.h>   /* File control definitions */
-#include <errno.h>   /* Error number definitions */
-#include <termios.h> /* POSIX terminal control definitions */
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
+
 
 #define MAX_BUFFER_SIZE 1024
  int fd;
@@ -43,100 +47,67 @@ void onStringReceived(const unsigned char * s) {
 }
 
 
-int
-set_interface_attribs (int fd, int speed, int parity)
-{
-        struct termios tty;
-        memset (&tty, 0, sizeof tty);
-        if (tcgetattr (fd, &tty) != 0)
-        {
-                printf ("error %d from tcgetattr", errno);
-                return -1;
-        }
-
-        cfsetospeed (&tty, speed);
-        cfsetispeed (&tty, speed);
-
-        tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8;     // 8-bit chars
-        // disable IGNBRK for mismatched speed tests; otherwise receive break
-        // as \000 chars
-        tty.c_iflag &= ~IGNBRK;         // ignore break signal
-        tty.c_lflag = 0;                // no signaling chars, no echo,
-                                        // no canonical processing
-        tty.c_oflag = 0;                // no remapping, no delays
-        tty.c_cc[VMIN]  = 0;            // read doesn't block
-        tty.c_cc[VTIME] = 5;            // 0.5 seconds read timeout
-
-        tty.c_iflag &= ~(IXON | IXOFF | IXANY); // shut off xon/xoff ctrl
-
-        tty.c_cflag |= (CLOCAL | CREAD);// ignore modem controls,
-                                        // enable reading
-        tty.c_cflag &= ~(PARENB | PARODD);      // shut off parity
-        tty.c_cflag |= parity;
-        tty.c_cflag |= CSTOPB;
-        tty.c_cflag &= ~CRTSCTS;
-
-        if (tcsetattr (fd, TCSANOW, &tty) != 0)
-        {
-                printf ("error %d from tcsetattr", errno);
-                return -1;
-        }
-        return 0;
-}
-
-void
-set_blocking (int fd, int should_block)
-{
-        struct termios tty;
-        memset (&tty, 0, sizeof tty);
-        if (tcgetattr (fd, &tty) != 0)
-        {
-                printf ("error %d from tggetattr", errno);
-                return;
-        }
-
-        tty.c_cc[VMIN]  = should_block ? 1 : 0;
-        tty.c_cc[VTIME] = 5;            // 0.5 seconds read timeout
-
-        if (tcsetattr (fd, TCSANOW, &tty) != 0)
-                printf ("error %d setting term attributes", errno);
-}
-
 int main(int argc, char** argv){
   Packets_init();
   char data_in[1000];
   struct termios options;
-  int i=0;
-  fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY );
-  set_interface_attribs (fd,115200, 0);
-  set_blocking (fd, 1);
-  char c;
-  write(fd,"$030050%\n                 $030050%\n",sizeof(char)*8);
-  while( c!='\n')
-  {
-	if(!read(fd, &c, sizeof(char))) continue;
-  	data_in[i]=c;
-	i++;
-	printf("%c",c);
-	//usleep(500);
-  }
-  data_in[i]='\0';
-  
+  int fd;
+
+  //===================================================================================
+        struct termios tio;
+        struct termios stdio;
+        struct termios old_stdio;
+        int tty_fd;
+        unsigned char c='D';
+        tcgetattr(STDOUT_FILENO,&old_stdio);
+ 
+        printf("Please start with %s /dev/ttyS1 (for example)\n",argv[0]);
+        memset(&stdio,0,sizeof(stdio));
+        stdio.c_iflag=0;
+        stdio.c_oflag=0;
+        stdio.c_cflag=0;
+        stdio.c_lflag=0;
+        stdio.c_cc[VMIN]=1;
+        stdio.c_cc[VTIME]=0;
+        //tcsetattr(STDOUT_FILENO,TCSANOW,&stdio);
+        //tcsetattr(STDOUT_FILENO,TCSAFLUSH,&stdio);
+        fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);       // make the reads non-blocking
+ 
+        memset(&tio,0,sizeof(tio));
+        tio.c_iflag=0;
+        tio.c_oflag=0;
+        tio.c_cflag=CS8|CREAD|CLOCAL;           // 8n1, see termios.h for more information
+        tio.c_lflag=0;
+        tio.c_cc[VMIN]=1;
+        tio.c_cc[VTIME]=5;
+ 
+        tty_fd=open(argv[1], O_RDWR | O_NONBLOCK);      
+        cfsetospeed(&tio,B115200);            // 115200 baud
+        cfsetispeed(&tio,B115200);            // 115200 baud
+ 
+        tcsetattr(tty_fd,TCSANOW,&tio);
+        int i=0;
+  //=========================================================================================
   PacketHandler_setStringExecuteFn(onStringReceived);
   HexMessage_setBuffer(&outputStream, outputBuffer, MAX_BUFFER_SIZE);
   HexMessage inputStream;
-  char line[MAX_BUFFER_SIZE];
-  char* endLine;
-  //while((endLine = fgets(line, 1024, stdin))){
-    //reset the output buffer
-    // simulate we ge the string from the serial something 
-    HexMessage_setBuffer(&inputStream, data_in, strlen(data_in)-1); // skip the newline
-    printf("incoming packet: [%s]\n",inputStream.start);
-    PacketHandlerLoop(&inputStream, &outputStream);
-    *outputStream.current=0;
-    // write on stdout the answers
-    printf("answer packet:   [%s]\n",outputStream.start);
-  //}
   
+  while(1){
+   i=0;
+   c=' ';
+   while (c!='\n'){
+    if (read(tty_fd,&c,1)>0){
+     data_in[i]=c;
+     i++;
+    }
+   }
+   char line[MAX_BUFFER_SIZE];
+   char* endLine;
+   HexMessage_setBuffer(&inputStream, data_in, strlen(data_in)-1); // skip the newline
+   printf("incoming packet: [%s]\n",inputStream.start);
+   PacketHandlerLoop(&inputStream, &outputStream);
+   *outputStream.current=0;
+   printf("answer packet:   [%s]\n",outputStream.start);
+  }
   return 0;
 }

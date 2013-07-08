@@ -1,8 +1,8 @@
 CCOPTS=-g -Wall
 CPPOPTS=-D_LINUX_
-LIBS = -lserial 
+LIBS = #-lserial 
 
-CC = g++ -L  -g
+CC = gcc -g
 
 OBJS = 	hexmessage.o \
 	packet_handler.o \
@@ -13,10 +13,11 @@ OBJS = 	hexmessage.o \
 	pid_packet.o \
 	odometrycalib_packet.o \
 	packets.o \
+	carmenserial.o 
  #	timer_handler.o 
  
 #all: 	timer_test packet_test packet_read_execute packet_generate
-all: 	packet_test packet_read_execute packet_generate
+all: 	packet_read_execute #packet_test  packet_generate
 
 #timer_test: $(OBJS) timer_test.c
 #	$(CC) $(CCOPTS) $(CPPOPTS) -o $@  $^    
