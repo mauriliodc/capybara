@@ -11,9 +11,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
-#include "hexmessage.h"
-
 #include "packets.h"
+
+
 
 /*
  * 
@@ -45,6 +45,15 @@ char inputBuffer[MAX_BUFFER_SIZE];
 
 HexMessage outputStream;
 HexMessage inputStream;
+
+void stringFN(const unsigned char* c) {
+    putsUART1((unsigned int*)"string callback\n");
+}
+
+
+//void PacketHandler_stringExecuteFn(const unsigned char*);
+
+extern StringExecuteFn PacketHandler_stringExecuteFn;
 
 int main() {
 
@@ -147,6 +156,7 @@ int main() {
     putsUART1((unsigned int *) "STARTING MESSAGE HANDLER\n");
     StatePacket_initVoid(&outState);
     Packets_init();
+    PacketHandler_setStringExecuteFn(stringFN);
     StatePacket_initHeader(&outState);
     // construct  a buffer
     HexMessage_setBuffer(&outputStream, outputBuffer, MAX_BUFFER_SIZE);
@@ -156,7 +166,7 @@ int main() {
 
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
 
-
+    
 
 
     //--------------------------------------------------------------------------
@@ -177,8 +187,19 @@ int main() {
         //        }
 
         if (inputStream.current > inputStream.start) {
-            ReceivedCommand=(struct _ReceivedCommand*)inputStream.start;
-            parseAndExecuteCommand();
+            //ReceivedCommand=(struct _ReceivedCommand*)inputStream.start;
+            //parseAndExecuteCommand();
+            HexMessage_rewind(&inputStream);
+            inputStream.current++;
+            unsigned char tmp[30];            
+            enum HexMessageStatus status;
+            status=HexMessage_readString(&inputStream,tmp);
+            if(status==Ok)
+            {
+               (*PacketHandler_stringExecuteFn)(tmp);
+            }
+            
+            putsUART1((unsigned int*)tmp);
             HexMessage_reset(&inputStream);
         }
 
