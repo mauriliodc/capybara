@@ -16,6 +16,10 @@
         <itemPath>packet_handler.h</itemPath>
         <itemPath>packets.h</itemPath>
         <itemPath>state_packet.h</itemPath>
+        <itemPath>querycommands_packet.h</itemPath>
+        <itemPath>speed_packet.h</itemPath>
+        <itemPath>pid_packet.h</itemPath>
+        <itemPath>wheelSpeed_packet.h</itemPath>
       </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>
@@ -45,6 +49,10 @@
         <itemPath>packet_handler.c</itemPath>
         <itemPath>packets.c</itemPath>
         <itemPath>state_packet.c</itemPath>
+        <itemPath>querycommands_packet.c</itemPath>
+        <itemPath>speed_packet.c</itemPath>
+        <itemPath>pid_packet.c</itemPath>
+        <itemPath>wheelSpeed_packet.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>platform_defs.c</itemPath>
@@ -197,7 +205,7 @@
       <PICkit2PlatformTool>
         <property key="pk2settings.3state" value="false"/>
         <property key="pk2settings.preserveee" value="false"/>
-        <property key="pk2settings.setvddvoltage" value=""/>
+        <property key="pk2settings.setvddvoltage" value="3.25"/>
         <property key="pk2settings.userpgmexec" value="true"/>
         <property key="pk2settings.usetargetpower" value="false"/>
       </PICkit2PlatformTool>

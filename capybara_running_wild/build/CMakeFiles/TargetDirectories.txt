@@ -3,6 +3,7 @@
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/clean-test-results.dir
+/home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/roditore.dir
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/rosbuild_precompile.dir
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/rosbuild_premsgsrvgen.dir
 /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles/rospack_genmsg.dir

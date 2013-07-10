@@ -17,7 +17,7 @@ OBJS = 	hexmessage.o \
  #	timer_handler.o 
  
 #all: 	timer_test packet_test packet_read_execute packet_generate
-all: 	packet_read_execute #packet_test  packet_generate
+all: 	packet_read_execute packet_test  packet_generate
 
 #timer_test: $(OBJS) timer_test.c
 #	$(CC) $(CCOPTS) $(CPPOPTS) -o $@  $^    

@@ -9,6 +9,9 @@
 #define	PACKETS_H
 
 #include "state_packet.h"
+#include "querycommands_packet.h"
+#include "speed_packet.h"
+#include "pid_packet.h"
 
 void Packets_init();
 

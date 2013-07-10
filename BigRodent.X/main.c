@@ -47,13 +47,43 @@ HexMessage outputStream;
 HexMessage inputStream;
 
 void stringFN(const unsigned char* c) {
-    putsUART1((unsigned int*)"string callback\n");
+    putsUART1((unsigned int*) "string callback\n");
 }
 
 
 //void PacketHandler_stringExecuteFn(const unsigned char*);
 
 extern StringExecuteFn PacketHandler_stringExecuteFn;
+char packetBuffer [MAX_BUFFER_SIZE]; // where we write our deserialized packet
+PacketHeader * parsedPacket = (PacketHeader *) packetBuffer;
+
+void PacketHandlerLoop(HexMessage* inputStream, HexMessage* outputStream){
+  int error=0;
+  //HexMessage_reset(outputStream);
+  putsUART1((unsigned int*)inputStream->start);
+
+  while(! error &&
+	inputStream->current!=inputStream->end){
+    enum HexMessageStatus status=Packet_read(inputStream,parsedPacket);
+    if (status==Ok ) {
+      if (parsedPacket->type>=0){
+      	Packet_print(parsedPacket);
+	Packet_execute(parsedPacket, outputStream);
+      }
+
+
+    } else  {
+      printf("Parsing error ");
+      printf("%d \n",status);
+      error = 1;
+    }
+    
+  }
+
+}
+
+
+
 
 int main() {
 
@@ -62,9 +92,9 @@ int main() {
     Micro_init();
     generateCommands();
     putsUART1((unsigned int *) ">>>>>>>>>>>>>>>>>>>>>>>>>>>Micro is up and running<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
-    
 
-    memset(buffa,'\0',100);
+
+    memset(buffa, '\0', 100);
     //ENCODER TEST
     //=================================================
     struct Encoder e1;
@@ -166,52 +196,29 @@ int main() {
 
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
 
-    
+
 
 
     //--------------------------------------------------------------------------
     while (1) {
         TimerEventHandler_handleScheduledEvents(&tHandler);
         if (U1STAbits.OERR) U1STAbits.OERR = 0;
-        //        if (RX_hasToParse) {
-        //            memcpy(inputBuffer,CommandBuf,sizeof()
-        //
-        //
-        //            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
-        ////            putsUART1((unsigned int *) ">>");
-        ////            putsUART1((unsigned int *) CommandBuf);
-        ////            putsUART1((unsigned int *) "\n");
-        ////            memset(Buf, 0, sizeof (Buf));
-        //            parseAndExecuteCommand();
-        //            RX_hasToParse = 0;
-        //        }
 
-        if (inputStream.current > inputStream.start) {
-            //ReceivedCommand=(struct _ReceivedCommand*)inputStream.start;
-            //parseAndExecuteCommand();
-            HexMessage_rewind(&inputStream);
-            inputStream.current++;
-            unsigned char tmp[30];            
-            enum HexMessageStatus status;
-            status=HexMessage_readString(&inputStream,tmp);
-            if(status==Ok)
+            if(inputStream.current > inputStream.start)
             {
-               (*PacketHandler_stringExecuteFn)(tmp);
+                HexMessage_rewind(&inputStream);                
+                PacketHandlerLoop(&inputStream, &outputStream);
+                HexMessage_reset(&inputStream);
             }
-            
-            putsUART1((unsigned int*)tmp);
-            HexMessage_reset(&inputStream);
+            if (outputStream.current > outputStream.start) {
+                *outputStream.current++ = '\n';
+                *outputStream.current++ = 0;
+                putsUART1((unsigned int*) outputStream.start);
+                HexMessage_reset(&outputStream);
+            }
+
+
         }
-
-        if (outputStream.current > outputStream.start) {
-            *outputStream.current++ = '\n';
-            *outputStream.current++ = 0;
-            putsUART1((unsigned int*)outputStream.start);
-            HexMessage_reset(&outputStream);
-        }
-
-
+        return (EXIT_SUCCESS);
     }
-    return (EXIT_SUCCESS);
-}
 

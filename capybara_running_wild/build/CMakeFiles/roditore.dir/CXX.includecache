@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/malcom/src/ros/capybara_running_wild/src/serialFriend.cpp
+serialFriend.h
+/home/malcom/src/ros/capybara_running_wild/src/serialFriend.h
+cstring
+-
+stdint.h
+-
+stdlib.h
+-
+stdio.h
+-
+unistd.h
+-
+fcntl.h
+-
+termios.h
+-
+iostream
+-
+
+/home/malcom/src/ros/capybara_running_wild/src/serialFriend.h
+unistd.h
+-
+string
+-
+stdlib.h
+-
+stdio.h
+-
+unistd.h
+-
+fcntl.h
+-
+termios.h
+-
+

@@ -164,6 +164,19 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
+# Target rules for targets named roditore
+
+# Build rule for target.
+roditore: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roditore
+.PHONY : roditore
+
+# fast build rule for target.
+roditore/fast:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/build
+.PHONY : roditore/fast
+
+#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -293,6 +306,36 @@ tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
 
+# target to build an object file
+src/rodent.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.o
+.PHONY : src/rodent.o
+
+# target to preprocess a source file
+src/rodent.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.i
+.PHONY : src/rodent.i
+
+# target to generate assembly for a file
+src/rodent.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.s
+.PHONY : src/rodent.s
+
+# target to build an object file
+src/serialFriend.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/serialFriend.o
+.PHONY : src/serialFriend.o
+
+# target to preprocess a source file
+src/serialFriend.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/serialFriend.i
+.PHONY : src/serialFriend.i
+
+# target to generate assembly for a file
+src/serialFriend.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/serialFriend.s
+.PHONY : src/serialFriend.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -306,6 +349,7 @@ help:
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... roditore"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_genmsg"
@@ -316,6 +360,12 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... src/rodent.o"
+	@echo "... src/rodent.i"
+	@echo "... src/rodent.s"
+	@echo "... src/serialFriend.o"
+	@echo "... src/serialFriend.i"
+	@echo "... src/serialFriend.s"
 .PHONY : help
 
 

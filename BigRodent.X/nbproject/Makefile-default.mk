@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/hexmessage.o ${OBJECTDIR}/packet_handler.o ${OBJECTDIR}/packets.o ${OBJECTDIR}/state_packet.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/message_buffer.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/hexmessage.o.d ${OBJECTDIR}/packet_handler.o.d ${OBJECTDIR}/packets.o.d ${OBJECTDIR}/state_packet.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/message_buffer.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/hexmessage.o ${OBJECTDIR}/packet_handler.o ${OBJECTDIR}/packets.o ${OBJECTDIR}/state_packet.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/querycommands_packet.o ${OBJECTDIR}/speed_packet.o ${OBJECTDIR}/pid_packet.o ${OBJECTDIR}/wheelSpeed_packet.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/hexmessage.o.d ${OBJECTDIR}/packet_handler.o.d ${OBJECTDIR}/packets.o.d ${OBJECTDIR}/state_packet.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/message_buffer.o.d ${OBJECTDIR}/querycommands_packet.o.d ${OBJECTDIR}/speed_packet.o.d ${OBJECTDIR}/pid_packet.o.d ${OBJECTDIR}/wheelSpeed_packet.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/hexmessage.o ${OBJECTDIR}/packet_handler.o ${OBJECTDIR}/packets.o ${OBJECTDIR}/state_packet.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/message_buffer.o
+OBJECTFILES=${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/hexmessage.o ${OBJECTDIR}/packet_handler.o ${OBJECTDIR}/packets.o ${OBJECTDIR}/state_packet.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/querycommands_packet.o ${OBJECTDIR}/speed_packet.o ${OBJECTDIR}/pid_packet.o ${OBJECTDIR}/wheelSpeed_packet.o
 
 
 CFLAGS=
@@ -163,6 +163,30 @@ ${OBJECTDIR}/message_buffer.o: message_buffer.c  nbproject/Makefile-${CND_CONF}.
 	${MP_CC} $(MP_EXTRA_CC_PRE)  message_buffer.c  -o ${OBJECTDIR}/message_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/message_buffer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/message_buffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/querycommands_packet.o: querycommands_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/querycommands_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  querycommands_packet.c  -o ${OBJECTDIR}/querycommands_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/querycommands_packet.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/querycommands_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/speed_packet.o: speed_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/speed_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  speed_packet.c  -o ${OBJECTDIR}/speed_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/speed_packet.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/speed_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/pid_packet.o: pid_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/pid_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  pid_packet.c  -o ${OBJECTDIR}/pid_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/pid_packet.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/pid_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/wheelSpeed_packet.o: wheelSpeed_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/wheelSpeed_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  wheelSpeed_packet.c  -o ${OBJECTDIR}/wheelSpeed_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/wheelSpeed_packet.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1  -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/wheelSpeed_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/encoder_controller.o: encoder_controller.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
@@ -253,6 +277,30 @@ ${OBJECTDIR}/message_buffer.o: message_buffer.c  nbproject/Makefile-${CND_CONF}.
 	@${RM} ${OBJECTDIR}/message_buffer.o.d 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  message_buffer.c  -o ${OBJECTDIR}/message_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/message_buffer.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/message_buffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/querycommands_packet.o: querycommands_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/querycommands_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  querycommands_packet.c  -o ${OBJECTDIR}/querycommands_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/querycommands_packet.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/querycommands_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/speed_packet.o: speed_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/speed_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  speed_packet.c  -o ${OBJECTDIR}/speed_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/speed_packet.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/speed_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/pid_packet.o: pid_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/pid_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  pid_packet.c  -o ${OBJECTDIR}/pid_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/pid_packet.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/pid_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/wheelSpeed_packet.o: wheelSpeed_packet.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/wheelSpeed_packet.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  wheelSpeed_packet.c  -o ${OBJECTDIR}/wheelSpeed_packet.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/wheelSpeed_packet.o.d"      -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/wheelSpeed_packet.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

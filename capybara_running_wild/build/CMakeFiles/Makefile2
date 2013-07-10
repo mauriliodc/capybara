@@ -208,6 +208,41 @@ clean: CMakeFiles/clean-test-results.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/roditore.dir
+
+# All Build rule for target.
+CMakeFiles/roditore.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/depend
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles  1 2
+	@echo "Built target roditore"
+.PHONY : CMakeFiles/roditore.dir/all
+
+# Include target in all.
+all: CMakeFiles/roditore.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/roditore.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roditore.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles 0
+.PHONY : CMakeFiles/roditore.dir/rule
+
+# Convenience name for target.
+roditore: CMakeFiles/roditore.dir/rule
+.PHONY : roditore
+
+# clean rule for target.
+CMakeFiles/roditore.dir/clean:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/clean
+.PHONY : CMakeFiles/roditore.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/roditore.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/rosbuild_precompile.dir
 
 # All Build rule for target.
