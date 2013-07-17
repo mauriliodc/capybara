@@ -214,7 +214,7 @@ clean: CMakeFiles/clean-test-results.dir/clean
 CMakeFiles/roditore.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/depend
 	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles  1 2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12
 	@echo "Built target roditore"
 .PHONY : CMakeFiles/roditore.dir/all
 
@@ -224,7 +224,7 @@ all: CMakeFiles/roditore.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/roditore.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/roditore.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles 0
 .PHONY : CMakeFiles/roditore.dir/rule

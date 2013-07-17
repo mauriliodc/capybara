@@ -51,7 +51,7 @@ int main(int argc, char** argv){
     HexMessage_setBuffer(&inputStream, line, strlen(line)-1); // skip the newline
     printf("incoming packet: [%s]\n",inputStream.start);
     PacketHandlerLoop(&inputStream, &outputStream);
-    *outputStream.current=0;
+    //*outputStream.current=0;
     // write on stdout the answers
     printf("answer packet:   [%s]\n",outputStream.start);
   }

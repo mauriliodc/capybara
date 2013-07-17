@@ -151,7 +151,7 @@ int main() {
             &LeftMotorController, &RightMotorController,
             0.1, 0.1, //radius
             0.000349066, 0.000349066, //radians per ticks
-            1000, //period
+            50, //period
             &TransmissionBuffer); //trasmissionbuffer
 
 
@@ -213,7 +213,9 @@ int main() {
             if (outputStream.current > outputStream.start) {
                 *outputStream.current++ = '\n';
                 *outputStream.current++ = 0;
+                putsUART1((unsigned int*) "$");
                 putsUART1((unsigned int*) outputStream.start);
+                putsUART1((unsigned int*) "%\n");
                 HexMessage_reset(&outputStream);
             }
 

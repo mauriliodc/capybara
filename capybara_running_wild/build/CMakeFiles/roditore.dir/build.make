@@ -49,45 +49,6 @@ include CMakeFiles/roditore.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/roditore.dir/flags.make
 
-CMakeFiles/roditore.dir/src/rodent.o: CMakeFiles/roditore.dir/flags.make
-CMakeFiles/roditore.dir/src/rodent.o: ../src/rodent.cpp
-CMakeFiles/roditore.dir/src/rodent.o: ../manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roslang/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rospy/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roscpp/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rostest/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roswtf/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/message_filters/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
-CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/rodent.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/rodent.o -c /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp
-
-CMakeFiles/roditore.dir/src/rodent.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/rodent.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp > CMakeFiles/roditore.dir/src/rodent.i
-
-CMakeFiles/roditore.dir/src/rodent.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/rodent.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp -o CMakeFiles/roditore.dir/src/rodent.s
-
-CMakeFiles/roditore.dir/src/rodent.o.requires:
-.PHONY : CMakeFiles/roditore.dir/src/rodent.o.requires
-
-CMakeFiles/roditore.dir/src/rodent.o.provides: CMakeFiles/roditore.dir/src/rodent.o.requires
-	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.o.provides.build
-.PHONY : CMakeFiles/roditore.dir/src/rodent.o.provides
-
-CMakeFiles/roditore.dir/src/rodent.o.provides.build: CMakeFiles/roditore.dir/src/rodent.o
-
 CMakeFiles/roditore.dir/src/serialFriend.o: CMakeFiles/roditore.dir/flags.make
 CMakeFiles/roditore.dir/src/serialFriend.o: ../src/serialFriend.cpp
 CMakeFiles/roditore.dir/src/serialFriend.o: ../manifest.xml
@@ -106,7 +67,7 @@ CMakeFiles/roditore.dir/src/serialFriend.o: /opt/ros/fuerte/share/message_filter
 CMakeFiles/roditore.dir/src/serialFriend.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
 CMakeFiles/roditore.dir/src/serialFriend.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
 CMakeFiles/roditore.dir/src/serialFriend.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/serialFriend.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/serialFriend.o -c /home/malcom/src/ros/capybara_running_wild/src/serialFriend.cpp
 
@@ -127,16 +88,465 @@ CMakeFiles/roditore.dir/src/serialFriend.o.provides: CMakeFiles/roditore.dir/src
 
 CMakeFiles/roditore.dir/src/serialFriend.o.provides.build: CMakeFiles/roditore.dir/src/serialFriend.o
 
+CMakeFiles/roditore.dir/src/packets.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/packets.o: ../src/packets.cpp
+CMakeFiles/roditore.dir/src/packets.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/packets.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/packets.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/packets.o -c /home/malcom/src/ros/capybara_running_wild/src/packets.cpp
+
+CMakeFiles/roditore.dir/src/packets.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/packets.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/packets.cpp > CMakeFiles/roditore.dir/src/packets.i
+
+CMakeFiles/roditore.dir/src/packets.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/packets.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/packets.cpp -o CMakeFiles/roditore.dir/src/packets.s
+
+CMakeFiles/roditore.dir/src/packets.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/packets.o.requires
+
+CMakeFiles/roditore.dir/src/packets.o.provides: CMakeFiles/roditore.dir/src/packets.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packets.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/packets.o.provides
+
+CMakeFiles/roditore.dir/src/packets.o.provides.build: CMakeFiles/roditore.dir/src/packets.o
+
+CMakeFiles/roditore.dir/src/platform_defs.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/platform_defs.o: ../src/platform_defs.cpp
+CMakeFiles/roditore.dir/src/platform_defs.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/platform_defs.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/platform_defs.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/platform_defs.o -c /home/malcom/src/ros/capybara_running_wild/src/platform_defs.cpp
+
+CMakeFiles/roditore.dir/src/platform_defs.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/platform_defs.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/platform_defs.cpp > CMakeFiles/roditore.dir/src/platform_defs.i
+
+CMakeFiles/roditore.dir/src/platform_defs.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/platform_defs.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/platform_defs.cpp -o CMakeFiles/roditore.dir/src/platform_defs.s
+
+CMakeFiles/roditore.dir/src/platform_defs.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/platform_defs.o.requires
+
+CMakeFiles/roditore.dir/src/platform_defs.o.provides: CMakeFiles/roditore.dir/src/platform_defs.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/platform_defs.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/platform_defs.o.provides
+
+CMakeFiles/roditore.dir/src/platform_defs.o.provides.build: CMakeFiles/roditore.dir/src/platform_defs.o
+
+CMakeFiles/roditore.dir/src/querycommands_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/querycommands_packet.o: ../src/querycommands_packet.cpp
+CMakeFiles/roditore.dir/src/querycommands_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/querycommands_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/querycommands_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/querycommands_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/querycommands_packet.cpp
+
+CMakeFiles/roditore.dir/src/querycommands_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/querycommands_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/querycommands_packet.cpp > CMakeFiles/roditore.dir/src/querycommands_packet.i
+
+CMakeFiles/roditore.dir/src/querycommands_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/querycommands_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/querycommands_packet.cpp -o CMakeFiles/roditore.dir/src/querycommands_packet.s
+
+CMakeFiles/roditore.dir/src/querycommands_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/querycommands_packet.o.requires
+
+CMakeFiles/roditore.dir/src/querycommands_packet.o.provides: CMakeFiles/roditore.dir/src/querycommands_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/querycommands_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/querycommands_packet.o.provides
+
+CMakeFiles/roditore.dir/src/querycommands_packet.o.provides.build: CMakeFiles/roditore.dir/src/querycommands_packet.o
+
+CMakeFiles/roditore.dir/src/packet_handler.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/packet_handler.o: ../src/packet_handler.cpp
+CMakeFiles/roditore.dir/src/packet_handler.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/packet_handler.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/packet_handler.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/packet_handler.o -c /home/malcom/src/ros/capybara_running_wild/src/packet_handler.cpp
+
+CMakeFiles/roditore.dir/src/packet_handler.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/packet_handler.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/packet_handler.cpp > CMakeFiles/roditore.dir/src/packet_handler.i
+
+CMakeFiles/roditore.dir/src/packet_handler.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/packet_handler.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/packet_handler.cpp -o CMakeFiles/roditore.dir/src/packet_handler.s
+
+CMakeFiles/roditore.dir/src/packet_handler.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/packet_handler.o.requires
+
+CMakeFiles/roditore.dir/src/packet_handler.o.provides: CMakeFiles/roditore.dir/src/packet_handler.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packet_handler.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/packet_handler.o.provides
+
+CMakeFiles/roditore.dir/src/packet_handler.o.provides.build: CMakeFiles/roditore.dir/src/packet_handler.o
+
+CMakeFiles/roditore.dir/src/hexmessage.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/hexmessage.o: ../src/hexmessage.cpp
+CMakeFiles/roditore.dir/src/hexmessage.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/hexmessage.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/hexmessage.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/hexmessage.o -c /home/malcom/src/ros/capybara_running_wild/src/hexmessage.cpp
+
+CMakeFiles/roditore.dir/src/hexmessage.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/hexmessage.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/hexmessage.cpp > CMakeFiles/roditore.dir/src/hexmessage.i
+
+CMakeFiles/roditore.dir/src/hexmessage.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/hexmessage.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/hexmessage.cpp -o CMakeFiles/roditore.dir/src/hexmessage.s
+
+CMakeFiles/roditore.dir/src/hexmessage.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/hexmessage.o.requires
+
+CMakeFiles/roditore.dir/src/hexmessage.o.provides: CMakeFiles/roditore.dir/src/hexmessage.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/hexmessage.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/hexmessage.o.provides
+
+CMakeFiles/roditore.dir/src/hexmessage.o.provides.build: CMakeFiles/roditore.dir/src/hexmessage.o
+
+CMakeFiles/roditore.dir/src/state_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/state_packet.o: ../src/state_packet.cpp
+CMakeFiles/roditore.dir/src/state_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/state_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/state_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/state_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/state_packet.cpp
+
+CMakeFiles/roditore.dir/src/state_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/state_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/state_packet.cpp > CMakeFiles/roditore.dir/src/state_packet.i
+
+CMakeFiles/roditore.dir/src/state_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/state_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/state_packet.cpp -o CMakeFiles/roditore.dir/src/state_packet.s
+
+CMakeFiles/roditore.dir/src/state_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/state_packet.o.requires
+
+CMakeFiles/roditore.dir/src/state_packet.o.provides: CMakeFiles/roditore.dir/src/state_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/state_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/state_packet.o.provides
+
+CMakeFiles/roditore.dir/src/state_packet.o.provides.build: CMakeFiles/roditore.dir/src/state_packet.o
+
+CMakeFiles/roditore.dir/src/speed_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/speed_packet.o: ../src/speed_packet.cpp
+CMakeFiles/roditore.dir/src/speed_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/speed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/speed_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/speed_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/speed_packet.cpp
+
+CMakeFiles/roditore.dir/src/speed_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/speed_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/speed_packet.cpp > CMakeFiles/roditore.dir/src/speed_packet.i
+
+CMakeFiles/roditore.dir/src/speed_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/speed_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/speed_packet.cpp -o CMakeFiles/roditore.dir/src/speed_packet.s
+
+CMakeFiles/roditore.dir/src/speed_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/speed_packet.o.requires
+
+CMakeFiles/roditore.dir/src/speed_packet.o.provides: CMakeFiles/roditore.dir/src/speed_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/speed_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/speed_packet.o.provides
+
+CMakeFiles/roditore.dir/src/speed_packet.o.provides.build: CMakeFiles/roditore.dir/src/speed_packet.o
+
+CMakeFiles/roditore.dir/src/pid_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/pid_packet.o: ../src/pid_packet.cpp
+CMakeFiles/roditore.dir/src/pid_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/pid_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/pid_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/pid_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/pid_packet.cpp
+
+CMakeFiles/roditore.dir/src/pid_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/pid_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/pid_packet.cpp > CMakeFiles/roditore.dir/src/pid_packet.i
+
+CMakeFiles/roditore.dir/src/pid_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/pid_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/pid_packet.cpp -o CMakeFiles/roditore.dir/src/pid_packet.s
+
+CMakeFiles/roditore.dir/src/pid_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/pid_packet.o.requires
+
+CMakeFiles/roditore.dir/src/pid_packet.o.provides: CMakeFiles/roditore.dir/src/pid_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/pid_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/pid_packet.o.provides
+
+CMakeFiles/roditore.dir/src/pid_packet.o.provides.build: CMakeFiles/roditore.dir/src/pid_packet.o
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: ../src/odometrycalib_packet.cpp
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/odometrycalib_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/odometrycalib_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/odometrycalib_packet.cpp
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/odometrycalib_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/odometrycalib_packet.cpp > CMakeFiles/roditore.dir/src/odometrycalib_packet.i
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/odometrycalib_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/odometrycalib_packet.cpp -o CMakeFiles/roditore.dir/src/odometrycalib_packet.s
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/odometrycalib_packet.o.requires
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o.provides: CMakeFiles/roditore.dir/src/odometrycalib_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/odometrycalib_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/odometrycalib_packet.o.provides
+
+CMakeFiles/roditore.dir/src/odometrycalib_packet.o.provides.build: CMakeFiles/roditore.dir/src/odometrycalib_packet.o
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: ../src/wheelSpeed_packet.cpp
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/wheelSpeed_packet.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/wheelSpeed_packet.o -c /home/malcom/src/ros/capybara_running_wild/src/wheelSpeed_packet.cpp
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/wheelSpeed_packet.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/wheelSpeed_packet.cpp > CMakeFiles/roditore.dir/src/wheelSpeed_packet.i
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/wheelSpeed_packet.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/wheelSpeed_packet.cpp -o CMakeFiles/roditore.dir/src/wheelSpeed_packet.s
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.requires
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.provides: CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.provides
+
+CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.provides.build: CMakeFiles/roditore.dir/src/wheelSpeed_packet.o
+
+CMakeFiles/roditore.dir/src/rodent.o: CMakeFiles/roditore.dir/flags.make
+CMakeFiles/roditore.dir/src/rodent.o: ../src/rodent.cpp
+CMakeFiles/roditore.dir/src/rodent.o: ../manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roslang/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rospy/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/bullet/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roscpp/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rosconsole/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/angles/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/rostest/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/roswtf/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/share/message_filters/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/manifest.xml
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
+CMakeFiles/roditore.dir/src/rodent.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/malcom/src/ros/capybara_running_wild/build/CMakeFiles $(CMAKE_PROGRESS_12)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/roditore.dir/src/rodent.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/roditore.dir/src/rodent.o -c /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp
+
+CMakeFiles/roditore.dir/src/rodent.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/roditore.dir/src/rodent.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp > CMakeFiles/roditore.dir/src/rodent.i
+
+CMakeFiles/roditore.dir/src/rodent.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/roditore.dir/src/rodent.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/malcom/src/ros/capybara_running_wild/src/rodent.cpp -o CMakeFiles/roditore.dir/src/rodent.s
+
+CMakeFiles/roditore.dir/src/rodent.o.requires:
+.PHONY : CMakeFiles/roditore.dir/src/rodent.o.requires
+
+CMakeFiles/roditore.dir/src/rodent.o.provides: CMakeFiles/roditore.dir/src/rodent.o.requires
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.o.provides.build
+.PHONY : CMakeFiles/roditore.dir/src/rodent.o.provides
+
+CMakeFiles/roditore.dir/src/rodent.o.provides.build: CMakeFiles/roditore.dir/src/rodent.o
+
 # Object files for target roditore
 roditore_OBJECTS = \
-"CMakeFiles/roditore.dir/src/rodent.o" \
-"CMakeFiles/roditore.dir/src/serialFriend.o"
+"CMakeFiles/roditore.dir/src/serialFriend.o" \
+"CMakeFiles/roditore.dir/src/packets.o" \
+"CMakeFiles/roditore.dir/src/platform_defs.o" \
+"CMakeFiles/roditore.dir/src/querycommands_packet.o" \
+"CMakeFiles/roditore.dir/src/packet_handler.o" \
+"CMakeFiles/roditore.dir/src/hexmessage.o" \
+"CMakeFiles/roditore.dir/src/state_packet.o" \
+"CMakeFiles/roditore.dir/src/speed_packet.o" \
+"CMakeFiles/roditore.dir/src/pid_packet.o" \
+"CMakeFiles/roditore.dir/src/odometrycalib_packet.o" \
+"CMakeFiles/roditore.dir/src/wheelSpeed_packet.o" \
+"CMakeFiles/roditore.dir/src/rodent.o"
 
 # External object files for target roditore
 roditore_EXTERNAL_OBJECTS =
 
-../bin/roditore: CMakeFiles/roditore.dir/src/rodent.o
 ../bin/roditore: CMakeFiles/roditore.dir/src/serialFriend.o
+../bin/roditore: CMakeFiles/roditore.dir/src/packets.o
+../bin/roditore: CMakeFiles/roditore.dir/src/platform_defs.o
+../bin/roditore: CMakeFiles/roditore.dir/src/querycommands_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/packet_handler.o
+../bin/roditore: CMakeFiles/roditore.dir/src/hexmessage.o
+../bin/roditore: CMakeFiles/roditore.dir/src/state_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/speed_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/pid_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/odometrycalib_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/wheelSpeed_packet.o
+../bin/roditore: CMakeFiles/roditore.dir/src/rodent.o
 ../bin/roditore: CMakeFiles/roditore.dir/build.make
 ../bin/roditore: CMakeFiles/roditore.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/roditore"
@@ -146,8 +556,18 @@ roditore_EXTERNAL_OBJECTS =
 CMakeFiles/roditore.dir/build: ../bin/roditore
 .PHONY : CMakeFiles/roditore.dir/build
 
-CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/rodent.o.requires
 CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/serialFriend.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/packets.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/platform_defs.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/querycommands_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/packet_handler.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/hexmessage.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/state_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/speed_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/pid_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/odometrycalib_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/wheelSpeed_packet.o.requires
+CMakeFiles/roditore.dir/requires: CMakeFiles/roditore.dir/src/rodent.o.requires
 .PHONY : CMakeFiles/roditore.dir/requires
 
 CMakeFiles/roditore.dir/clean:

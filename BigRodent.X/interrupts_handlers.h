@@ -88,12 +88,11 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
         *bcurr =c;
         bcurr++;
         if (c==RX_footer){
-            int size = bcurr-bstart-1;
+            int size = bcurr-bstart;
             if(inputStream.end-inputStream.current>size) {
-                memcpy(inputStream.current,bstart,size);
-                inputStream.current += size;
-                //*inputStream.current='\0';
-                //*inputStream.current++;
+                memcpy(inputStream.current,bstart+1,size-2);
+                inputStream.current += size-2;
+                *inputStream.current = '\0';
                 receiving_command=0;
             }
             bcurr = bstart;

@@ -13,7 +13,8 @@ class SerialFriend{
 	public:
 		SerialFriend(std::string portName, int baudRate);
 		~SerialFriend();
-		std::string read();
+		int read(char* buf);
+		void write(char* buf);
 		
 	private:
 		std::string _portName;
@@ -23,6 +24,6 @@ class SerialFriend{
 		struct termios _tio;
 		struct termios _stdio;
 		struct termios _old_stdio;
-}
+};
 
 #endif

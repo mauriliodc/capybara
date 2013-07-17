@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
-
+#include <iostream>
 
 SerialFriend::SerialFriend(std::string portName, int baudRate){
 
@@ -34,23 +34,17 @@ SerialFriend::SerialFriend(std::string portName, int baudRate){
   tcsetattr(this->_tty_fd,TCSANOW,&this->_tio);
 }
 
-void SerialFriend::read(char* buf,int s){
+int SerialFriend::read(char* buf){
   char* b=buf;
-  while(1){
-    int retval = ::read(this->_tty_fd,b,s);
-   if (retval>0) {
-      for (int i=0; i<retval; i++)
-      	if(b[i]=='\n'){
-	  b+=retval;  
-	  *b='\0';
-      	  printf("%s",buf);
-      	} else {
-      	  
-      }
-      }
-      b+=retval;
-    }
-    //else
-    //printf(".");
-  }
+
+    return  ::read(this->_tty_fd,b,1);
+
+}
+
+void SerialFriend::write(char* buf){
+    for(int i=0;i<strlen(buf);i++){
+	char tmp;
+	tmp=buf[i];
+	::write(this->_tty_fd,&tmp,1);
+	}
 }

@@ -34,27 +34,24 @@ SerialFriend::SerialFriend(std::string portName, int baudRate){
   tcsetattr(this->_tty_fd,TCSANOW,&this->_tio);
 }
 
-void SerialFriend::read(char* buf,int s){
+SerialFriend::~SerialFriend(){
+  if (_tty_fd>0)
+    ::close(_tty_fd);
+}
+
+int SerialFriend::read(char* buf){
   char* b=buf;
-  while(1){
-    int currentlyRead=b-buf;
-    int currentlyToRead=s-currentlyRead-1;
-    //printf ("cr: %d, ctr: %d\n",currentlyRead, currentlyToRead);
-    char c[3];
-    //int retval = ::read(this->_tty_fd,&c,currentlyToRead);
-    int retval = ::read(this->_tty_fd,c,1);
-    if (retval>0) {
-      std::cerr << c[0];
-      // for (int i=0; i<retval; i++) {
-      // 	if(b[i]=='\n'){
-      // 	  b[retval] = '\0';
-      // 	  //printf("%s\n\n\n",buf);
-      // 	  b = buf;
-      // 	  break;
-      // 	} 
-      // }
-      // std::cerr << buf;
-      // b+=retval;  
-    }
-  }
+
+    return  ::read(this->_tty_fd,b,1);
+
+}
+
+void SerialFriend::write(char* buf){
+  ::write(this->_tty_fd,"$",1);
+    for(int i=0;i<strlen(buf);i++){
+	char tmp;
+	tmp=buf[i];
+	::write(this->_tty_fd,&tmp,1);
+	}
+    ::write(this->_tty_fd,"%",1);
 }

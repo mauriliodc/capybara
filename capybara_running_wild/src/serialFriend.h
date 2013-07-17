@@ -12,8 +12,9 @@
 class SerialFriend{
 	public:
 		SerialFriend(std::string portName, int baudRate);
-		~SerialFriend();
-		void read(char* buf,int s);
+ 		~SerialFriend();
+		int read(char* buf);
+		void write(char* buf);
 		
 	private:
 		std::string _portName;

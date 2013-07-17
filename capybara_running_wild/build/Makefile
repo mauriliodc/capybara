@@ -307,6 +307,111 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
+src/hexmessage.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/hexmessage.o
+.PHONY : src/hexmessage.o
+
+# target to preprocess a source file
+src/hexmessage.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/hexmessage.i
+.PHONY : src/hexmessage.i
+
+# target to generate assembly for a file
+src/hexmessage.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/hexmessage.s
+.PHONY : src/hexmessage.s
+
+# target to build an object file
+src/odometrycalib_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/odometrycalib_packet.o
+.PHONY : src/odometrycalib_packet.o
+
+# target to preprocess a source file
+src/odometrycalib_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/odometrycalib_packet.i
+.PHONY : src/odometrycalib_packet.i
+
+# target to generate assembly for a file
+src/odometrycalib_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/odometrycalib_packet.s
+.PHONY : src/odometrycalib_packet.s
+
+# target to build an object file
+src/packet_handler.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packet_handler.o
+.PHONY : src/packet_handler.o
+
+# target to preprocess a source file
+src/packet_handler.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packet_handler.i
+.PHONY : src/packet_handler.i
+
+# target to generate assembly for a file
+src/packet_handler.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packet_handler.s
+.PHONY : src/packet_handler.s
+
+# target to build an object file
+src/packets.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packets.o
+.PHONY : src/packets.o
+
+# target to preprocess a source file
+src/packets.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packets.i
+.PHONY : src/packets.i
+
+# target to generate assembly for a file
+src/packets.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/packets.s
+.PHONY : src/packets.s
+
+# target to build an object file
+src/pid_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/pid_packet.o
+.PHONY : src/pid_packet.o
+
+# target to preprocess a source file
+src/pid_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/pid_packet.i
+.PHONY : src/pid_packet.i
+
+# target to generate assembly for a file
+src/pid_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/pid_packet.s
+.PHONY : src/pid_packet.s
+
+# target to build an object file
+src/platform_defs.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/platform_defs.o
+.PHONY : src/platform_defs.o
+
+# target to preprocess a source file
+src/platform_defs.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/platform_defs.i
+.PHONY : src/platform_defs.i
+
+# target to generate assembly for a file
+src/platform_defs.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/platform_defs.s
+.PHONY : src/platform_defs.s
+
+# target to build an object file
+src/querycommands_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/querycommands_packet.o
+.PHONY : src/querycommands_packet.o
+
+# target to preprocess a source file
+src/querycommands_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/querycommands_packet.i
+.PHONY : src/querycommands_packet.i
+
+# target to generate assembly for a file
+src/querycommands_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/querycommands_packet.s
+.PHONY : src/querycommands_packet.s
+
+# target to build an object file
 src/rodent.o:
 	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/rodent.o
 .PHONY : src/rodent.o
@@ -336,6 +441,51 @@ src/serialFriend.s:
 	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/serialFriend.s
 .PHONY : src/serialFriend.s
 
+# target to build an object file
+src/speed_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/speed_packet.o
+.PHONY : src/speed_packet.o
+
+# target to preprocess a source file
+src/speed_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/speed_packet.i
+.PHONY : src/speed_packet.i
+
+# target to generate assembly for a file
+src/speed_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/speed_packet.s
+.PHONY : src/speed_packet.s
+
+# target to build an object file
+src/state_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/state_packet.o
+.PHONY : src/state_packet.o
+
+# target to preprocess a source file
+src/state_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/state_packet.i
+.PHONY : src/state_packet.i
+
+# target to generate assembly for a file
+src/state_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/state_packet.s
+.PHONY : src/state_packet.s
+
+# target to build an object file
+src/wheelSpeed_packet.o:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/wheelSpeed_packet.o
+.PHONY : src/wheelSpeed_packet.o
+
+# target to preprocess a source file
+src/wheelSpeed_packet.i:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/wheelSpeed_packet.i
+.PHONY : src/wheelSpeed_packet.i
+
+# target to generate assembly for a file
+src/wheelSpeed_packet.s:
+	$(MAKE) -f CMakeFiles/roditore.dir/build.make CMakeFiles/roditore.dir/src/wheelSpeed_packet.s
+.PHONY : src/wheelSpeed_packet.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -360,12 +510,42 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... tests"
+	@echo "... src/hexmessage.o"
+	@echo "... src/hexmessage.i"
+	@echo "... src/hexmessage.s"
+	@echo "... src/odometrycalib_packet.o"
+	@echo "... src/odometrycalib_packet.i"
+	@echo "... src/odometrycalib_packet.s"
+	@echo "... src/packet_handler.o"
+	@echo "... src/packet_handler.i"
+	@echo "... src/packet_handler.s"
+	@echo "... src/packets.o"
+	@echo "... src/packets.i"
+	@echo "... src/packets.s"
+	@echo "... src/pid_packet.o"
+	@echo "... src/pid_packet.i"
+	@echo "... src/pid_packet.s"
+	@echo "... src/platform_defs.o"
+	@echo "... src/platform_defs.i"
+	@echo "... src/platform_defs.s"
+	@echo "... src/querycommands_packet.o"
+	@echo "... src/querycommands_packet.i"
+	@echo "... src/querycommands_packet.s"
 	@echo "... src/rodent.o"
 	@echo "... src/rodent.i"
 	@echo "... src/rodent.s"
 	@echo "... src/serialFriend.o"
 	@echo "... src/serialFriend.i"
 	@echo "... src/serialFriend.s"
+	@echo "... src/speed_packet.o"
+	@echo "... src/speed_packet.i"
+	@echo "... src/speed_packet.s"
+	@echo "... src/state_packet.o"
+	@echo "... src/state_packet.i"
+	@echo "... src/state_packet.s"
+	@echo "... src/wheelSpeed_packet.o"
+	@echo "... src/wheelSpeed_packet.i"
+	@echo "... src/wheelSpeed_packet.s"
 .PHONY : help
 
 
