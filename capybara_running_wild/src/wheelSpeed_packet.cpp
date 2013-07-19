@@ -5,7 +5,7 @@
 
 void WheelSpeedPacket_print(const PacketHeader* state_){
   const WheelSpeedPacket* msg = (const WheelSpeedPacket*) state_;
-  printf("Speed:\n [ %d, %d ]\n",
+  printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><Speed:\n [ %d, %d ]\n",
 	 msg->leftSpeed,
 	 msg->rightSpeed);
 
@@ -50,7 +50,7 @@ int  WheelSpeedPacket_initHandler(int16_t type){
 
 void WheelSpeedPacket_initHeader(WheelSpeedPacket* packet){
   packet->header.type=WheelSpeedPacket_type;
-  printf("Wheel speed packet init!\n");
+  //printf("Wheel speed packet init!\n");
 
 }
 

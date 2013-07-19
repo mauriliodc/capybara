@@ -8,7 +8,7 @@
 #include <termios.h>
 #include <iostream>
 
-SerialFriend::SerialFriend(std::string portName, int baudRate){
+SerialFriend::SerialFriend(std::string portName, int baudRate, char h, char f){
 
   this->_portName=portName;
   this->_baudRate=baudRate;
@@ -32,6 +32,9 @@ SerialFriend::SerialFriend(std::string portName, int baudRate){
   cfsetospeed(&this->_tio,B115200);            // 115200 baud
   cfsetispeed(&this->_tio,B115200);            // 115200 baud
   tcsetattr(this->_tty_fd,TCSANOW,&this->_tio);
+  tcsetattr(this->_tty_fd, TCSAFLUSH, &this->_tio);
+  this->_header=h;
+  this->_footer=f;
 }
 
 SerialFriend::~SerialFriend(){
@@ -46,12 +49,25 @@ int SerialFriend::read(char* buf){
 
 }
 
-void SerialFriend::write(char* buf){
-  ::write(this->_tty_fd,"$",1);
+void SerialFriend::write(char* buf, int debug){
+  ::write(this->_tty_fd,&this->_header,1);
+    if(debug) printf("Sending via UART: [%c",this->_header);
     for(int i=0;i<strlen(buf);i++){
 	char tmp;
 	tmp=buf[i];
 	::write(this->_tty_fd,&tmp,1);
+    if(debug)printf("%c",tmp);
 	}
-    ::write(this->_tty_fd,"%",1);
+    ::write(this->_tty_fd,&this->_footer,1);
+    if(debug) printf("%c]\n",this->_footer);
+}
+
+char SerialFriend::getHeader()
+{
+    return this->_header;
+}
+
+char SerialFriend::getFooter()
+{
+    return this->_footer;
 }

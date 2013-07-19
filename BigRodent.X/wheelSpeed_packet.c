@@ -16,9 +16,10 @@ void WheelSpeedPacket_print(const PacketHeader* state_){
 
 void WheelSpeedPacket_execute(PacketHeader* header, HexMessage* response){
   const WheelSpeedPacket* speed = (const WheelSpeedPacket*) header ;
-  printf("IMPLEMENT ME: Setting Speed on base: %d, %d\n", speed->leftSpeed, speed->rightSpeed);
+  //printf("IMPLEMENT ME: Setting Speed on base: %d, %d\n", speed->leftSpeed, speed->rightSpeed);
   MotorController_setDesiredSpeed(&RightMotorController,speed->leftSpeed);
   MotorController_setDesiredSpeed(&LeftMotorController,speed->rightSpeed);
+  Packet_write(response,header);
 }
 
 #define formatField(field) \

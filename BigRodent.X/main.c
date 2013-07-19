@@ -60,14 +60,14 @@ PacketHeader * parsedPacket = (PacketHeader *) packetBuffer;
 void PacketHandlerLoop(HexMessage* inputStream, HexMessage* outputStream){
   int error=0;
   //HexMessage_reset(outputStream);
-  putsUART1((unsigned int*)inputStream->start);
+  //putsUART1((unsigned int*)inputStream->start);
 
   while(! error &&
-	inputStream->current!=inputStream->end){
+	inputStream->current<inputStream->end){
     enum HexMessageStatus status=Packet_read(inputStream,parsedPacket);
     if (status==Ok ) {
       if (parsedPacket->type>=0){
-      	Packet_print(parsedPacket);
+      	//Packet_print(parsedPacket);
 	Packet_execute(parsedPacket, outputStream);
       }
 
@@ -75,6 +75,8 @@ void PacketHandlerLoop(HexMessage* inputStream, HexMessage* outputStream){
     } else  {
       printf("Parsing error ");
       printf("%d \n",status);
+      putsUART1((unsigned int*)inputStream->start);
+
       error = 1;
     }
     
@@ -151,7 +153,7 @@ int main() {
             &LeftMotorController, &RightMotorController,
             0.1, 0.1, //radius
             0.000349066, 0.000349066, //radians per ticks
-            50, //period
+            200, //period
             &TransmissionBuffer); //trasmissionbuffer
 
 
@@ -202,8 +204,9 @@ int main() {
     //--------------------------------------------------------------------------
     while (1) {
         TimerEventHandler_handleScheduledEvents(&tHandler);
+        //putsUART1((unsigned int*) "$00FF\n%");
         if (U1STAbits.OERR) U1STAbits.OERR = 0;
-
+            U1STAbits.OERR = 0;
             if(inputStream.current > inputStream.start)
             {
                 HexMessage_rewind(&inputStream);                
@@ -215,7 +218,7 @@ int main() {
                 *outputStream.current++ = 0;
                 putsUART1((unsigned int*) "$");
                 putsUART1((unsigned int*) outputStream.start);
-                putsUART1((unsigned int*) "%\n");
+                putsUART1((unsigned int*) "%");
                 HexMessage_reset(&outputStream);
             }
 

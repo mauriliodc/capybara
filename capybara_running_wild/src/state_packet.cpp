@@ -17,6 +17,10 @@ void StatePacket_print(const PacketHeader* state_){
  
 }
 
+void StatePacket_execute(PacketHeader* header, HexMessage* response){
+  printf("IMPLEMENT ME\n");
+}
+
 #define formatField(field) \
   if(HexMessage_writeHex(msg, &state->field, sizeof(state->field)) != Ok) return WriteOverflow
 
@@ -76,7 +80,8 @@ int16_t batteryVoltage; int16_t leftPWMCurrent; int16_t rightPWMCurrent;}";
 
 int16_t StatePacket_type=-1;
 int  StatePacket_initHandler(int16_t type){
-  if (PacketHandler_registerPacket(description, type,StatePacket_write,StatePacket_read, StatePacket_print, 0)==0)
+//  if (PacketHandler_registerPacket(description, type,StatePacket_write,StatePacket_read, StatePacket_print, StatePacket_execute)==0)
+  if (PacketHandler_registerPacket(description, type,StatePacket_write,StatePacket_read, 0, StatePacket_execute)==0)
     StatePacket_type=type;
   return 0;
 }
