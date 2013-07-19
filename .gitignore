@@ -9,3 +9,7 @@
 *.d
 *.elf
 *.hex
+*.bin
+*.cmake
+*.make
+*.~
