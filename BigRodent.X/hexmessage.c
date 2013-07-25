@@ -12,7 +12,7 @@ int HexMessage_nextIsString(const HexMessage *msg){
   return (msg->current<msg->end && *msg->current=='\"');
 }
 
-enum HexMessageStatus HexMessage_writeHex(HexMessage* msg, const void* buf, int size){
+inline enum HexMessageStatus HexMessage_writeHex(HexMessage* msg, const void* buf, int size){
   const unsigned char* b=buf;
   int i;
   for (i=0; i<size; i++, b++){

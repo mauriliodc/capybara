@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "headers.h"
+#include "platform_defs.h"
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
@@ -132,8 +133,8 @@ int main() {
 
     //PID INIT
     //=================================================
-    PIDControlAlgorithm_init(&leftPID, 10, 5, 1, 800, 2, 2);
-    PIDControlAlgorithm_init(&rightPID, 10, 5, 1, 800, 2, 2);
+    PIDControlAlgorithm_init(&leftPID, 10, 2, 1,  800,   2, 2);
+    PIDControlAlgorithm_init(&rightPID, 10, 2, 1, 800, 2, 2);
     //=================================================
     putsUART1((unsigned int *) "MOTOR INIT\n");
     MotorController_init(&RightMotorController,
@@ -153,7 +154,7 @@ int main() {
             &LeftMotorController, &RightMotorController,
             0.1, 0.1, //radius
             0.000349066, 0.000349066, //radians per ticks
-            200, //period
+            50, //period
             &TransmissionBuffer); //trasmissionbuffer
 
 
@@ -178,8 +179,8 @@ int main() {
     //=================================================
 
 
-    //MotorController_setDesiredSpeed(&RightMotorController,50);
-    //MotorController_setDesiredSpeed(&LeftMotorController,50);
+//    MotorController_setDesiredSpeed(&RightMotorController,80);
+//    MotorController_setDesiredSpeed(&LeftMotorController,80);
     putsUART1((unsigned int *) "STARTING SCHEDULER\n");
     TimerEventHandler_setRunning(&tHandler, 1);
 
@@ -207,18 +208,24 @@ int main() {
         //putsUART1((unsigned int*) "$00FF\n%");
         if (U1STAbits.OERR) U1STAbits.OERR = 0;
             U1STAbits.OERR = 0;
-            if(inputStream.current > inputStream.start)
+            if(inputStream.current > inputStream.start )
             {
                 HexMessage_rewind(&inputStream);                
                 PacketHandlerLoop(&inputStream, &outputStream);
                 HexMessage_reset(&inputStream);
             }
+
             if (outputStream.current > outputStream.start) {
                 *outputStream.current++ = '\n';
                 *outputStream.current++ = 0;
+                mtime_t tStart=getTime();
                 putsUART1((unsigned int*) "$");
-                putsUART1((unsigned int*) outputStream.start);
+                mtime_t tEnd=getTime() - tStart;
+                printf("\"tenpo: %d\n\"",tEnd);
+//              putsUART1((unsigned int*) outputStream.start);
                 putsUART1((unsigned int*) "%");
+
+                
                 HexMessage_reset(&outputStream);
             }
 

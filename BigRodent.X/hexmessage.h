@@ -8,6 +8,7 @@
 #ifndef HEXMESSAGE_H
 #define	HEXMESSAGE_H
 
+
 typedef struct HexMessage{
   char* start;
   char* current;
@@ -32,9 +33,9 @@ void HexMessage_rewind(HexMessage* msg);
 // resets the buffer the end is set to bufferEnd
 void HexMessage_reset(HexMessage* msg);
 
-
-
 enum HexMessageStatus HexMessage_writeHex(HexMessage* msg, const void* buf, int size);
+
+int HexMessage_nextIsString(const HexMessage *msg);
 
 enum HexMessageStatus HexMessage_writeString(HexMessage *msg, const char* s);
 

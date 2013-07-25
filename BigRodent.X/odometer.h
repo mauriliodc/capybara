@@ -28,7 +28,7 @@ struct Odometer
     TimerEvent event;
     struct MotorController* mc[MOTORS_NUM];
     long_t _period;
-    long_t _distance[MOTORS_NUM];
+    int16_t _distance[MOTORS_NUM];
     struct pose _pose;
     struct pose _globalPose;
     struct trasmissionBuffer* _tbuf;

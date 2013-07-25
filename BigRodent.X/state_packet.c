@@ -22,6 +22,9 @@ void StatePacket_print(const PacketHeader* state_){
 
 enum HexMessageStatus StatePacket_write(HexMessage* msg, const PacketHeader* state_){
   const StatePacket* state= (const StatePacket*) state_;
+//  int s=sizeof(StatePacket) - sizeof(PacketHeader);
+//  if(HexMessage_writeHex(msg, &state->seq,s)!=Ok) return WriteOverflow;
+
   formatField(seq);
   formatField(leftEncoder);
   formatField(rightEncoder);
@@ -38,6 +41,8 @@ enum HexMessageStatus StatePacket_write(HexMessage* msg, const PacketHeader* sta
   formatField(batteryVoltage);
   formatField(leftPWMCurrent);
   formatField(rightPWMCurrent);
+
+
   return Ok;
 }
 #undef formatField
