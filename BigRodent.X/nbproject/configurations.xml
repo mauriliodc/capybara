@@ -4,6 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Communication" projectFiles="true">
+        <itemPath>baseComm.h</itemPath>
+        <itemPath>WheelVelocityCommand.h</itemPath>
+      </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>
       <itemPath>dspic_settings.h</itemPath>
@@ -26,6 +30,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Communication" projectFiles="true">
+        <itemPath>baseComm.c</itemPath>
+        <itemPath>WheelVelocityCommand.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>platform_defs.c</itemPath>
       <itemPath>dspic_settings.c</itemPath>
@@ -178,8 +186,13 @@
         <property key="output-file-format" value="elf"/>
         <property key="save-temps" value="false"/>
       </C30Global>
-      <ICD3PlatformTool>
-      </ICD3PlatformTool>
+      <PICkit2PlatformTool>
+        <property key="pk2settings.3state" value="false"/>
+        <property key="pk2settings.preserveee" value="false"/>
+        <property key="pk2settings.setvddvoltage" value="3.20"/>
+        <property key="pk2settings.userpgmexec" value="true"/>
+        <property key="pk2settings.usetargetpower" value="false"/>
+      </PICkit2PlatformTool>
     </conf>
   </confs>
 </configurationDescriptor>

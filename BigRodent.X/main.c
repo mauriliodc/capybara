@@ -32,16 +32,14 @@ int i=0;
 int RX_hasToSend=0;
 int RX_hasToParse=0;
 
-
  
 int main() {
 
 
     Micro_init();
-//    #if !__DEBUG
-//    DelayN1s(1);
-//    #endif
-    generateCommands();
+    commandListCleaner();
+    WheelVelocityCommandInit();
+
     putsUART1((unsigned int *) ">>>>>>>>>>>>>>>>>>>>>>>>>>>Micro is up and running<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
 
 
@@ -96,7 +94,7 @@ int main() {
                             1 << 12,(unsigned int*)0x02CC,
                             (struct ControlAlgorithm*)&rightPID,rightPID._period);
     putsUART1((unsigned int *) "DIFFERENTIAL INIT\n");
-   DifferentialDriveOdometryHandler_init( &odo,
+    DifferentialDriveOdometryHandler_init( &odo,
                                             0.4, //baseling
                                             &LeftMotorController,&RightMotorController,
                                             0.1,0.1, //radius
@@ -142,7 +140,8 @@ int main() {
         if(U1STAbits.OERR) U1STAbits.OERR =0;
         if (RX_hasToParse) {
 
-            ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
+            //ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
+            //ReceivedCommand = CommandBuf;
 //            putsUART1((unsigned int *) ">>");
 //            putsUART1((unsigned int *) CommandBuf);
 //            putsUART1((unsigned int *) "\n");

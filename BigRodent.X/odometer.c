@@ -57,8 +57,8 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t)
      
     char a[100];
     //sprintf(a,"# %d %d %d %d %d %d %d @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,t->_lastTickUpperHalfExecuted,t->_lastLowerHalfExecutionTime);
-    sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
-    putsUART1((unsigned int*)a);
+    //sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
+    //putsUART1((unsigned int*)a);
     //transmissionBuffer_write(dd->_base._tbuf,a);
 
 //    sprintf(a,"x: %d y:%d theta:%d \n",dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta);
