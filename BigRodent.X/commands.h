@@ -41,7 +41,7 @@ void parseAndExecuteCommand() {
     int code=getCommandCode();
     if(code<MAX_COMMANDS && commandList[code]!=0)
     {
-        commandList[code]->parser(CommandBuf,WheelVelocityCommand);
+//        commandList[code]->parser(CommandBuf,WheelVelocityCommand);
     }
     
 }

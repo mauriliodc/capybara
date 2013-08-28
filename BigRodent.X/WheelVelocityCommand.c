@@ -38,15 +38,15 @@ void WheelVelocityCommandInit()
 
 void WheelVelocityCommandParse(char* buff,struct wheelVelocityCommand* c)
 {
-    buff++;
-    int i=0;
-    int f=0;
-    for(f=0;f<4;f++)
-    {
-        for(int i=0;i<sizeof(buff-1);i++)
-        {
-s
-        }
-    }
+//    buff++;
+//    int i=0;
+//    int f=0;
+//    for(f=0;f<4;f++)
+//    {
+//        for(int i=0;i<sizeof(buff-1);i++)
+//        {
+//s
+//        }
+//    }
 
 }

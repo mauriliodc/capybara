@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
-
+#include "DoubleBuffer.h"
 /*
  * 
  */
@@ -129,6 +129,10 @@ int main() {
     putsUART1((unsigned int *) "STARTING SCHEDULER\n");
     TimerEventHandler_setRunning(&tHandler,1);
 
+    putsUART1((unsigned int *) "INITIALIZING DOUBLE BUFFER SCHEDULER\n");
+    DoubleBuffer_Init();
+
+
     putsUART1((unsigned int *) "STARTING MAIN LOOP\n");
     while (1) {
 
@@ -139,7 +143,8 @@ int main() {
         
         if(U1STAbits.OERR) U1STAbits.OERR =0;
         if (RX_hasToParse) {
-
+            putsUART1(DoubleBuffer.parsingBuffer->start);
+            DoubleBuffer_resetParsingBuffer();
             //ReceivedCommand = (struct _ReceivedCommand*) CommandBuf;
             //ReceivedCommand = CommandBuf;
 //            putsUART1((unsigned int *) ">>");
