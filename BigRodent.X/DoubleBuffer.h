@@ -8,9 +8,11 @@
 #ifndef DOUBLEBUFFER_H
 #define	DOUBLEBUFFER_H
 
+#define DOUBLE_BUFFER_SIZE 150
+
 struct _Buffer
 {
-  char payload[100] ;
+  char payload[DOUBLE_BUFFER_SIZE] ;
   char* start;
   char* end;
   char* curr;
@@ -38,11 +40,11 @@ void DoubleBuffer_Init()
 
     
     DoubleBuffer.readingBuffer->start=DoubleBuffer.readingBuffer->payload;
-    DoubleBuffer.readingBuffer->end=DoubleBuffer.readingBuffer->start;
+    DoubleBuffer.readingBuffer->end=DoubleBuffer.readingBuffer->start+sizeof(char)*DOUBLE_BUFFER_SIZE;
     DoubleBuffer.readingBuffer->curr=DoubleBuffer.readingBuffer->start;
 
     DoubleBuffer.parsingBuffer->start=DoubleBuffer.parsingBuffer->payload;
-    DoubleBuffer.parsingBuffer->end=DoubleBuffer.parsingBuffer->start;
+    DoubleBuffer.parsingBuffer->end=DoubleBuffer.parsingBuffer->start+sizeof(char)*DOUBLE_BUFFER_SIZE;
     DoubleBuffer.parsingBuffer->curr=DoubleBuffer.parsingBuffer->start;
 
     DoubleBuffer.state=0;
@@ -68,14 +70,14 @@ void DoubleBuffer_swapBuffers()
 void DoubleBuffer_resetReadingBuffer()
 {
     DoubleBuffer.readingBuffer->start=DoubleBuffer.readingBuffer->payload;
-    DoubleBuffer.readingBuffer->end=DoubleBuffer.readingBuffer->start;
+    DoubleBuffer.readingBuffer->end=DoubleBuffer.readingBuffer->start+sizeof(char)*DOUBLE_BUFFER_SIZE;
     DoubleBuffer.readingBuffer->curr=DoubleBuffer.readingBuffer->start;
 }
 
 void DoubleBuffer_resetParsingBuffer()
 {
     DoubleBuffer.parsingBuffer->start=DoubleBuffer.parsingBuffer->payload;
-    DoubleBuffer.parsingBuffer->end=DoubleBuffer.parsingBuffer->start;
+    DoubleBuffer.parsingBuffer->end=DoubleBuffer.parsingBuffer->start+sizeof(char)*DOUBLE_BUFFER_SIZE;
     DoubleBuffer.parsingBuffer->curr=DoubleBuffer.parsingBuffer->start;
 }
 

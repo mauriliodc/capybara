@@ -31,8 +31,8 @@ char Buf[100];
 int i=0;
 int RX_hasToSend=0;
 int RX_hasToParse=0;
-
- 
+int RX_hasParsed=0;
+int RX_isParsing=0;
 int main() {
 
 
@@ -152,7 +152,7 @@ int main() {
 //            putsUART1((unsigned int *) "\n");
 //            memset(Buf, 0, sizeof (Buf));
             parseAndExecuteCommand();
-            RX_hasToParse = 0;
+            RX_hasToParse=0;
         }
 
     }
