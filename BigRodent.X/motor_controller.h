@@ -14,6 +14,10 @@ struct MotorController
     TimerEvent event;
     int16_t _measuredSpeed;
     int16_t _desiredSpeed;
+
+    int16_t _maxPositiveSpeedIncrement;
+    int16_t _maxNegativeSpeedIncrement;
+
     struct EncoderController* _ec;
     struct ControlAlgorithm* _ca;
     struct PWMController* _pwms;
@@ -46,7 +50,9 @@ void  MotorController_setMaxPositiveSpeedIncrement(struct MotorController* contr
 void  MotorController_setMaxNegativeSpeedIncrement(struct MotorController* controller, int16_t inc);
 
 
-int16_t MotorController_maxSpeed(struct MotorController* controller);
-void MotorController_setMaxSpeed(struct MotorController* controller, int16_t inc);
+int16_t MotorController_maxPositiveeSpeed(struct MotorController* controller);
+void MotorController_setPositiveMaxSpeed(struct MotorController* controller, int16_t inc);
+int16_t MotorController_maxNegativeSpeed(struct MotorController* controller);
+void MotorController_setNegativeMaxSpeed(struct MotorController* controller, int16_t inc);
 
 #endif

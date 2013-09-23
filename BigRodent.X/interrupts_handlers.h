@@ -53,14 +53,42 @@ int wait_flag = 0;
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
 
 
-    if (wait_flag) {
-        if (RX_hasToParse == 0) {
-            DoubleBuffer_swapBuffers();
-            RX_hasToParse = 1;
-            DoubleBuffer_resetReadingBuffer();
-        }
-        wait_flag = 0;
-    } else {
+    //    if (wait_flag) {
+    //        if (RX_hasToParse == 0) {
+    //            DoubleBuffer_swapBuffers();
+    //            RX_hasToParse = 1;
+    //            DoubleBuffer_resetReadingBuffer();
+    //        }
+    //        wait_flag = 0;
+    //    } else {
+    //        charRX = ReadUART1();
+    //        if (charRX != RX_header && DoubleBuffer.readingBuffer->curr == DoubleBuffer.readingBuffer->start) {
+    //            DoubleBuffer.readingBuffer->curr = DoubleBuffer.readingBuffer->start;
+    //        } else {
+    //            //Buf[i] = charRX;
+    //            *(DoubleBuffer.readingBuffer->curr) = charRX;
+    //            if (DoubleBuffer.readingBuffer->curr < DoubleBuffer.readingBuffer->end) {
+    //                DoubleBuffer.readingBuffer->curr++;
+    //            } else {
+    //                DoubleBuffer.readingBuffer->curr = DoubleBuffer.readingBuffer->start;
+    //            }
+    //        }
+    //
+    //        if (charRX == RX_footer) {
+    //
+    //            *(DoubleBuffer.readingBuffer->curr) = '\0';
+    //            if (RX_hasToParse == 0) {
+    //                DoubleBuffer_swapBuffers();
+    //                RX_hasToParse = 1;
+    //                DoubleBuffer_resetReadingBuffer();
+    //            } else {
+    //                wait_flag = 1;
+    //            }
+    //
+    //        }
+    //    }
+
+    if (!RX_hasToParse) {
         charRX = ReadUART1();
         if (charRX != RX_header && DoubleBuffer.readingBuffer->curr == DoubleBuffer.readingBuffer->start) {
             DoubleBuffer.readingBuffer->curr = DoubleBuffer.readingBuffer->start;
@@ -77,13 +105,11 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
         if (charRX == RX_footer) {
 
             *(DoubleBuffer.readingBuffer->curr) = '\0';
-            if (RX_hasToParse == 0) {
-                DoubleBuffer_swapBuffers();
-                RX_hasToParse = 1;
-                DoubleBuffer_resetReadingBuffer();
-            } else {
-                wait_flag = 1;
-            }
+
+            DoubleBuffer_swapBuffers();
+            RX_hasToParse = 1;
+            DoubleBuffer_resetReadingBuffer();
+
 
         }
     }

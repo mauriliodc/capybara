@@ -26,30 +26,23 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t)
     
     struct DifferentialDriveOdometer* dd = (struct DifferentialDriveOdometer*) t;
     struct Odometer* oh = (struct Odometer*)t;
-//    long_t s=  dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius+
-//                dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
+    struct PIDControlAlgorithm* p1 = oh->mc[0]->_ca;
+    struct PIDControlAlgorithm* p2 = oh->mc[1]->_ca;
+    //printf("PID1 %d %d %d >%d PID2 %d %d %d >%d \n", p1->_Pi,p1->_I,p1->_D,p1->_error,p2->_Pi,p2->_I,p2->_D,p2->_error);
+    printf("PID1 %d PID2 %d ERR1 %d ERR2 %d \n", p1->_I,p2->_I,p1->_error, p2->_error);
+    printf("PWM %d %d \n",PWMController_dutycycle(oh->mc[0]->_pwms,0),PWMController_dutycycle(oh->mc[1]->_pwms,1));
+    //printf("ENC %d %d \n",oh->mc[0]->_measuredSpeed,oh->mc[1]->_measuredSpeed);
+//    long_t dl=dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius;
+//    long_t dr=dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
+//    long_t r = (dl+dr)/2;
 //
-//    dd->_base._pose._theta=(dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius-
-//                            dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius)/dd->_baseline;
+//    dd->_base._pose._theta= (dr-dl)/(2*dd->_baseline);
+//    dd->_base._pose._x=r*(cos(dd->_base._globalPose._theta));
+//    dd->_base._pose._y=r*(sin(dd->_base._globalPose._theta));
 //
-//    dd->_base._pose._x=s*cos(dd->_base._pose._theta);
-//    dd->_base._pose._y=s*sin(dd->_base._pose._theta);
-//
-//    dd->_base._globalPose._x=dd->_base._pose._x;
-//    dd->_base._globalPose._y=dd->_base._pose._y;
-//    dd->_base._globalPose._theta=dd->_base._pose._theta;
-
-    long_t dl=dd->_base._distance[0]*dd->_leftEncoderDegreesPerTicks*dd->_leftWheelRadius;
-    long_t dr=dd->_base._distance[1]*dd->_rightEncoderDegreesPerTicks*dd->_rightWheelRadius;
-    long_t r = (dl+dr)/2;
-
-    dd->_base._pose._theta= (dr-dl)/(2*dd->_baseline);
-    dd->_base._pose._x=r*(cos(dd->_base._globalPose._theta));
-    dd->_base._pose._y=r*(sin(dd->_base._globalPose._theta));
-
-    dd->_base._globalPose._x+=dd->_base._pose._x;
-    dd->_base._globalPose._y+=dd->_base._pose._y;
-    dd->_base._globalPose._theta+=dd->_base._pose._theta;
+//    dd->_base._globalPose._x+=dd->_base._pose._x;
+//    dd->_base._globalPose._y+=dd->_base._pose._y;
+//    dd->_base._globalPose._theta+=dd->_base._pose._theta;
 
 
 
@@ -59,12 +52,19 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t)
     //sprintf(a,"# %d %d %d %d %d %d %d @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,t->_lastTickUpperHalfExecuted,t->_lastLowerHalfExecutionTime);
     //sprintf(a,"# %f %f %f %f %f %f %f %f @ \n", oh->_distance[0],oh->_distance[1],dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta,dd->_base._globalPose._x,dd->_base._globalPose._y,dd->_base._globalPose._theta);
     //putsUART1((unsigned int*)a);
+    
+    
+//    sprintf(a,"#%d %d @\n",oh->mc[0]->_measuredSpeed,oh->mc[1]->_measuredSpeed);
+//    putsUART1((unsigned int*)a);
+
+
     //transmissionBuffer_write(dd->_base._tbuf,a);
 
 //    sprintf(a,"x: %d y:%d theta:%d \n",dd->_base._pose._x,dd->_base._pose._y,dd->_base._pose._theta);
 //    putsUART1((unsigned int *) a);
 //    sprintf(a,"m1: %d m2:%d \n",oh->_distance[0],oh->_distance[1]);
-//    putsUART1((unsigned int *) "lower\n");
+//    putsUART1((unsigned int *) a);
+    
 
 }
 
