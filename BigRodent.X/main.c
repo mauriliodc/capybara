@@ -80,8 +80,8 @@ int main() {
     //=================================================
 //    PIDControlAlgorithm_init(&leftPID,10,5,1,800*tempPar,10,2);
 //    PIDControlAlgorithm_init(&rightPID,10,5,1,800*tempPar,10,2);
-     PIDControlAlgorithm_init(&leftPID,10,10,1,28000,1,1);
-    PIDControlAlgorithm_init(&rightPID,10,10,1,28000,1,1);
+     PIDControlAlgorithm_init(&leftPID,30,10,1,28000,1,1);
+    PIDControlAlgorithm_init(&rightPID,30,10,1,28000,1,1);
     //=================================================
     putsUART1((unsigned int *) "MOTOR INIT\n");
     MotorController_init(   &RightMotorController,
@@ -89,8 +89,8 @@ int main() {
                             &pwmc, 0,
                             1 << 14,(unsigned int*)0x02CC,
                             (struct ControlAlgorithm*)&leftPID,leftPID._period);
-    MotorController_setMaxPositiveSpeedIncrement( &RightMotorController, 5);
-    MotorController_setMaxNegativeSpeedIncrement( &RightMotorController, 5);
+    MotorController_setMaxPositiveSpeedIncrement( &RightMotorController, 155);
+    MotorController_setMaxNegativeSpeedIncrement( &RightMotorController, 155);
 
     putsUART1((unsigned int *) "MOTOR INIT\n");
     MotorController_init(   &LeftMotorController,
@@ -99,8 +99,8 @@ int main() {
                             1 << 12,(unsigned int*)0x02CC,
                             (struct ControlAlgorithm*)&rightPID,rightPID._period);
     
-    MotorController_setMaxPositiveSpeedIncrement( &LeftMotorController, 5);
-    MotorController_setMaxNegativeSpeedIncrement( &LeftMotorController, 5);
+    MotorController_setMaxPositiveSpeedIncrement( &LeftMotorController, 155);
+    MotorController_setMaxNegativeSpeedIncrement( &LeftMotorController, 155);
 
     putsUART1((unsigned int *) "DIFFERENTIAL INIT\n");
     DifferentialDriveOdometryHandler_init( &odo,

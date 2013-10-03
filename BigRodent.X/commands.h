@@ -41,7 +41,7 @@ void velocitcyCommandParser(char* buffer)
 //    memcpy(FIELD,buffer+12,4);
 //    velocityCommand.rightSpeed=atoi(FIELD);
 
-    sscanf(buffer,"%4d%4d%4d%4d",&velocityCommand.leftDir,
+    sscanf(buffer,"%1d%1d%2d%2d",&velocityCommand.leftDir,
     &velocityCommand.rightDir,
     &velocityCommand.leftSpeed,
     &velocityCommand.rightSpeed);
