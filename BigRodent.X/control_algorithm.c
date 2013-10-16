@@ -7,7 +7,6 @@ void PIDControlAlgorithm_fn(struct ControlAlgorithm* _ca) {
     //ca->_error=-ca->_base._measure;
     ca->_Pi=ca->_error*ca->_KP;
     ca->_I+=ca->_KI_times_PERIOD * ca->_error;
-
     ca->_I=(ca->_I >  ca->_windup)?  ca->_windup  : ca->_I;
     ca->_I=(ca->_I < -ca->_windup) ? -ca->_windup : ca->_I;
 
