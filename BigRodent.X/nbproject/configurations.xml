@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Communication" projectFiles="true">
+        <itemPath>velocityCommand.h</itemPath>
+        <itemPath>encoderCommand.h</itemPath>
       </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>
@@ -48,6 +50,7 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>OutputBuffer.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

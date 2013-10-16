@@ -6,6 +6,7 @@
 #define PI 3.14159265
 #define RATIO_RAD_GRAD PI/180
 
+
 void DifferentialDrive_UpperHandler(struct TimerEvent* t)
 {
     struct Odometer* oh = (struct Odometer*)t;
@@ -55,7 +56,8 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t)
     
     
     sprintf(a,"#%d %d @\n",oh->mc[0]->_measuredSpeed,oh->mc[1]->_measuredSpeed);
-    putsUART1((unsigned int*)a);
+    outputBuffer_write(a);
+    //putsUART1((unsigned int*)a);
 
 
     //transmissionBuffer_write(dd->_base._tbuf,a);

@@ -12,6 +12,7 @@
 #include <string.h>
 #include "commands.h"
 #include "DoubleBuffer.h"
+#include "OutputBuffer.h"
 /*
  * 
  */
@@ -37,8 +38,11 @@ int main() {
 
 
     Micro_init();
-    velocityCommandInit();
 
+    velocityCommandInit(1,allTheCommands);
+    encoderCommandInit(0,allTheCommands);
+    outputBuffer_Init();
+    
     putsUART1((unsigned int *) ">>>>>>>>>>>>>>>>>>>>>>>>>>>Micro is up and running<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
 
 
@@ -158,11 +162,12 @@ int main() {
         TimerEventHandler_handleScheduledEvents(&tHandler);
         if(U1STAbits.OERR) U1STAbits.OERR =0;
         if (RX_hasToParse) {
-            putsUART1(DoubleBuffer.parsingBuffer->start);
+            //putsUART1(DoubleBuffer.parsingBuffer->start);
             parseAndExecuteCommand();
             DoubleBuffer_resetParsingBuffer();
             RX_hasToParse=0;
         }
+        outputBuffer_flush();
 
     }
     return (EXIT_SUCCESS);
