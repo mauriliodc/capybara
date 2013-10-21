@@ -12,6 +12,7 @@
 #include "motor_controller.h"
 #include "timer_handler.h"
 #include "message_buffer.h"
+#include "OutputBuffer.h"
 
 #define MOTORS_NUM 2
 

@@ -8,6 +8,8 @@
 #ifndef VELOCITYCOMMAND_H
 #define	VELOCITYCOMMAND_H
 
+#include "OutputBuffer.h"
+
 extern  struct MotorController LeftMotorController;
 extern struct MotorController RightMotorController;
 
@@ -47,7 +49,7 @@ void velocityCommandInit(int id,struct _commandBase** c )
 {
     velocityCommand.base._commandID=id;
     velocityCommand.base._parseFN=&velocityCommandParser;
-    c[id]=&velocityCommand;
+    c[id]=(struct _commandBase*)&velocityCommand;
     printf("VELOCITY PACKET INIT");
 }
 

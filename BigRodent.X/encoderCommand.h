@@ -29,7 +29,7 @@ void encoderCommandInit(int id,struct _commandBase** c )
 {
     stateCommand.base._commandID=id;
     stateCommand.base._parseFN=&encoderCommandParser;
-    c[id]=&stateCommand;
+    c[id]=(struct _commandBase*)&stateCommand;
     printf("STATE PACKET INIT");
 }
 

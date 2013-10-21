@@ -1,6 +1,5 @@
 #include "motor_controller.h"
-//TODO sistemare numero di motori
-
+#include "defines.h"
 
 
 void MotorController_UpperHandler(struct TimerEvent* t);
@@ -32,54 +31,69 @@ void MotorController_UpperHandler(struct TimerEvent* t) {
     int speed = mc->_desiredSpeed;
 
     //POSITIVE INCREMENT
-    if(speed >= mc->_measuredSpeed)
-    {
+    if (speed >= mc->_measuredSpeed) {
         if (speed > mc->_measuredSpeed + mc->_maxPositiveSpeedIncrement) {
             speed = mc->_measuredSpeed + mc->_maxPositiveSpeedIncrement;
 
         }
-    }
-    //NEGATIVE DECREMENT
-    else
-    {
-        if (speed < mc->_measuredSpeed -  mc->_maxNegativeSpeedIncrement) {
+    }        //NEGATIVE DECREMENT
+    else {
+        if (speed < mc->_measuredSpeed - mc->_maxNegativeSpeedIncrement) {
             speed = mc->_measuredSpeed - mc->_maxNegativeSpeedIncrement;
 
         }
     }
 
-  
+
 
 
     //int16_t control = ControlAlgorithm_update(mc->_ca, mc->_measuredSpeed, mc->_desiredSpeed);
     //control += mc->_desiredSpeed;
     int16_t control = ControlAlgorithm_update(mc->_ca, mc->_measuredSpeed, speed);
-    
+
+
     control += speed;
-    int d=control/34+1024;
-    
+
+    //COMPLEMENTARY
+
+    int d = control / 34 + 1024;
+    //======================
+
+    //TANK 3A
+    if (PWMMODE == 0) {
+        d = control;
+    }
     MotorController_setPWM(mc, d);
 }
 
 void MotorController_setPWM(struct MotorController* mc, int16_t speed) {
-    
 
-    
-//    if (speed >= 0)
-//        (*mc->_directionPTR) = (*(mc->_directionPTR)) | mc->_directionPin;
-//    else {
-//        (*mc->_directionPTR) = (*(mc->_directionPTR))&(mc->_directionPin^0b1111111111111111);
-//        absSpeed = -speed;
-//    }
 
-    //PER PONTE-H GENERALE
+    //TANK 3A
+    if (PWMMODE == 0) {
+        int absSpeed = speed;
+        if (speed >= 0)
+            (*mc->_directionPTR) = (*(mc->_directionPTR)) | mc->_directionPin;
+        else {
+            (*mc->_directionPTR) = (*(mc->_directionPTR))&(mc->_directionPin^0b1111111111111111);
+            absSpeed = -speed;
+        }
+
+        //TANK 3A
+        speed = absSpeed;
+    }
+
     PWMController_setDutycycle(mc->_pwms, mc->_pwnNum, speed);
 }
 
 void MotorController_LowerHandler(struct TimerEvent* t) {
-        struct MotorController* mc = (struct MotorController*)t;
-        struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
-//        char a[200];
+    //struct MotorController* mc = (struct MotorController*) t;
+    //struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
+
+
+
+
+    //    char a[200];
     //    sprintf(a,"P: %d I: %d  D: %d  ERR: %d TICK: %d MEASUR: %d DESIRED: %d PID: %d EXEC: %d  DUTY: %d\n", ca->_Pi,
     //                                                                    ca->_I,
     //                                                                    ca->_D,
@@ -92,15 +106,15 @@ void MotorController_LowerHandler(struct TimerEvent* t) {
     //                                                                    PWMController_dutycycle(mc->_pwms,mc->_pwnNum)
     //                                                                    );
     //
-//        sprintf(a,"#%d, %d          @\n",mc->_encoderNum,MotorController_measuredSpeed(mc));
-//        putsUART1((unsigned int *) a);
+    //        sprintf(a,"#%d, %d          @\n",mc->_encoderNum,MotorController_measuredSpeed(mc));
+    //        putsUART1((unsigned int *) a);
 
 }
 
 void MotorController_setDesiredSpeed(struct MotorController* controller, int16_t speed) {
 
     controller->_desiredSpeed = speed;
-   
+
 
 }
 

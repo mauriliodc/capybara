@@ -23,6 +23,7 @@
       <itemPath>commands.h</itemPath>
       <itemPath>message_buffer.h</itemPath>
       <itemPath>DoubleBuffer.h</itemPath>
+      <itemPath>OutputBuffer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -44,13 +45,13 @@
       <itemPath>motor_controller.c</itemPath>
       <itemPath>odometer.c</itemPath>
       <itemPath>message_buffer.c</itemPath>
+      <itemPath>OutputBuffer.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>OutputBuffer.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

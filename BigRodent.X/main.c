@@ -82,9 +82,7 @@ int main() {
     //PID TEST
     
     //=================================================
-//    PIDControlAlgorithm_init(&leftPID,10,5,1,800*tempPar,10,2);
-//    PIDControlAlgorithm_init(&rightPID,10,5,1,800*tempPar,10,2);
-     PIDControlAlgorithm_init(&leftPID,30,10,1,28000,1,1);
+    PIDControlAlgorithm_init(&leftPID,30,10,1,28000,1,1);
     PIDControlAlgorithm_init(&rightPID,30,10,1,28000,1,1);
     //=================================================
     putsUART1((unsigned int *) "MOTOR INIT\n");
