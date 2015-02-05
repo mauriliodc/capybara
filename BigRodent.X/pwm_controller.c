@@ -1,5 +1,7 @@
 #include "pwm_controller.h"
 #include "defines.h"
+
+//PWM configuration
 void PWMController_init(struct PWMController* controller, uint16_t period)
 {
     //TRISTATE SETTATI COME OUTPUT
@@ -33,27 +35,32 @@ void PWMController_init(struct PWMController* controller, uint16_t period)
 
 }
 
+//get number of pwm controllers
 uint8_t PWMController_num(const struct PWMController* controller)
 {
     return NUM_PWMS;
 }
 
+//get pwm period
 int16_t PWMController_period(const struct  PWMController* controller,uint8_t numPwm)
 {
     return controller->pwms[numPwm]->period;
 
 }
 
+//set pwm period
 void PWMController_setPeriod(struct PWMController* controller, uint16_t period,uint8_t numPwm)
 {
     controller->pwms[numPwm]->period=period;
 }
 
+//get pwm duty cycle
 uint16_t PWMController_dutycycle(const struct PWMController* controller, uint8_t numPwm)
 {
     return controller->pwms[numPwm]->dutyCycle;
 }
 
+//set pwm dutycyle
 void PWMController_setDutycycle(struct PWMController* controller, uint8_t numPwm, int16_t dutycycle)
 {
     controller->pwms[numPwm]->dutyCycle=dutycycle;   

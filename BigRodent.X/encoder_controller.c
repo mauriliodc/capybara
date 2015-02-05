@@ -1,12 +1,13 @@
 #include "encoder_controller.h"
 
 
-
-void    Encoder_init(struct Encoder* encoder, uint8_t* positionCounterRegister)
+//Set encoder address
+void Encoder_init(struct Encoder* encoder, uint8_t* positionCounterRegister)
 {
     encoder->ticks=positionCounterRegister;
 }
 
+//Encoder configuration
 void EncoderController_init(struct EncoderController* controller)
 {
     //ENCODER 1
@@ -41,17 +42,19 @@ void EncoderController_init(struct EncoderController* controller)
 }
 
 
-
+//Get number of encoders
 uint8_t EncoderController_num()
 {
     return NUM_ENCODERS;
 }
 
+//Get encoder ticks
 int16_t EncoderController_ticks(const struct EncoderController* controller, uint8_t numEncoder)
 {
     return *controller->encoders[numEncoder]->ticks;
 }
 
+//Set encoder ticks, return ticks before override
 int16_t EncoderController_setTicks(struct EncoderController* controller, uint8_t numEncoder, int16_t ticks)
 {
     int16_t saved_ticks=*controller->encoders[numEncoder]->ticks;

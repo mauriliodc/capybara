@@ -27,7 +27,6 @@ void MotorController_UpperHandler(struct TimerEvent* t) {
     mc->_measuredSpeed = EncoderController_setTicks(mc->_ec, mc->_encoderNum, 0);
     mc->_measuredDistance += mc->_measuredSpeed;
 
-
     int speed = mc->_desiredSpeed;
 
     //POSITIVE INCREMENT
@@ -45,8 +44,6 @@ void MotorController_UpperHandler(struct TimerEvent* t) {
     }
 
 
-
-
     //int16_t control = ControlAlgorithm_update(mc->_ca, mc->_measuredSpeed, mc->_desiredSpeed);
     //control += mc->_desiredSpeed;
     int16_t control = ControlAlgorithm_update(mc->_ca, mc->_measuredSpeed, speed);
@@ -55,10 +52,14 @@ void MotorController_UpperHandler(struct TimerEvent* t) {
     control += speed;
 
     //COMPLEMENTARY
-
+    //TODO:
+    //one day this line could be written better, at the moment
+    //34 is not a voodo number, just a regular one that do its job.
+    //We need to conditionate the control value because in the complementary
+    //mode we need to have something in 0-2048 with a different meaning
+    //w.r.t the independant mode
     int d = control / 34 + 1024;
-    //======================
-
+    
     //TANK 3A
     if (PWMMODE == 0) {
         d = control;
@@ -87,67 +88,49 @@ void MotorController_setPWM(struct MotorController* mc, int16_t speed) {
 }
 
 void MotorController_LowerHandler(struct TimerEvent* t) {
-    //struct MotorController* mc = (struct MotorController*) t;
-    //struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
-
-
-
-
-    //    char a[200];
-    //    sprintf(a,"P: %d I: %d  D: %d  ERR: %d TICK: %d MEASUR: %d DESIRED: %d PID: %d EXEC: %d  DUTY: %d\n", ca->_Pi,
-    //                                                                    ca->_I,
-    //                                                                    ca->_D,
-    //                                                                    ca->_error,
-    //                                                                    MotorController_measuredSpeed(mc),
-    //                                                                    ca->_base._measure,
-    //                                                                    MotorController_desiredSpeed(mc),
-    //                                                                    ca->_base._control,
-    //                                                                    t->_lastUpperHalfExecutionTime,
-    //                                                                    PWMController_dutycycle(mc->_pwms,mc->_pwnNum)
-    //                                                                    );
-    //
-    //        sprintf(a,"#%d, %d          @\n",mc->_encoderNum,MotorController_measuredSpeed(mc));
-    //        putsUART1((unsigned int *) a);
-
+    struct MotorController* mc = (struct MotorController*) t;
+    struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
 }
 
+//Impose desired speed on desired motor controller
 void MotorController_setDesiredSpeed(struct MotorController* controller, int16_t speed) {
-
     controller->_desiredSpeed = speed;
-
-
 }
 
+//Get desired speed on desired motor controller
 int16_t MotorController_desiredSpeed(struct MotorController* controller) {
     return controller->_desiredSpeed;
 }
 
+//Get measured speed on desired motor controller
 int16_t MotorController_measuredSpeed(struct MotorController* controller) {
     return controller->_measuredSpeed;
 }
-
+//Get measured distance on desired motor controller
 int16_t MotorController_measuredDistance(struct MotorController* controller) {
     return controller->_measuredDistance;
 }
-
+//Set measured distance on desired motor controller
 int16_t MotorController_setMeasuredDistance(struct MotorController* controller, uint16_t ticks) {
     int16_t distance = controller->_measuredDistance;
     controller->_measuredDistance = 0;
     return distance;
 }
 
+//Get max increment per interval (defines a velocity profile on motor)
 int16_t MotorController_maxPositiveSpeedIncrement(struct MotorController* controller) {
     return controller->_maxPositiveSpeedIncrement;
 }
-
+//Get max decrement per interval (defines a velocity profile on motor)
 int16_t MotorController_maxNegativeSpeedIncrement(struct MotorController* controller) {
     return controller->_maxNegativeSpeedIncrement;
 }
 
+//Set max increment per interval (defines a velocity profile on motor)
 void MotorController_setMaxPositiveSpeedIncrement(struct MotorController* controller, int16_t inc) {
     controller->_maxPositiveSpeedIncrement = inc;
 }
-
+//Set max decrement per interval (defines a velocity profile on motor)
 void MotorController_setMaxNegativeSpeedIncrement(struct MotorController* controller, int16_t inc) {
     controller->_maxNegativeSpeedIncrement = inc;
 }

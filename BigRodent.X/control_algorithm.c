@@ -1,5 +1,7 @@
 #include "control_algorithm.h"
 
+
+//PID control
 void PIDControlAlgorithm_fn(struct ControlAlgorithm* _ca) {
     struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*) _ca;
 
@@ -17,6 +19,7 @@ void PIDControlAlgorithm_fn(struct ControlAlgorithm* _ca) {
     
 }
 
+//PID init
 void PIDControlAlgorithm_init(struct PIDControlAlgorithm* ca, int16_t KP, int16_t KI, int16_t KD, int16_t windup, int16_t period, int16_t kc) {
     ca->_KP = KP;
     ca->_KD = KD;
@@ -42,6 +45,7 @@ void PIDControlAlgorithm_init(struct PIDControlAlgorithm* ca, int16_t KP, int16_
     ca->_base._controlFn = &PIDControlAlgorithm_fn;
 }
 
+//update step of the control algorithm
 int16_t ControlAlgorithm_update(struct ControlAlgorithm* ca, int16_t measure, int16_t input){
     ca->_measure = measure;
     ca->_input = input;
