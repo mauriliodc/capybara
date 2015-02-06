@@ -8,7 +8,7 @@
 #ifndef COMMANDS_H
 #define	COMMANDS_H
 
-#define COMMANDS_SIZE 2
+#define COMMANDS_SIZE 5
 #define HEADER '#'
 #define FOOTER '%'
 
@@ -21,6 +21,9 @@ struct _commandBase
 
 #include "velocityCommand.h"
 #include "encoderCommand.h"
+#include "configurationCommand.h"
+#include "startCommand.h"
+#include "stopCommand.h"
 
 struct _commandBase* allTheCommands[COMMANDS_SIZE];
 

@@ -7,6 +7,9 @@
       <logicalFolder name="f1" displayName="Communication" projectFiles="true">
         <itemPath>velocityCommand.h</itemPath>
         <itemPath>encoderCommand.h</itemPath>
+        <itemPath>configurationCommand.h</itemPath>
+        <itemPath>startCommand.h</itemPath>
+        <itemPath>stopCommand.h</itemPath>
       </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>

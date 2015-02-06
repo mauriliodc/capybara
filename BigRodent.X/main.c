@@ -39,22 +39,17 @@ int RX_hasToSend = 0;
 int RX_hasToParse = 0;
 int RX_hasParsed = 0;
 int RX_isParsing = 0;
-
-
-
-//TEST EEPROM
-unsigned char value1, value2, value3;
-unsigned char DEEdata = 0;
-unsigned int DEEaddr1 = 4, DEEaddr2 = 261, DEEaddr3 = 302;
-
+int canIRun = 0;
 int main() {
 
-    DataEEInit();
-    dataEEFlags.val = 0;
+    
     Micro_init();
 
     velocityCommandInit(1, allTheCommands);
     encoderCommandInit(0, allTheCommands);
+    stopCommandInit(2,allTheCommands);
+    startCommandInit(3,allTheCommands);
+    
     outputBuffer_Init();
 
     putsUART1((unsigned int *) "{{Micro is up and running}}\r\n=================================\n");
@@ -92,15 +87,7 @@ int main() {
         conf.odometry.radiusRight = 4.0f;
         writeConfigurationToEeprom(&conf);
     }
-    while (1) {
-
-    }
-
-
-
-
-
-
+  
 
     //ENCODER
     //=================================================
@@ -191,7 +178,16 @@ int main() {
     DoubleBuffer_Init();
     putsUART1((unsigned int *) "STARTING MAIN LOOP\r\n");
 
-
+    canIRun=1;
+    while(!canIRun){
+        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+        if (RX_hasToParse) {
+            parseAndExecuteCommand();
+            DoubleBuffer_resetParsingBuffer();
+            RX_hasToParse = 0;
+        }
+        outputBuffer_flush();
+    }
     while (RUN_CACAPYBARA_RUN) {
         TimerEventHandler_handleScheduledEvents(&tHandler);
         if (U1STAbits.OERR) U1STAbits.OERR = 0;

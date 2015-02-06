@@ -32,7 +32,7 @@
 #define ADDR_rpkw 32
 #define ADDR_rpp 34
 
-#define ADDR_pwmo 36
+#define ADDR_pwmp 36
 
 #define ADDR_odop 38
 #define ADDR_odob 40
