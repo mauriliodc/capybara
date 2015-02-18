@@ -22,7 +22,7 @@ struct _configurationCommand
 }configurationCommand;
 
 void configurationCommandParser(char* buffer){
-    sscanf(buffer,"%2d%1d",&configurationCommand.address);
+    //sscanf(buffer,"%2d%1d",(&configurationCommand.address));
    
 }
 

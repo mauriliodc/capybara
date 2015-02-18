@@ -11,10 +11,13 @@
 #include <stdio.h>
 #include <string.h>
 #include "commands.h"
-#include "DoubleBuffer.h"
-#include "OutputBuffer.h"
+//#include "DoubleBuffer.h"
+//#include "OutputBuffer.h"
 #include "Eeprom.h"
 #include "configurationData.h"
+#include "MalComm.h"
+
+
 /*
  * 
  */
@@ -31,36 +34,97 @@ struct MotorController RightMotorController;
 struct DifferentialDriveOdometer odo;
 struct trasmissionBuffer TransmissionBuffer;
 
+
+
 //TODO TEMPORANEO
 char CommandBuf[100];
-char Buf[100];
 int i = 0;
 int RX_hasToSend = 0;
 int RX_hasToParse = 0;
 int RX_hasParsed = 0;
 int RX_isParsing = 0;
 int canIRun = 0;
+char bbb[255];
 int main() {
 
-    
+
     Micro_init();
 
-    velocityCommandInit(1, allTheCommands);
-    encoderCommandInit(0, allTheCommands);
-    stopCommandInit(2,allTheCommands);
-    startCommandInit(3,allTheCommands);
-    
+//    velocityCommandInit(1, allTheCommands);
+//    encoderCommandInit(0, allTheCommands);
+//    stopCommandInit(2, allTheCommands);
+//    startCommandInit(3, allTheCommands);
+
     outputBuffer_Init();
 
     putsUART1((unsigned int *) "{{Micro is up and running}}\r\n=================================\n");
+    
 
+
+
+
+//    char test[255];
+//    memset(test,'\0',255);
+//    test[0]=0xa;
+//    test[1]=0xa;
+//    test[2]=0x5;
+//    test[3]=0x5;
+//    uint16_t value;
+//    value=7820;
+//    char* arrPtr = &test[4];
+//    *(uint16_t*)arrPtr=value;
+
+    initConsts();
+    struct DummyPacket p;
+    p.field_1=1;
+    p.field_2=2;
+    p.field_3=3;
+    p.field_4=4;
+    p.field_5=5.5;
+    p.field_6=200;
+    p.field_7=70000;
+    p.field_8=-30000;
+    struct Packet pp;
+    pp.id=DummyPacketID;
+    pp.dummy=p;
+
+    writePacket(&pp,bbb,0);
+    struct Packet ritorno;
+    parsePacket(bbb,&ritorno,0);
+    float cose = ritorno.dummy.field_5;
+    while (1) {
+
+            /* Check for receive errors */
+            if(U1STAbits.FERR == 1){
+                continue;
+            }
+                /* Must clear the overrun error to keep UART receiving */
+                if(U1STAbits.OERR == 1)
+            {
+                U1STAbits.OERR = 0;
+                continue;
+            }
+            /* Get the data */
+            if(U1STAbits.URXDA == 1)
+            {
+                //c=U1RXREG;
+                
+                printf("%x ",U1RXREG);
+                
+            }
+
+
+        
+
+        
+    }
     struct _configuration conf;
     int state = initEeprom();
     //EEPROM HAS DATA
     if (state == 1) {
         readConfigurationFromEeprom(&conf);
         debugConfigurationDataToSerial(&conf);
-    }        //EEPOM NEW
+    }//EEPOM NEW
     else {
         conf.leftMotor.decrement = 1;
         conf.leftMotor.increment = 2;
@@ -87,7 +151,7 @@ int main() {
         conf.odometry.radiusRight = 4.0f;
         writeConfigurationToEeprom(&conf);
     }
-  
+
 
     //ENCODER
     //=================================================
@@ -175,30 +239,32 @@ int main() {
     putsUART1((unsigned int *) "STARTING SCHEDULER\r\n");
     TimerEventHandler_setRunning(&tHandler, 1);
     putsUART1((unsigned int *) "INITIALIZING DOUBLE BUFFER SCHEDULER\r\n");
-    DoubleBuffer_Init();
+    //DoubleBuffer_Init();
     putsUART1((unsigned int *) "STARTING MAIN LOOP\r\n");
 
-    canIRun=1;
-    while(!canIRun){
-        if (U1STAbits.OERR) U1STAbits.OERR = 0;
-        if (RX_hasToParse) {
-            parseAndExecuteCommand();
-            DoubleBuffer_resetParsingBuffer();
-            RX_hasToParse = 0;
-        }
-        outputBuffer_flush();
-    }
-    while (RUN_CACAPYBARA_RUN) {
-        TimerEventHandler_handleScheduledEvents(&tHandler);
-        if (U1STAbits.OERR) U1STAbits.OERR = 0;
-        if (RX_hasToParse) {
-            parseAndExecuteCommand();
-            DoubleBuffer_resetParsingBuffer();
-            RX_hasToParse = 0;
-        }
-        outputBuffer_flush();
-
-    }
-    return (EXIT_SUCCESS);
+//    canIRun = 1;
+//    while (!canIRun) {
+//        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+//        if (RX_hasToParse) {
+//            parseAndExecuteCommand();
+//            DoubleBuffer_resetParsingBuffer();
+//            RX_hasToParse = 0;
+//        }
+//        outputBuffer_flush();
+//    }
+//    while (RUN_CACAPYBARA_RUN) {
+//        TimerEventHandler_handleScheduledEvents(&tHandler);
+//        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+//        if (RX_hasToParse) {
+//            parseAndExecuteCommand();
+//            DoubleBuffer_resetParsingBuffer();
+//            RX_hasToParse = 0;
+//        }
+//        outputBuffer_flush();
+//
+//    }
+//    return (EXIT_SUCCESS);
 }
+
+
 

@@ -18,6 +18,7 @@
 #define TMR2_VALUE 40000 // 10 milliseconds
 //UART BAUDRATE
 #define BAUDRATE 115200
+//#define BAUDRATE 57600
 #define BRGVAL (FCY/(4*BAUDRATE))-1
 
 //Led configuration

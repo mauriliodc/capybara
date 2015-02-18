@@ -9,7 +9,7 @@
 #define	PLATFORM_DEFS_H
 
 #include <p33FJ128MC802.h>
-
+#include <stdint.h>
 #ifdef _LINUX_
 #include <sys/time.h>
 #include <stdint.h> // in linux-gcc the  types come for free
@@ -19,6 +19,7 @@ typedef uint8_t uchar8_t;
 
 //TYPES
 //----------------------------------------------------------
+/*
 #ifdef __dsPIC33FJ128MC802__
 typedef unsigned int uint8_t;
 typedef int int16_t;
@@ -30,6 +31,11 @@ typedef float long_t;
 typedef long long int very_long_t;
 //----------------------------------------------------------
 #endif
+*/
+
+typedef int16_t mtime_t;
+typedef uint8_t uchar8_t;
+typedef float long_t;
 
 typedef void(*irq_handler_t)();
 

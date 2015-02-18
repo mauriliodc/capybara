@@ -88,8 +88,8 @@ void MotorController_setPWM(struct MotorController* mc, int16_t speed) {
 }
 
 void MotorController_LowerHandler(struct TimerEvent* t) {
-    struct MotorController* mc = (struct MotorController*) t;
-    struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
+    //struct MotorController* mc = (struct MotorController*) t;
+    //struct PIDControlAlgorithm* ca = (struct PIDControlAlgorithm*)mc->_ca;
 }
 
 //Impose desired speed on desired motor controller

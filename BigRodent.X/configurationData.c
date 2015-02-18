@@ -1,5 +1,5 @@
 #include "configurationData.h"
-
+#include <stdio.h>
 int initEeprom() {
     DataEEInit();
     dataEEFlags.val = 0;
@@ -17,6 +17,7 @@ int initEeprom() {
         printf("Eeprom NEW\n");
         return 0;
     }
+    return 0;
 }
 
 void writeConfigurationToEeprom(const struct _configuration* conf) {
@@ -110,11 +111,12 @@ void debugConfigurationDataToSerial(const struct _configuration* conf) {
     printf("[%d] decrement %d\n", ADDR_rmi, conf->rightMotor.decrement);
     printf("[%d] mode %d\n", ADDR_rmm, conf->rightMotor.motorMode);
     printf("\nODOMETRY\r\n");
-    printf("[%d] baseline %f\n", ADDR_odob, conf->odometry.baseline);
-    printf("[%d] leftwheel radius %f\n", ADDR_odorl, conf->odometry.radiusLeft);
-    printf("[%d] rightwheel radius %f\n", ADDR_odorr, conf->odometry.radiusRight);
-    printf("[%d] radians per tick left %f\n", ADDR_odortl, conf->odometry.radiansPerTickLeft);
-    printf("[%d] radians per tick right %f\n", ADDR_odortr, conf->odometry.radiansPerTickRight);
+    //STUPID FLOAT->DOUBLE CONVERSION TO SILENCE THE WARNINGS
+    printf("[%d] baseline %f\n", ADDR_odob, (double)conf->odometry.baseline);
+    printf("[%d] leftwheel radius %f\n", ADDR_odorl, (double)conf->odometry.radiusLeft);
+    printf("[%d] rightwheel radius %f\n", ADDR_odorr, (double)conf->odometry.radiusRight);
+    printf("[%d] radians per tick left %f\n", ADDR_odortl, (double)conf->odometry.radiansPerTickLeft);
+    printf("[%d] radians per tick right %f\n", ADDR_odortr, (double)conf->odometry.radiansPerTickRight);
     printf("[%d] period %d\n", ADDR_odop, conf->odometry.period);
     printf("-------------------------------\r\n\n");
 }

@@ -10,8 +10,8 @@
 
 //#include <p33Fxxxx.h>
 #include <p33FJ128MC802.h>
+#include <stdint.h>
 #include <uart.h>
-
 #include "defines.h"
 #include "dspic_settings.h"
 #include "platform_defs.h"

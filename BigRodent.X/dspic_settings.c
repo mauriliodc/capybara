@@ -4,6 +4,7 @@
 #include "defines.h"
 void Clock_init() {
     // Configure PLL prescaler, PLL postscaler, and PLL divisor
+    //http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf page 145
     OSCTUN = 0;
     PLLFBD = 30; // M = 32
     CLKDIVbits.PLLPRE = 0; // N1 = 2
