@@ -76,6 +76,7 @@ int main() {
 
     initConsts();
     struct DummyPacket p;
+
     p.field_1=1;
     p.field_2=2;
     p.field_3=3;
@@ -87,11 +88,24 @@ int main() {
     struct Packet pp;
     pp.id=DummyPacketID;
     pp.dummy=p;
+    pp.seq=666;
 
     writePacket(&pp,bbb,0);
+
+    struct PacketDecoder pDecoder;
+    DecoderInit(&pDecoder,0);
+    int i =0;
+    while(!DecoderPutChar(&pDecoder,bbb[i])){
+        i++;
+    }
+
+    
     struct Packet ritorno;
-    parsePacket(bbb,&ritorno,0);
+    parsePacket(bbb+2,&ritorno,0);
     float cose = ritorno.dummy.field_5;
+    char* ptr = ((bbb+3)+ritorno.lenght);
+    char checksum = *ptr;
+     
     while (1) {
 
             /* Check for receive errors */

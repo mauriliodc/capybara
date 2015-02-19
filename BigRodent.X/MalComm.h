@@ -36,6 +36,7 @@ struct DumbPacket{
 struct Packet{
     uint8_t id;
     uint8_t lenght;
+    uint32_t seq;
     union{
         struct DummyPacket dummy;
         struct DumbPacket dumb;
@@ -50,17 +51,10 @@ struct PacketDecoder{
     char buffer[BUFFER_SIZE];
     char* buffer_start;
     char* buffer_end;
-    int lenght;
+    uint8_t lenght;
+    uint8_t checksum;
 };
 
-struct PacketEncoder{
-    int ascii;
-    int status;
-    char buffer[BUFFER_SIZE];
-    char* buffer_start;
-    char* buffer_end;
-    int lenght;
-};
 
 
 enum BufferStatus {Unsync=0x0, Sync=0x1, Length=0x2, Payload=0x3};
@@ -68,10 +62,9 @@ extern char header_1;
 extern char header_2;
 //Utility functions to clear and prepare the encoder/decoder stuff.
 //Call it before use it!
-void DecoderInit(struct PacketDecoder* d);
-void EncoderInit(struct PacketEncoder* e);
+void DecoderInit(struct PacketDecoder* dm, int ascii);
 void ResetDecoderBuffer(struct PacketDecoder* d);
-void ResetEncoderBuffer(struct PacketEncoder* e);
+int DecoderPutChar(struct PacketDecoder* d, char c);
 
 
 //Packets Stuff
