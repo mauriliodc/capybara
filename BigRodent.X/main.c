@@ -90,7 +90,7 @@ int main() {
     pp.dummy=p;
     pp.seq=666;
 
-    writePacket(&pp,bbb,0);
+    writePacket(&pp,bbb,1);
 
     struct PacketDecoder pDecoder;
     DecoderInit(&pDecoder,0);
@@ -101,11 +101,15 @@ int main() {
 
     
     struct Packet ritorno;
-    parsePacket(bbb+2,&ritorno,0);
+    parsePacket(pDecoder.buffer,&ritorno,0);
     float cose = ritorno.dummy.field_5;
     char* ptr = ((bbb+3)+ritorno.lenght);
     char checksum = *ptr;
-     
+
+    char test[100];
+    char* tPtr=test;
+    memset(tPtr,'\0',100);
+    
     while (1) {
 
             /* Check for receive errors */

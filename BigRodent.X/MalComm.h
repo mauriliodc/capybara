@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 #include <string.h>
-
+#include <stdio.h>
 #define BUFFER_SIZE 255
 #define MANY_COMMANDS 9
 
@@ -86,15 +86,44 @@ void initConsts();
 //void parsePacket(const char* buffer, struct Packet* p);
 
 
+
+
+
+//##############################################################################
 //Conversion primitives
+//##############################################################################
+//READING
+//------------------------------------------------------------------------------
+//Binary
+//------------------------------------------------------------------------------
+//note: the writing binary primitives makes side effect on the buffer and returns
+//the pointer to the new memory address to write on
 char* WriteChar(char value, char* buffer);
 char* WriteUint8(uint8_t value, char* buffer);
 char* WriteUint16(uint16_t value, char* buffer);
 char* WriteUint32(uint32_t value, char* buffer);
 char* WriteFloat(float value, char* buffer);
+//------------------------------------------------------------------------------
+//ASCII
+//------------------------------------------------------------------------------
+int WriteCharAscii(char value, char* buffer);
+int WriteUint8Ascii(uint8_t value, char* buffer);
+int WriteUint16Ascii(uint16_t value, char* buffer);
+int WriteUint32Ascii(uint32_t value, char* buffer);
+int WriteFloatAscii(float value, char* buffer);
 
+//READING
+//------------------------------------------------------------------------------
+//Binary
+//------------------------------------------------------------------------------
 uint8_t ReadUint8(char* buffer);
 uint16_t ReadUint16(char* buffer);
 uint32_t ReadUint32(char* buffer);
 float ReadFloat(char* buffer);
-
+//------------------------------------------------------------------------------
+//ASCII
+//------------------------------------------------------------------------------
+void ReadUint8Ascii(char* buffer, char* dest);
+void ReadUint16Ascii(char* buffer, char* dest);
+void ReadUint32Ascii(char* buffer, char* dest);
+void ReadFloatAscii(char* buffer, char* dest);
