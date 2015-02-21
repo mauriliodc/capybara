@@ -94,16 +94,16 @@ int main() {
     writePacket(&pp,bbb,1);
 
 
-//    struct PacketDecoder pDecoder;
-//    DecoderInit(&pDecoder,0);
-//    int i =0;
-//    while(!DecoderPutChar(&pDecoder,bbb[i])){
-//        i++;
-//    }
+    struct PacketDecoder pDecoder;
+    DecoderInit(&pDecoder,1);
+    int i =0;
+    while(!DecoderPutChar(&pDecoder,bbb[i])){
+        i++;
+    }
 
     
     struct Packet ritorno;
-    parsePacket(bbb+2,&ritorno,1);
+    parsePacket(pDecoder.buffer,&ritorno,1);
     float cose = ritorno.dummy.field_5;
 
     char* ptr = ((bbb+3)+ritorno.lenght);

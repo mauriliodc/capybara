@@ -81,7 +81,7 @@
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.24</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -163,7 +163,7 @@
         <property key="omit-debug-dirs" value="false"/>
         <property key="omit-forms" value="false"/>
         <property key="preprocessor-macros" value=""/>
-        <property key="relax" value="false"/>
+        <property key="relax" value="true"/>
         <property key="warning-level" value="emit-warnings"/>
       </C30-AS>
       <C30-LD>

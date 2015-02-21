@@ -61,6 +61,8 @@ struct PacketDecoder{
 enum BufferStatus {Unsync=0x0, Sync=0x1, Length=0x2, Payload=0x3};
 extern char header_1;
 extern char header_2;
+extern char AsciiHeader;
+extern char AsciiFooter;
 //Utility functions to clear and prepare the encoder/decoder stuff.
 //Call it before use it!
 void DecoderInit(struct PacketDecoder* dm, int ascii);
@@ -107,6 +109,8 @@ void initConsts();
 //------------------------------------------------------------------------------
 //ASCII
 //------------------------------------------------------------------------------
+ char* writeHeaderAscii(char* buffer);
+ char* writeFooterAscii(char* buffer);
  char* writeCharAscii(char value, char* buffer);
  char* writeUint8Ascii(uint8_t value, char* buffer);
  char* writeUint16Ascii(uint16_t value, char* buffer);

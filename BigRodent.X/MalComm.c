@@ -4,17 +4,22 @@ uint8_t DummyPacketID;
 uint8_t DumbPacketID;
 char header_1;
 char header_2;
-
+char AsciiHeader;
+char AsciiFooter;
 void initConsts() {
     DummyPacketID = 1;
     DumbPacketID = 2;
     header_1 = 0x43;
     header_2 = 0x3d;
+    AsciiHeader='(';
+    AsciiFooter=')';
 }
 //==============================================================================
 
 void DecoderInit(struct PacketDecoder* d, int ascii) {
     ResetDecoderBuffer(d);
+    d->buffer_start = &(d->buffer[0]);
+    d->buffer_end = &(d->buffer[BUFFER_SIZE - 1]);
     d->status = Unsync;
     d->lenght = 0;
     d->ascii = ascii;
@@ -23,8 +28,6 @@ void DecoderInit(struct PacketDecoder* d, int ascii) {
 
 void ResetDecoderBuffer(struct PacketDecoder* d) {
     memset(d->buffer, '\0', BUFFER_SIZE);
-    d->buffer_start = &(d->buffer[0]);
-    d->buffer_end = &(d->buffer[BUFFER_SIZE - 1]);
 }
 
 //==============================================================================
@@ -34,8 +37,11 @@ void ResetDecoderBuffer(struct PacketDecoder* d) {
 
 int DecoderPutChar(struct PacketDecoder* d, char c) {
     //binary mode
+    //-----------------------------------------------------
     if (d->ascii == 0) {
         if (d->status == Unsync) {
+            //clear the buffer
+            ResetDecoderBuffer(d);
             //clear the checksum, just in case
             d->checksum = 0;
             if (c == header_1) {
@@ -66,6 +72,30 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
             d->status = Unsync;
         }
     }
+    //-----------------------------------------------------
+    //ascii mode
+    //-----------------------------------------------------
+    else if (d->ascii == 1){
+        if (d->status == Unsync) {
+            //clear the buffer
+            ResetDecoderBuffer(d);
+            if (c == AsciiHeader) {
+                d->status = Payload;
+            }
+        } else if (d->status == Payload) {
+            //Sync Error, clean buffer and start oveer
+            if (c == AsciiHeader) {
+                d->status = Unsync;
+            }                //Packet end, process it
+            else if (c == AsciiFooter) {
+                return 1;
+            }                //in any other case, the char received is probably good!
+            else {
+                *(d->buffer_start) = c;
+                d->buffer_start++;
+            }
+        }
+        }
     return 0;
 }
 //==============================================================================
@@ -162,7 +192,7 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
 //        buffer = writeUint8(checksum, buffer);
     }//Ascii mode
     else {
-        buffer = writeCharAscii('(', buffer);
+        buffer = writeHeaderAscii(buffer);
         buffer = writeUint8Ascii(DummyPacketID, buffer);
         buffer = writeUint32Ascii(p->seq, buffer);
         buffer = writeUint8Ascii(p->dummy.field_1, buffer);
@@ -173,7 +203,7 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
         buffer = writeCharAscii((char) p->dummy.field_6, buffer);
         buffer = writeUint32Ascii(p->dummy.field_7, buffer);
         buffer = writeUint32Ascii(p->dummy.field_8, buffer);
-        buffer = writeCharAscii(')', buffer);
+        buffer = writeFooterAscii(buffer);
     }
     return buffer;
 }
@@ -201,9 +231,10 @@ char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
         buffer = readUint32((uint32_t*)&(p->dummy.field_8), buffer);
     } else {
 
-        long int a,b,c,d,e,g,h,i,l=0;
-        float f=0;
-        sscanf(buffer,"%ld %ld %ld %ld %ld %f %d %ld %ld",
+        //clean this mess, someday
+        long int a, b, c, d, e, g, h, i = 0;
+        float f = 0;
+        sscanf(buffer, "%ld %ld %ld %ld %ld %f %d %ld %ld",
                 &a,
                 &b,
                 &c,
@@ -214,25 +245,16 @@ char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
                 &h,
                 &i);
 
-        p->seq=(uint32_t)a;
-        p->dummy.field_1=(uint8_t)b;
-        p->dummy.field_2=(uint16_t)c;
-        p->dummy.field_3=(int8_t)d;
-        p->dummy.field_4=(char)e;
-        p->dummy.field_5=(float)f;
-        p->dummy.field_6=(unsigned char)g;
-        p->dummy.field_7=(uint32_t)h;
-        p->dummy.field_8=(int32_t)i;
-        
-//        buffer = readUint32Ascii((char*) &(p->seq), buffer);
-//        buffer = readUint8Ascii((char*) &(p->dummy.field_1), buffer);
-//        buffer = readUint16Ascii((char*) &(p->dummy.field_2), buffer);
-//        buffer = readUint8Ascii((char*) &(p->dummy.field_3), buffer);
-//        buffer = readUint8Ascii((char*) &(p->dummy.field_4), buffer);
-//        buffer = readFloatAscii((char*) &(p->dummy.field_5), buffer);
-//        buffer = readUint8Ascii((char*) &(p->dummy.field_6), buffer);
-//        buffer = readUint32Ascii((char*) &(p->dummy.field_7), buffer);
-//        buffer = readUint32Ascii((char*) &(p->dummy.field_8), buffer);
+        p->seq = (uint32_t) a;
+        p->dummy.field_1 = (uint8_t) b;
+        p->dummy.field_2 = (uint16_t) c;
+        p->dummy.field_3 = (int8_t) d;
+        p->dummy.field_4 = (char) e;
+        p->dummy.field_5 = (float) f;
+        p->dummy.field_6 = (unsigned char) g;
+        p->dummy.field_7 = (uint32_t) h;
+        p->dummy.field_8 = (int32_t) i;
+
     }
     return buffer;
 
@@ -349,14 +371,19 @@ char* readFloat(float* dest, char* buffer) {
 
 //==============================================================================
 //Conversion primitives:ASCII
-
+char* writeHeaderAscii(char* buffer){
+    return buffer + sprintf(buffer, "%c ", AsciiHeader);
+}
+ char* writeFooterAscii(char* buffer){
+     return buffer + sprintf(buffer, "%c ", AsciiFooter);
+ }
 char* writeCharAscii(char value, char* buffer) {
-    return buffer + sprintf(buffer, "%d ", value);
+    return buffer + sprintf(buffer, "%u ", value);
 
 }
 
 char* writeUint8Ascii(uint8_t value, char* buffer) {
-    return buffer + sprintf(buffer, "%u ", (uint16_t) value);
+    return buffer + sprintf(buffer, "%u ", value);
 
 }
 
@@ -376,7 +403,7 @@ char* writeFloatAscii(float value, char* buffer) {
 }
 
 char* readUint8Ascii(char* dest, char* buffer) {
-    *(uint8_t*) dest =  (uint8_t)strtoul(buffer, &buffer, 10);
+    *(uint8_t*) dest = (uint8_t) strtoul(buffer, &buffer, 10);
     return buffer;
 }
 
