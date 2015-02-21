@@ -80,9 +80,9 @@ int main() {
     p.field_1=1;
     p.field_2=2;
     p.field_3=3;
-    p.field_4=4;
+    p.field_4=43;
     p.field_5=5.5;
-    p.field_6=200;
+    p.field_6='k';
     p.field_7=70000;
     p.field_8=-30000;
     struct Packet pp;
@@ -90,19 +90,22 @@ int main() {
     pp.dummy=p;
     pp.seq=666;
 
+
     writePacket(&pp,bbb,1);
 
-    struct PacketDecoder pDecoder;
-    DecoderInit(&pDecoder,0);
-    int i =0;
-    while(!DecoderPutChar(&pDecoder,bbb[i])){
-        i++;
-    }
+
+//    struct PacketDecoder pDecoder;
+//    DecoderInit(&pDecoder,0);
+//    int i =0;
+//    while(!DecoderPutChar(&pDecoder,bbb[i])){
+//        i++;
+//    }
 
     
     struct Packet ritorno;
-    parsePacket(pDecoder.buffer,&ritorno,0);
+    parsePacket(bbb+2,&ritorno,1);
     float cose = ritorno.dummy.field_5;
+
     char* ptr = ((bbb+3)+ritorno.lenght);
     char checksum = *ptr;
 
