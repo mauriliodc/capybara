@@ -1,16 +1,20 @@
 #include "MalComm.h"
+
 //INITIALIZATION STUFF
 uint8_t DummyPacketID;
 uint8_t DumbPacketID;
+
 char header_1;
 char header_2;
 char AsciiHeader;
 char AsciiFooter;
+int complete = 0;
+
 void initConsts() {
     DummyPacketID = 1;
     DumbPacketID = 2;
-    header_1 = 0x43;
-    header_2 = 0x3d;
+    header_1 = 0xaa;
+    header_2 = 0x55;
     AsciiHeader='(';
     AsciiFooter=')';
 }
@@ -19,7 +23,7 @@ void initConsts() {
 void DecoderInit(struct PacketDecoder* d, int ascii) {
     ResetDecoderBuffer(d);
     d->buffer_start = &(d->buffer[0]);
-    d->buffer_end = &(d->buffer[BUFFER_SIZE - 1]);
+    d->bufferPtr = &(d->buffer[0]);
     d->status = Unsync;
     d->lenght = 0;
     d->ascii = ascii;
@@ -28,6 +32,7 @@ void DecoderInit(struct PacketDecoder* d, int ascii) {
 
 void ResetDecoderBuffer(struct PacketDecoder* d) {
     memset(d->buffer, '\0', BUFFER_SIZE);
+    d->bufferPtr = d->buffer_start;
 }
 
 //==============================================================================
@@ -57,13 +62,14 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
             d->lenght = (uint8_t) c;
             d->status = Payload;
         } else if (d->status == Payload) {
-            if (d->lenght > 1) {
+            if (d->lenght > 0) {
                 d->checksum ^= c;
-                *(d->buffer_start) = c;
-                d->buffer_start++;
+                *(d->bufferPtr) = c;
+                d->bufferPtr++;
                 d->lenght--;
             } else {
                 d->checksum ^= c;
+                 d->status = Unsync;
                 if (d->checksum == 0) return 1; //checksum good
                 else return 0; //checksum error;
             }
@@ -162,51 +168,7 @@ char* parsePacket(char* buffer, struct Packet* p, int ascii) {
 //We need to get the addresws of (buffer-1) because the Write primitive does side effect
 //on the buffer, so the returned buffer points to a NUL byte
 
-char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
-    //BinaryMode
-    if (!ascii) {
-        uint8_t lenght = sizeof (uint8_t)*6;
-        lenght += sizeof (uint16_t);
-        lenght += sizeof (uint32_t) *4;
-//        uint8_t checksum = 0;
-        //PACKET LENGTH
-        buffer = writeUint8(lenght, buffer);
-        //PACKET ID
-        buffer = writeUint8(DummyPacketID, buffer);
-        buffer = writeUint32(p->seq, buffer);
-        buffer = writeUint8(p->dummy.field_1, buffer);
-        buffer = writeUint16(p->dummy.field_2, buffer);
-        buffer = writeUint8(p->dummy.field_3, buffer);
-        buffer = writeChar(p->dummy.field_4, buffer);
-        buffer = writeFloat(p->dummy.field_5, buffer);
-        buffer = writeChar(p->dummy.field_6, buffer);
-        buffer = writeUint32(p->dummy.field_7, buffer);
-        buffer = writeUint32(p->dummy.field_8, buffer);
-        //LET'S COMPUTE THE CHECKSUM
-        //LEN is the lenght of the payload, minus one otherwise i would compute the checksum of the lenght
-//        uint8_t len = lenght - 1;
-//        while (len) {
-//            checksum ^= *(buffer - len);
-//            len--;
-//        }
-//        buffer = writeUint8(checksum, buffer);
-    }//Ascii mode
-    else {
-        buffer = writeHeaderAscii(buffer);
-        buffer = writeUint8Ascii(DummyPacketID, buffer);
-        buffer = writeUint32Ascii(p->seq, buffer);
-        buffer = writeUint8Ascii(p->dummy.field_1, buffer);
-        buffer = writeUint16Ascii(p->dummy.field_2, buffer);
-        buffer = writeUint8Ascii(p->dummy.field_3, buffer);
-        buffer = writeCharAscii(p->dummy.field_4, buffer);
-        buffer = writeFloatAscii(p->dummy.field_5, buffer);
-        buffer = writeCharAscii((char) p->dummy.field_6, buffer);
-        buffer = writeUint32Ascii(p->dummy.field_7, buffer);
-        buffer = writeUint32Ascii(p->dummy.field_8, buffer);
-        buffer = writeFooterAscii(buffer);
-    }
-    return buffer;
-}
+
 
 char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
     if (!ascii) {
@@ -217,6 +179,38 @@ char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
     return buffer; //DUMMY
 }
 
+
+
+char* readDumbPacket(struct Packet* p, char* buffer, int ascii) {
+    return buffer;
+}
+
+
+
+#ifdef __33FJ128MC802_H
+//use this only on the micro side
+void sendToUart(char* buffer, int length, int intraCharDelayUs) {
+    int i = 0;
+    while (i < length) {
+        U1TXREG = buffer[i];
+        i++;
+        DelayN10us(intraCharDelayUs);
+    }
+}
+#else
+void sendToUart(int device, char* buffer, int length, int intraCharDelayUs) {
+    int i = 0;
+    while (i < length) {
+        write(device,&buffer[i],1);
+        i++;
+        usleep(200);
+        usleep(intraCharDelayUs);
+    }
+}
+#endif
+
+
+uint8_t DummyPacketID;
 char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
     //Don't have to read the lenght
     if (!ascii) {
@@ -260,166 +254,47 @@ char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
 
 }
 
-char* readDumbPacket(struct Packet* p, char* buffer, int ascii) {
+char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
+    //BinaryMode
+    if (!ascii) {
+        uint8_t lenght = 23;
+//        uint8_t checksum = 0;
+        //PACKET LENGTH
+        buffer = writeUint8(lenght, buffer);
+        //PACKET ID
+        buffer = writeUint8(DummyPacketID, buffer);
+        buffer = writeUint32(p->seq, buffer);
+
+        buffer = writeUint8(p->dummy.field_1, buffer);
+        buffer = writeUint16(p->dummy.field_2, buffer);
+        buffer = writeUint8(p->dummy.field_3, buffer);
+        buffer = writeChar(p->dummy.field_4, buffer);
+        buffer = writeFloat(p->dummy.field_5, buffer);
+        buffer = writeChar(p->dummy.field_6, buffer);
+        buffer = writeUint32(p->dummy.field_7, buffer);
+        buffer = writeUint32(p->dummy.field_8, buffer);
+        //LET'S COMPUTE THE CHECKSUM
+        //LEN is the lenght of the payload, minus one otherwise i would compute the checksum of the lenght
+//        uint8_t len = lenght - 1;
+//        while (len) {
+//            checksum ^= *(buffer - len);
+//            len--;
+//        }
+//        buffer = writeUint8(checksum, buffer);
+    }//Ascii mode
+    else {
+        buffer = writeHeaderAscii(buffer);
+        buffer = writeUint8Ascii(DummyPacketID, buffer);
+        buffer = writeUint32Ascii(p->seq, buffer);
+        buffer = writeUint8Ascii(p->dummy.field_1, buffer);
+        buffer = writeUint16Ascii(p->dummy.field_2, buffer);
+        buffer = writeUint8Ascii(p->dummy.field_3, buffer);
+        buffer = writeCharAscii(p->dummy.field_4, buffer);
+        buffer = writeFloatAscii(p->dummy.field_5, buffer);
+        buffer = writeCharAscii((char) p->dummy.field_6, buffer);
+        buffer = writeUint32Ascii(p->dummy.field_7, buffer);
+        buffer = writeUint32Ascii(p->dummy.field_8, buffer);
+        buffer = writeFooterAscii(buffer);
+    }
     return buffer;
 }
-
-//==============================================================================
-//Conversion primitives:BINARY
-
-char* writeChar(char value, char* buffer) {
-    *(char*) buffer = value;
-    buffer++;
-    return buffer;
-}
-
-char* writeUint8(uint8_t value, char* buffer) {
-    *(uint8_t*) buffer = value;
-    buffer++;
-    return buffer;
-}
-
-char* writeUint16(uint16_t value, char* buffer) {
-    char* valuePTR = (char*) &value;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    return buffer;
-}
-
-char* writeUint32(uint32_t value, char* buffer) {
-    char* valuePTR = (char*) &value;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    return buffer;
-}
-
-char* writeFloat(float value, char* buffer) {
-    char* valuePTR = (char*) &value;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    valuePTR++;
-    *(char*) buffer = *valuePTR;
-    buffer++;
-    return buffer;
-}
-
-char* readUint8(uint8_t* dest, char* buffer) {
-    *dest = *(uint8_t*) buffer;
-    return buffer + 1;
-}
-
-char* readUint16(uint16_t* dest, char* buffer) {
-    char* valuePTR = (char*) dest;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    return buffer;
-}
-
-char* readUint32(uint32_t* dest, char* buffer) {
-    char* valuePTR = (char*) dest;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    return buffer;
-}
-
-char* readFloat(float* dest, char* buffer) {
-    char* valuePTR = (char*) dest;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    valuePTR++;
-    *(char*) valuePTR = *buffer;
-    buffer++;
-    return buffer;
-}
-
-
-//==============================================================================
-//Conversion primitives:ASCII
-char* writeHeaderAscii(char* buffer){
-    return buffer + sprintf(buffer, "%c ", AsciiHeader);
-}
- char* writeFooterAscii(char* buffer){
-     return buffer + sprintf(buffer, "%c ", AsciiFooter);
- }
-char* writeCharAscii(char value, char* buffer) {
-    return buffer + sprintf(buffer, "%u ", value);
-
-}
-
-char* writeUint8Ascii(uint8_t value, char* buffer) {
-    return buffer + sprintf(buffer, "%u ", value);
-
-}
-
-char* writeUint16Ascii(uint16_t value, char* buffer) {
-    return buffer + sprintf(buffer, "%u ", value);
-
-}
-
-char* writeUint32Ascii(uint32_t value, char* buffer) {
-    return buffer + sprintf(buffer, "%lu ", value);
-
-}
-
-char* writeFloatAscii(float value, char* buffer) {
-    return buffer + sprintf(buffer, "%f ", (double) value);
-
-}
-
-char* readUint8Ascii(char* dest, char* buffer) {
-    *(uint8_t*) dest = (uint8_t) strtoul(buffer, &buffer, 10);
-    return buffer;
-}
-
-char* readUint16Ascii(char* dest, char* buffer) {
-    *(uint16_t*) dest = strtoul(buffer, &buffer, 10);
-    return buffer;
-}
-
-char* readUint32Ascii(char* dest, char* buffer) {
-    *(uint32_t*) dest = strtoul(buffer, &buffer, 10);
-    return buffer;
-}
-
-char* readFloatAscii(char* dest, char* buffer) {
-    *(float*) dest = strtoul(buffer, &buffer, 10);
-    return buffer;
-}
-
-
