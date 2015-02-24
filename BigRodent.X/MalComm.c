@@ -101,8 +101,8 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
                 return 1;
             }                //in any other case, the char received is probably good!
             else {
-                *(d->buffer_start) = c;
-                d->buffer_start++;
+                *(d->bufferPtr) = c;
+                d->bufferPtr++;
             }
         }
         }

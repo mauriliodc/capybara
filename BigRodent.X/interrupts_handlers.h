@@ -22,6 +22,16 @@ extern struct TimerEventHandler tHandler;
 extern struct PacketDecoder pDecoder;
 extern int complete;
 
+extern char* packetBuffer[2];
+extern char buffer_1[255];
+extern char buffer_2[255];
+extern int read;
+extern int write;
+extern int parse;
+
+extern char*  pEnd;
+extern char* charToSend;
+
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
     TimerEventHandler_handleIRQEvents(&tHandler);
@@ -39,12 +49,26 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _QEI2Interrupt(void) {
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
     IFS0bits.U1TXIF = 0;
+    if(charToSend==0 || charToSend==pEnd){
+        U1TXREG='\n';
+        IEC0bits.U1TXIE = 0;
+        charToSend=0;
+        pEnd=0;
+    }else{
+        U1TXREG=*charToSend;
+        charToSend++;
+    }
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
-    if(!complete){
-    complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
-    }
+//    complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
+//    if(complete){
+//        memcpy(packetBuffer[write],pDecoder.buffer_start,255);
+//        int tmp=write;
+//        write=read;
+//        read=tmp;
+//        parse=1;
+//    }
     IFS0bits.U1RXIF = 0;
 
 }

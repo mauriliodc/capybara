@@ -34,13 +34,31 @@ struct DifferentialDriveOdometer odo;
 struct trasmissionBuffer TransmissionBuffer;
 
 
-char packetBuffer[255];
+char* packetBuffer[2];
+char buffer_1[255];
+char buffer_2[255];
+int read=0;
+int write=1;
+int parse=0;
+char sendingPacket[255];
+
 extern int complete;
 struct PacketDecoder pDecoder;
 struct Packet receivedPacket;
 
-int main() {
+char* pEnd;
+char* charToSend;
 
+int main() {
+    charToSend=0;
+    pEnd=0;
+    
+    packetBuffer[0]=buffer_1;
+    packetBuffer[1]=buffer_2;
+    memset(packetBuffer[0],'\0',255);
+    memset(packetBuffer[1],'\0',255);
+    read=0;
+    write=1;
 
     Micro_init();
     outputBuffer_Init();
@@ -62,23 +80,35 @@ int main() {
     pp.dummy=p;
     pp.seq=0;
 
+    
+
     int ascii = 0;
     DecoderInit(&pDecoder,ascii);
     while (1) {
-            U1STAbits.OERR = 0;
-
+//            if(U1STAbits.OERR == 1){
+//                U1STAbits.OERR = 0;
+//                continue;
+//            }
+//            if(U1STAbits.URXDA == 1){
+//                complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
+//                if(complete){
+//                    parse=1;
+//                }
+//            }
             //i've received a message, i wanna reply with one
-            if(complete){
-                parsePacket(pDecoder.buffer,&receivedPacket,ascii);
-                complete=0;
+                //pp.seq=receivedPacket.seq;
+          
+            if(charToSend==0){
+                DelayN1ms(1);
                 pp.seq++;
-                char* end=writePacket(&pp,packetBuffer,ascii);
-                int len = end-packetBuffer;
-                sendToUart(packetBuffer, len, 10);
-
+                pEnd=writePacket(&pp,sendingPacket,ascii);
+                charToSend = sendingPacket;
+                IEC0bits.U1TXIE = 1;
             }
+       
+   }
         
-    }
+    
 
 
 
@@ -212,29 +242,30 @@ int main() {
     //DoubleBuffer_Init();
     putsUART1((unsigned int *) "STARTING MAIN LOOP\r\n");
 
-//    canIRun = 1;
-//    while (!canIRun) {
-//        if (U1STAbits.OERR) U1STAbits.OERR = 0;
-//        if (RX_hasToParse) {
-//            parseAndExecuteCommand();
-//            DoubleBuffer_resetParsingBuffer();
-//            RX_hasToParse = 0;
-//        }
-//        outputBuffer_flush();
-//    }
-//    while (RUN_CACAPYBARA_RUN) {
-//        TimerEventHandler_handleScheduledEvents(&tHandler);
-//        if (U1STAbits.OERR) U1STAbits.OERR = 0;
-//        if (RX_hasToParse) {
-//            parseAndExecuteCommand();
-//            DoubleBuffer_resetParsingBuffer();
-//            RX_hasToParse = 0;
-//        }
-//        outputBuffer_flush();
-//
-//    }
-//    return (EXIT_SUCCESS);
+    //    canIRun = 1;
+    //    while (!canIRun) {
+    //        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+    //        if (RX_hasToParse) {
+    //            parseAndExecuteCommand();
+    //            DoubleBuffer_resetParsingBuffer();
+    //            RX_hasToParse = 0;
+    //        }
+    //        outputBuffer_flush();
+    //    }
+    //    while (RUN_CACAPYBARA_RUN) {
+    //        TimerEventHandler_handleScheduledEvents(&tHandler);
+    //        if (U1STAbits.OERR) U1STAbits.OERR = 0;
+    //        if (RX_hasToParse) {
+    //            parseAndExecuteCommand();
+    //            DoubleBuffer_resetParsingBuffer();
+    //            RX_hasToParse = 0;
+    //        }
+    //        outputBuffer_flush();
+    //
+    //    }
+    //    return (EXIT_SUCCESS);
 }
+
 
 
 

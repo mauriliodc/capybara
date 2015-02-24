@@ -21,6 +21,45 @@
 //==============================================================================
 //==============================================================================
 
+//CONFIGURATION PACKET
+//==============================================================================
+//useful to get/set eeprom parameters
+extern uint8_t ConfigurationPacketID;
+struct ConfigurationPacket{
+    uint8_t address;
+    int16_t intValue;
+    float floatValue;
+};
+
+
+//SLIM STATE PACKET
+//==============================================================================
+extern uint8_t SlimStatePacketID;
+struct SlimStatePacket{
+    uint16_t leftEncoder;
+    uint16_t rightEncoder;
+};
+
+
+//INIT PACKET
+//==============================================================================
+//used to start/reset the roboot
+extern uint8_t InitPacketID;
+struct InitPacket{
+    uint8_t init;
+};
+
+
+//SPEED PACKET
+//==============================================================================
+//Speed packet is used by the client to request a specific speed on the motors
+//The speed is expressed in the form of encoder ticks
+extern uint8_t SpeedPacketID;
+struct SpeedPacket{
+    int16_t leftTick;
+    int16_t rightTick;
+};
+
 //DUMB PACKET
 //==============================================================================
 extern uint8_t DumbPacketID;
