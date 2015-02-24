@@ -1,15 +1,16 @@
 #include "MalComm.h"
 
 //INITIALIZATION STUFF
+//==============================================================================
 uint8_t DummyPacketID;
 uint8_t DumbPacketID;
-
 char header_1;
 char header_2;
 char AsciiHeader;
 char AsciiFooter;
 int complete = 0;
-
+//Consts init
+//==============================================================================
 void initConsts() {
     DummyPacketID = 1;
     DumbPacketID = 2;
@@ -19,7 +20,11 @@ void initConsts() {
     AsciiFooter=')';
 }
 //==============================================================================
+//==============================================================================
 
+
+//Decoder init and useful stuff
+//==============================================================================
 void DecoderInit(struct PacketDecoder* d, int ascii) {
     ResetDecoderBuffer(d);
     d->buffer_start = &(d->buffer[0]);
@@ -34,12 +39,11 @@ void ResetDecoderBuffer(struct PacketDecoder* d) {
     memset(d->buffer, '\0', BUFFER_SIZE);
     d->bufferPtr = d->buffer_start;
 }
-
+//==============================================================================
 //==============================================================================
 
-//DECODER STUFF
+//Decoder main loop
 //==============================================================================
-
 int DecoderPutChar(struct PacketDecoder* d, char c) {
     //binary mode
     //-----------------------------------------------------
@@ -105,12 +109,13 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
     return 0;
 }
 //==============================================================================
-
+//==============================================================================
 
 
 //PACKET STUFF
 //==============================================================================
-
+//GenericPacket Utilities
+//==============================================================================
 char* writePacket(const struct Packet* p, char* buffer, int ascii) {
     //Binary mode
     char* buffPtr;
@@ -132,17 +137,6 @@ char* writePacket(const struct Packet* p, char* buffer, int ascii) {
     return buffer;
 }
 
-uint8_t computeChecksum(char* buffer, uint8_t length){
-    uint8_t checksum=0;
-    uint8_t len = length - 1;
-        while (len) {
-            checksum ^= *(buffer - len);
-            len--;
-        }
-    return checksum;
-}
-
-
 //Note,buffer has to point to the ID, not to the length
 char* parsePacket(char* buffer, struct Packet* p, int ascii) {
     uint8_t id;
@@ -161,56 +155,23 @@ char* parsePacket(char* buffer, struct Packet* p, int ascii) {
     }
     return buffer;
 }
-//==============================================================================
 
+uint8_t computeChecksum(char* buffer, uint8_t length){
+    uint8_t checksum=0;
+    uint8_t len = length - 1;
+        while (len) {
+            checksum ^= *(buffer - len);
+            len--;
+        }
+    return checksum;
+}
+//==============================================================================
+//DummyPacket
+//==============================================================================
 //pay attention, this make side effect on buffer
 //The checksum is computed on the first byte of each field.
 //We need to get the addresws of (buffer-1) because the Write primitive does side effect
 //on the buffer, so the returned buffer points to a NUL byte
-
-
-
-char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
-    if (!ascii) {
-
-    } else {
-
-    }
-    return buffer; //DUMMY
-}
-
-
-
-char* readDumbPacket(struct Packet* p, char* buffer, int ascii) {
-    return buffer;
-}
-
-
-
-#ifdef __33FJ128MC802_H
-//use this only on the micro side
-void sendToUart(char* buffer, int length, int intraCharDelayUs) {
-    int i = 0;
-    while (i < length) {
-        U1TXREG = buffer[i];
-        i++;
-        DelayN10us(intraCharDelayUs);
-    }
-}
-#else
-void sendToUart(int device, char* buffer, int length, int intraCharDelayUs) {
-    int i = 0;
-    while (i < length) {
-        write(device,&buffer[i],1);
-        i++;
-        usleep(200);
-        usleep(intraCharDelayUs);
-    }
-}
-#endif
-
-
-uint8_t DummyPacketID;
 char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
     //Don't have to read the lenght
     if (!ascii) {
@@ -258,7 +219,6 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
     //BinaryMode
     if (!ascii) {
         uint8_t lenght = 23;
-//        uint8_t checksum = 0;
         //PACKET LENGTH
         buffer = writeUint8(lenght, buffer);
         //PACKET ID
@@ -273,14 +233,6 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
         buffer = writeChar(p->dummy.field_6, buffer);
         buffer = writeUint32(p->dummy.field_7, buffer);
         buffer = writeUint32(p->dummy.field_8, buffer);
-        //LET'S COMPUTE THE CHECKSUM
-        //LEN is the lenght of the payload, minus one otherwise i would compute the checksum of the lenght
-//        uint8_t len = lenght - 1;
-//        while (len) {
-//            checksum ^= *(buffer - len);
-//            len--;
-//        }
-//        buffer = writeUint8(checksum, buffer);
     }//Ascii mode
     else {
         buffer = writeHeaderAscii(buffer);
@@ -298,3 +250,59 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
     }
     return buffer;
 }
+//==============================================================================
+//==============================================================================
+
+
+//DumbPacket
+//==============================================================================
+//Write
+//==============================================================================
+char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
+    if (!ascii) {
+
+    } else {
+
+    }
+    return buffer; //DUMMY
+}
+
+//Read
+//==============================================================================
+char* readDumbPacket(struct Packet* p, char* buffer, int ascii) {
+    return buffer;
+}
+
+//==============================================================================
+//==============================================================================
+
+
+//Uart facilities
+//==============================================================================
+#ifdef __33FJ128MC802_H
+//use this only on the micro side
+void sendToUart(char* buffer, int length, int intraCharDelayUs) {
+    int i = 0;
+    while (i < length) {
+        U1TXREG = buffer[i];
+        i++;
+        DelayN10us(intraCharDelayUs);
+    }
+}
+#else
+void sendToUart(int device, char* buffer, int length, int intraCharDelayUs) {
+    int i = 0;
+    while (i < length) {
+        write(device,&buffer[i],1);
+        i++;
+        usleep(200);
+        usleep(intraCharDelayUs);
+    }
+}
+#endif
+//==============================================================================
+//==============================================================================
+//==============================================================================
+//==============================================================================
+
+
