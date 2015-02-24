@@ -98,6 +98,7 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
                 d->status = Unsync;
             }                //Packet end, process it
             else if (c == AsciiFooter) {
+                d->status = Unsync;
                 return 1;
             }                //in any other case, the char received is probably good!
             else {
