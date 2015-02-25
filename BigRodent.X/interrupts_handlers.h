@@ -33,25 +33,10 @@ extern char*  pEnd;
 extern char* charToSend;
 int tiMerda=0;
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
-
-    TimerEventHandler_handleIRQEvents(&tHandler);
-    tiMerda++;
-    if(tiMerda==10){
-    POS1CNT=0;
-    POS2CNT=0;
-    tiMerda=0;
-    }
     IFS0bits.T1IF = 0;
-
+    TimerEventHandler_handleIRQEvents(&tHandler);
 }
 
-//void __attribute__((__interrupt__, __no_auto_psv__)) _T2Interrupt(void) {
-//
-//    POS1CNT=0;
-//    POS2CNT=0;
-//    IFS0bits.T2IF = 0;
-//
-//}
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
     _QEI1IF = 0;

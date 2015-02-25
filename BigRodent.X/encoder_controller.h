@@ -23,7 +23,7 @@ struct EncoderController{
     struct Encoder* encoders[NUM_ENCODERS];
 };
 
-void    Encoder_init(struct Encoder* encoder, uint8_t* positionCounterRegister);
+void    Encoder_init(struct Encoder* encoder, uint16_t* positionCounterRegister);
 void    EncoderController_init(struct EncoderController* controller);
 uint8_t EncoderController_num();
 int16_t EncoderController_ticks(const struct EncoderController* controller, uint8_t numEncoder);

@@ -7,11 +7,12 @@ int initEeprom() {
     int programmed = DataEERead(ADDR_programmed);
     //printf("STATUS: %d\n", dataEEFlags.addrNotFound);
     putsUART1((unsigned int*)"STATUS: ");
-    putsUART1((unsigned int*)dataEEFlags.addrNotFound);
+    putsUART1((unsigned int*)(int)dataEEFlags.addrNotFound);
     putsUART1((unsigned int*)"\n");
     putsUART1((unsigned int*)"STATUS: ");
-    putsUART1((unsigned int*)dataEEFlags.val);
+    putsUART1((unsigned int*)(int)dataEEFlags.val);
     putsUART1((unsigned int*)"\n");
+    
     if (dataEEFlags.addrNotFound == 0) {
         programmed++;
         DataEEWrite(programmed, ADDR_programmed);

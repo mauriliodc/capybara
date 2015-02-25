@@ -28,7 +28,7 @@
 #define LED2CONF _TRISB4
 
 
-#define PWMMODE 0   //pwm 0 TANK 3A
+#define PWMMODE 1   //pwm 0 TANK 3A
                 //pwm 1 complementary
 #endif	/* DEFINES_H */
 

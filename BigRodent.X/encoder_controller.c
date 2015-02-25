@@ -2,7 +2,7 @@
 
 
 //Set encoder address
-void Encoder_init(struct Encoder* encoder, uint8_t* positionCounterRegister)
+void Encoder_init(struct Encoder* encoder, uint16_t* positionCounterRegister)
 {
     encoder->ticks=positionCounterRegister;
 }
