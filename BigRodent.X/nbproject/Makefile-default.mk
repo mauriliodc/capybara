@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c "Flash Operations.s" Eeprom.c configurationData.c
+SOURCEFILES_QUOTED_IF_SPACED=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c Eeprom.c configurationData.c "Flash Operations.s"
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o "${OBJECTDIR}/Flash Operations.o" ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/ConfigurationPacket.o.d ${OBJECTDIR}/DumbPacket.o.d ${OBJECTDIR}/DummyPacket.o.d ${OBJECTDIR}/InitPacket.o.d ${OBJECTDIR}/SlimStatePacket.o.d ${OBJECTDIR}/SpeedPacket.o.d ${OBJECTDIR}/MalComm.o.d ${OBJECTDIR}/primitives.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/message_buffer.o.d ${OBJECTDIR}/OutputBuffer.o.d "${OBJECTDIR}/Flash Operations.o.d" ${OBJECTDIR}/Eeprom.o.d ${OBJECTDIR}/configurationData.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o "${OBJECTDIR}/Flash Operations.o"
+POSSIBLE_DEPFILES=${OBJECTDIR}/ConfigurationPacket.o.d ${OBJECTDIR}/DumbPacket.o.d ${OBJECTDIR}/DummyPacket.o.d ${OBJECTDIR}/InitPacket.o.d ${OBJECTDIR}/SlimStatePacket.o.d ${OBJECTDIR}/SpeedPacket.o.d ${OBJECTDIR}/MalComm.o.d ${OBJECTDIR}/primitives.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/message_buffer.o.d ${OBJECTDIR}/Eeprom.o.d ${OBJECTDIR}/configurationData.o.d "${OBJECTDIR}/Flash Operations.o.d"
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o ${OBJECTDIR}/Flash\ Operations.o ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o
+OBJECTFILES=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o ${OBJECTDIR}/Flash\ Operations.o
 
 # Source Files
-SOURCEFILES=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c Flash Operations.s Eeprom.c configurationData.c
+SOURCEFILES=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c Eeprom.c configurationData.c Flash Operations.s
 
 
 CFLAGS=
@@ -215,13 +215,6 @@ ${OBJECTDIR}/message_buffer.o: message_buffer.c  nbproject/Makefile-${CND_CONF}.
 	${MP_CC} $(MP_EXTRA_CC_PRE)  message_buffer.c  -o ${OBJECTDIR}/message_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/message_buffer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/message_buffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/OutputBuffer.o: OutputBuffer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/OutputBuffer.o.d 
-	@${RM} ${OBJECTDIR}/OutputBuffer.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  OutputBuffer.c  -o ${OBJECTDIR}/OutputBuffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/OutputBuffer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/OutputBuffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/Eeprom.o: Eeprom.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Eeprom.o.d 
@@ -369,13 +362,6 @@ ${OBJECTDIR}/message_buffer.o: message_buffer.c  nbproject/Makefile-${CND_CONF}.
 	@${RM} ${OBJECTDIR}/message_buffer.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  message_buffer.c  -o ${OBJECTDIR}/message_buffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/message_buffer.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/message_buffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/OutputBuffer.o: OutputBuffer.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/OutputBuffer.o.d 
-	@${RM} ${OBJECTDIR}/OutputBuffer.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  OutputBuffer.c  -o ${OBJECTDIR}/OutputBuffer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/OutputBuffer.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/OutputBuffer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/Eeprom.o: Eeprom.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 

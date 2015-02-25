@@ -4,12 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="f1" displayName="Communication" projectFiles="true">
-        <itemPath>velocityCommand.h</itemPath>
-        <itemPath>encoderCommand.h</itemPath>
-        <itemPath>configurationCommand.h</itemPath>
-        <itemPath>startCommand.h</itemPath>
-        <itemPath>stopCommand.h</itemPath>
+      <logicalFolder name="f1" displayName="Eprom" projectFiles="true">
+        <itemPath>Eeprom.h</itemPath>
+        <itemPath>configurationData.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="MalComm" projectFiles="true">
         <itemPath>MalComm.h</itemPath>
@@ -27,12 +24,8 @@
       <itemPath>control_algorithm.h</itemPath>
       <itemPath>motor_controller.h</itemPath>
       <itemPath>odometer.h</itemPath>
-      <itemPath>commands.h</itemPath>
       <itemPath>message_buffer.h</itemPath>
-      <itemPath>DoubleBuffer.h</itemPath>
       <itemPath>OutputBuffer.h</itemPath>
-      <itemPath>Eeprom.h</itemPath>
-      <itemPath>configurationData.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -41,7 +34,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <logicalFolder name="f1" displayName="Communication" projectFiles="true">
+      <logicalFolder name="f1" displayName="Eeprom" projectFiles="true">
+        <itemPath>Eeprom.c</itemPath>
+        <itemPath>configurationData.c</itemPath>
+        <itemPath>Flash Operations.s</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="MalComm" projectFiles="true">
         <logicalFolder name="f1" displayName="Packets" projectFiles="true">
@@ -66,10 +62,6 @@
       <itemPath>motor_controller.c</itemPath>
       <itemPath>odometer.c</itemPath>
       <itemPath>message_buffer.c</itemPath>
-      <itemPath>OutputBuffer.c</itemPath>
-      <itemPath>Flash Operations.s</itemPath>
-      <itemPath>Eeprom.c</itemPath>
-      <itemPath>configurationData.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
