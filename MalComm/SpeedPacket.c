@@ -1,0 +1,51 @@
+#include "MalComm.h"
+//SpeedStatePacket
+//==============================================================================
+//Write
+//==============================================================================
+char* writeSpeedPacket(const struct Packet* p, char* buffer, int ascii) {
+  //BinaryMode
+  if (!ascii) {
+    uint8_t lenght = 9;
+    //PACKET LENGTH
+    buffer = writeUint8(lenght, buffer);
+    //PACKET ID
+    buffer = writeUint8(SpeedPacketID, buffer);
+    buffer = writeUint32(p->seq, buffer);
+
+    buffer = writeUint16(p->speed.leftTick, buffer);
+    buffer = writeUint16(p->speed.rightTick, buffer);
+  }//Ascii mode
+    else {
+        buffer = writeHeaderAscii(buffer);
+        buffer = writeUint8Ascii(SpeedPacketID, buffer);
+        buffer = writeUint32Ascii(p->seq, buffer);
+        buffer = writeUint16Ascii(p->speed.leftTick, buffer);
+        buffer = writeUint16Ascii(p->speed.rightTick, buffer);
+        buffer = writeFooterAscii(buffer);
+    }
+    return buffer;
+}
+
+//Read
+//==============================================================================
+
+char* readSpeedPacket(struct Packet* p, char* buffer, int ascii) {
+    if (!ascii) {
+        buffer = readUint32(&(p->seq), buffer);
+        buffer = readUint16((uint16_t*)&(p->speed.leftTick), buffer);
+        buffer = readUint16((uint16_t*)&(p->speed.rightTick), buffer);
+    } else {
+        long int a, b, c = 0;
+        sscanf(buffer, "%ld %ld %ld", &a, &b, &c);
+        p->seq = (uint32_t) a;
+        p->speed.leftTick = (uint16_t) b;
+        p->speed.rightTick = (uint16_t) c;
+        return buffer;
+    }
+
+
+}
+
+//==============================================================================
+//==============================================================================

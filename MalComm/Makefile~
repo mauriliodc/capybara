@@ -1,0 +1,15 @@
+OBJS =	MalComm.o\
+main.o \
+primitives.o 
+
+
+all: mal
+
+clean:
+	rm -rf *.o *~$ *.gch mal
+
+mal: $(OBJS)
+	$(CC) -o malCommTester -g $(OBJS)
+
+%.o:	%.c
+	$(CC) -c -g  $^
