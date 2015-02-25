@@ -80,6 +80,13 @@ int main() {
     pp.dummy=p;
     pp.seq=0;
 
+    struct SlimStatePacket s;
+    s.leftEncoder=0;
+    s.rightEncoder=0;
+    struct Packet ss;
+    ss.id=SlimStatePacketID;
+    ss.slimState=s;
+    ss.seq=0;
     
 
     int ascii = 0;
@@ -100,8 +107,10 @@ int main() {
           
             if(charToSend==0){
                 DelayN1ms(1);
-                pp.seq++;
-                pEnd=writePacket(&pp,sendingPacket,ascii);
+                ss.seq++;
+                ss.slimState.leftEncoder++;
+                ss.slimState.rightEncoder--;
+                pEnd=writePacket(&ss,sendingPacket,ascii);
                 charToSend = sendingPacket;
                 IEC0bits.U1TXIE = 1;
             }

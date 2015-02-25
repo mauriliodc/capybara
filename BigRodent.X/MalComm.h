@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   MalComm.h
  * Author: malcom
  *
@@ -91,6 +91,9 @@ struct Packet{
     union{
         struct DummyPacket dummy;
         struct DumbPacket dumb;
+        struct SlimStatePacket slimState;
+        struct InitPacket init;
+        struct SpeedPacket speed;
     };
 };
 
@@ -137,8 +140,10 @@ char* readDummyPacket(struct Packet* p,char* buffer, int ascii);
 char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii);
 char* readDumbPacket(struct Packet* p,char* buffer, int ascii);
 //==============================================================================
-
-
+//[WR]SLIMSTATE PACKET
+char* writeSlimStatePacket(const struct Packet* p, char* buffer, int ascii);
+char* readSlimStatePacket(struct Packet* p, char* buffer, int ascii);
+//==============================================================================
 
 //DECODER STUFF
 //Utility functions to clear and prepare the encoder/decoder stuff.
