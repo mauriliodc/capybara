@@ -54,8 +54,8 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t) {
     //putsUART1((unsigned int*)a);
 
 
-    sprintf(a, "#%d %d @\n", oh->mc[0]->_measuredSpeed, oh->mc[1]->_measuredSpeed);
-    outputBuffer_write(a);
+    //sprintf(a, "#%d %d @\n", oh->mc[0]->_measuredSpeed, oh->mc[1]->_measuredSpeed);
+    //outputBuffer_write(a);
     //putsUART1((unsigned int*)a);
 
 

@@ -16,7 +16,7 @@
 
 struct Encoder
 {
-    uint8_t* ticks; //position counter register address
+    uint16_t* ticks; //position counter register address
 };
 
 struct EncoderController{

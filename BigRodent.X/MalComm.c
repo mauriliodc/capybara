@@ -142,6 +142,13 @@ char* writePacket(const struct Packet* p, char* buffer, int ascii) {
     } else if (p->id == SlimStatePacketID) {
         buffPtr = buffer;
         buffer = writeSlimStatePacket(p, buffer, ascii);
+    } else if (p->id == SpeedPacketID) {
+        buffPtr = buffer;
+        buffer = writeSpeedPacket(p, buffer, ascii);
+    }
+    else if (p->id == InitPacketID) {
+        buffPtr = buffer;
+        buffer = writeInitPacket(p, buffer, ascii);
     }
     //Binary mode, has to compute the checksum
     if (!ascii) {
@@ -168,6 +175,11 @@ char* parsePacket(char* buffer, struct Packet* p, int ascii) {
         readDumbPacket(p, buffer, ascii);
     } else if (id == SlimStatePacketID) {
         readSlimStatePacket(p, buffer, ascii);
+    } else if (id == SpeedPacketID) {
+        readSpeedPacket(p, buffer, ascii);
+    }
+    else if (id == InitPacketID) {
+        readInitPacket(p, buffer, ascii);
     }
     return buffer;
 }

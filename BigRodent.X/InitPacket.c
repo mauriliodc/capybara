@@ -37,11 +37,8 @@ char* readInitPacket(struct Packet* p, char* buffer, int ascii) {
         sscanf(buffer, "%ld %ld", &a, &b);
         p->seq = (uint32_t) a;
         p->init.init = (uint8_t) b;
-        return buffer;
-
-
-
     }
+    return buffer;
 }
     //==============================================================================
     //==============================================================================

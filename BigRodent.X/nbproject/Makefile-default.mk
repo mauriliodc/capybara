@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c "Flash Operations.s" Eeprom.c configurationData.c ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c
+SOURCEFILES_QUOTED_IF_SPACED=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c "Flash Operations.s" Eeprom.c configurationData.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o "${OBJECTDIR}/Flash Operations.o" ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o ${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/MalComm.o.d ${OBJECTDIR}/primitives.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/message_buffer.o.d ${OBJECTDIR}/OutputBuffer.o.d "${OBJECTDIR}/Flash Operations.o.d" ${OBJECTDIR}/Eeprom.o.d ${OBJECTDIR}/configurationData.o.d ${OBJECTDIR}/ConfigurationPacket.o.d ${OBJECTDIR}/DumbPacket.o.d ${OBJECTDIR}/DummyPacket.o.d ${OBJECTDIR}/InitPacket.o.d ${OBJECTDIR}/SlimStatePacket.o.d ${OBJECTDIR}/SpeedPacket.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o "${OBJECTDIR}/Flash Operations.o" ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/ConfigurationPacket.o.d ${OBJECTDIR}/DumbPacket.o.d ${OBJECTDIR}/DummyPacket.o.d ${OBJECTDIR}/InitPacket.o.d ${OBJECTDIR}/SlimStatePacket.o.d ${OBJECTDIR}/SpeedPacket.o.d ${OBJECTDIR}/MalComm.o.d ${OBJECTDIR}/primitives.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/platform_defs.o.d ${OBJECTDIR}/dspic_settings.o.d ${OBJECTDIR}/generic_utils.o.d ${OBJECTDIR}/encoder_controller.o.d ${OBJECTDIR}/pwm_controller.o.d ${OBJECTDIR}/timer_handler.o.d ${OBJECTDIR}/control_algorithm.o.d ${OBJECTDIR}/motor_controller.o.d ${OBJECTDIR}/odometer.o.d ${OBJECTDIR}/message_buffer.o.d ${OBJECTDIR}/OutputBuffer.o.d "${OBJECTDIR}/Flash Operations.o.d" ${OBJECTDIR}/Eeprom.o.d ${OBJECTDIR}/configurationData.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o ${OBJECTDIR}/Flash\ Operations.o ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o ${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o
+OBJECTFILES=${OBJECTDIR}/ConfigurationPacket.o ${OBJECTDIR}/DumbPacket.o ${OBJECTDIR}/DummyPacket.o ${OBJECTDIR}/InitPacket.o ${OBJECTDIR}/SlimStatePacket.o ${OBJECTDIR}/SpeedPacket.o ${OBJECTDIR}/MalComm.o ${OBJECTDIR}/primitives.o ${OBJECTDIR}/main.o ${OBJECTDIR}/platform_defs.o ${OBJECTDIR}/dspic_settings.o ${OBJECTDIR}/generic_utils.o ${OBJECTDIR}/encoder_controller.o ${OBJECTDIR}/pwm_controller.o ${OBJECTDIR}/timer_handler.o ${OBJECTDIR}/control_algorithm.o ${OBJECTDIR}/motor_controller.o ${OBJECTDIR}/odometer.o ${OBJECTDIR}/message_buffer.o ${OBJECTDIR}/OutputBuffer.o ${OBJECTDIR}/Flash\ Operations.o ${OBJECTDIR}/Eeprom.o ${OBJECTDIR}/configurationData.o
 
 # Source Files
-SOURCEFILES=MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c Flash Operations.s Eeprom.c configurationData.c ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c
+SOURCEFILES=ConfigurationPacket.c DumbPacket.c DummyPacket.c InitPacket.c SlimStatePacket.c SpeedPacket.c MalComm.c primitives.c main.c platform_defs.c dspic_settings.c generic_utils.c encoder_controller.c pwm_controller.c timer_handler.c control_algorithm.c motor_controller.c odometer.c message_buffer.c OutputBuffer.c Flash Operations.s Eeprom.c configurationData.c
 
 
 CFLAGS=
@@ -82,6 +82,48 @@ MP_LINKER_FILE_OPTION=,--script=p33FJ128MC802.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/ConfigurationPacket.o: ConfigurationPacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ConfigurationPacket.o.d 
+	@${RM} ${OBJECTDIR}/ConfigurationPacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigurationPacket.c  -o ${OBJECTDIR}/ConfigurationPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigurationPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/ConfigurationPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/DumbPacket.o: DumbPacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/DumbPacket.o.d 
+	@${RM} ${OBJECTDIR}/DumbPacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  DumbPacket.c  -o ${OBJECTDIR}/DumbPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DumbPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/DumbPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/DummyPacket.o: DummyPacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/DummyPacket.o.d 
+	@${RM} ${OBJECTDIR}/DummyPacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  DummyPacket.c  -o ${OBJECTDIR}/DummyPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DummyPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/DummyPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/InitPacket.o: InitPacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/InitPacket.o.d 
+	@${RM} ${OBJECTDIR}/InitPacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  InitPacket.c  -o ${OBJECTDIR}/InitPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/InitPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/InitPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/SlimStatePacket.o: SlimStatePacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/SlimStatePacket.o.d 
+	@${RM} ${OBJECTDIR}/SlimStatePacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SlimStatePacket.c  -o ${OBJECTDIR}/SlimStatePacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SlimStatePacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/SlimStatePacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/SpeedPacket.o: SpeedPacket.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/SpeedPacket.o.d 
+	@${RM} ${OBJECTDIR}/SpeedPacket.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SpeedPacket.c  -o ${OBJECTDIR}/SpeedPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SpeedPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/SpeedPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 ${OBJECTDIR}/MalComm.o: MalComm.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/MalComm.o.d 
@@ -194,49 +236,49 @@ ${OBJECTDIR}/configurationData.o: configurationData.c  nbproject/Makefile-${CND_
 	${MP_CC} $(MP_EXTRA_CC_PRE)  configurationData.c  -o ${OBJECTDIR}/configurationData.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/configurationData.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/configurationData.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+else
 ${OBJECTDIR}/ConfigurationPacket.o: ConfigurationPacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ConfigurationPacket.o.d 
 	@${RM} ${OBJECTDIR}/ConfigurationPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigurationPacket.c  -o ${OBJECTDIR}/ConfigurationPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigurationPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigurationPacket.c  -o ${OBJECTDIR}/ConfigurationPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigurationPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/ConfigurationPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/DumbPacket.o: DumbPacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/DumbPacket.o.d 
 	@${RM} ${OBJECTDIR}/DumbPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  DumbPacket.c  -o ${OBJECTDIR}/DumbPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DumbPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  DumbPacket.c  -o ${OBJECTDIR}/DumbPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DumbPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/DumbPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/DummyPacket.o: DummyPacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/DummyPacket.o.d 
 	@${RM} ${OBJECTDIR}/DummyPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  DummyPacket.c  -o ${OBJECTDIR}/DummyPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DummyPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  DummyPacket.c  -o ${OBJECTDIR}/DummyPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DummyPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/DummyPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/InitPacket.o: InitPacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/InitPacket.o.d 
 	@${RM} ${OBJECTDIR}/InitPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  InitPacket.c  -o ${OBJECTDIR}/InitPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/InitPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  InitPacket.c  -o ${OBJECTDIR}/InitPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/InitPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/InitPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/SlimStatePacket.o: SlimStatePacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/SlimStatePacket.o.d 
 	@${RM} ${OBJECTDIR}/SlimStatePacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SlimStatePacket.c  -o ${OBJECTDIR}/SlimStatePacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SlimStatePacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SlimStatePacket.c  -o ${OBJECTDIR}/SlimStatePacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SlimStatePacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/SlimStatePacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/SpeedPacket.o: SpeedPacket.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/SpeedPacket.o.d 
 	@${RM} ${OBJECTDIR}/SpeedPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SpeedPacket.c  -o ${OBJECTDIR}/SpeedPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SpeedPacket.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  SpeedPacket.c  -o ${OBJECTDIR}/SpeedPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SpeedPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/SpeedPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-else
 ${OBJECTDIR}/MalComm.o: MalComm.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/MalComm.o.d 
@@ -348,48 +390,6 @@ ${OBJECTDIR}/configurationData.o: configurationData.c  nbproject/Makefile-${CND_
 	@${RM} ${OBJECTDIR}/configurationData.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  configurationData.c  -o ${OBJECTDIR}/configurationData.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/configurationData.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/configurationData.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/ConfigurationPacket.o: ConfigurationPacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ConfigurationPacket.o.d 
-	@${RM} ${OBJECTDIR}/ConfigurationPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ConfigurationPacket.c  -o ${OBJECTDIR}/ConfigurationPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/ConfigurationPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/ConfigurationPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/DumbPacket.o: DumbPacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/DumbPacket.o.d 
-	@${RM} ${OBJECTDIR}/DumbPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  DumbPacket.c  -o ${OBJECTDIR}/DumbPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DumbPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/DumbPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/DummyPacket.o: DummyPacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/DummyPacket.o.d 
-	@${RM} ${OBJECTDIR}/DummyPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  DummyPacket.c  -o ${OBJECTDIR}/DummyPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/DummyPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/DummyPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/InitPacket.o: InitPacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/InitPacket.o.d 
-	@${RM} ${OBJECTDIR}/InitPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  InitPacket.c  -o ${OBJECTDIR}/InitPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/InitPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/InitPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/SlimStatePacket.o: SlimStatePacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SlimStatePacket.o.d 
-	@${RM} ${OBJECTDIR}/SlimStatePacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SlimStatePacket.c  -o ${OBJECTDIR}/SlimStatePacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SlimStatePacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/SlimStatePacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/SpeedPacket.o: SpeedPacket.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/SpeedPacket.o.d 
-	@${RM} ${OBJECTDIR}/SpeedPacket.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  SpeedPacket.c  -o ${OBJECTDIR}/SpeedPacket.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/SpeedPacket.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/SpeedPacket.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

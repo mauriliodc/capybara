@@ -5,16 +5,21 @@ int initEeprom() {
     dataEEFlags.val = 0;
 
     int programmed = DataEERead(ADDR_programmed);
-    printf("STATUS: %d\n", dataEEFlags.addrNotFound);
-    printf("STATUS: %d\n\n--------\n", dataEEFlags.val);
+    //printf("STATUS: %d\n", dataEEFlags.addrNotFound);
+    putsUART1((unsigned int*)"STATUS: ");
+    putsUART1((unsigned int*)dataEEFlags.addrNotFound);
+    putsUART1((unsigned int*)"\n");
+    putsUART1((unsigned int*)"STATUS: ");
+    putsUART1((unsigned int*)dataEEFlags.val);
+    putsUART1((unsigned int*)"\n");
     if (dataEEFlags.addrNotFound == 0) {
         programmed++;
         DataEEWrite(programmed, ADDR_programmed);
-        printf("Eeprom has data\n");
+        putsUART1((unsigned int*)"Eeprom has data\n");
         return 1;
     } else if (dataEEFlags.addrNotFound == 1) {
         programmed = DataEEWrite(1, ADDR_programmed);
-        printf("Eeprom NEW\n");
+        putsUART1((unsigned int*)"Eeprom NEW\n");
         return 0;
     }
     return 0;

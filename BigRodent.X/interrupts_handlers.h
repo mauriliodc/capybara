@@ -31,13 +31,27 @@ extern int parse;
 
 extern char*  pEnd;
 extern char* charToSend;
-
+int tiMerda=0;
 void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 
     TimerEventHandler_handleIRQEvents(&tHandler);
+    tiMerda++;
+    if(tiMerda==10){
+    POS1CNT=0;
+    POS2CNT=0;
+    tiMerda=0;
+    }
     IFS0bits.T1IF = 0;
 
 }
+
+//void __attribute__((__interrupt__, __no_auto_psv__)) _T2Interrupt(void) {
+//
+//    POS1CNT=0;
+//    POS2CNT=0;
+//    IFS0bits.T2IF = 0;
+//
+//}
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
     _QEI1IF = 0;
@@ -61,15 +75,10 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
-//    complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
-//    if(complete){
-//        memcpy(packetBuffer[write],pDecoder.buffer_start,255);
-//        int tmp=write;
-//        write=read;
-//        read=tmp;
-//        parse=1;
-//    }
     IFS0bits.U1RXIF = 0;
+    if(!complete)
+    complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
+    
 
 }
 

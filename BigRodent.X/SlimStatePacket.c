@@ -41,10 +41,9 @@ char* readSlimStatePacket(struct Packet* p, char* buffer, int ascii) {
         p->seq = (uint32_t) a;
         p->slimState.leftEncoder = (uint16_t) b;
         p->slimState.rightEncoder = (uint16_t) c;
-        return buffer;
+        
     }
-
-
+    return buffer;
 }
 
 //==============================================================================

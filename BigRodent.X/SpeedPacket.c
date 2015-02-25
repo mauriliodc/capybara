@@ -41,9 +41,8 @@ char* readSpeedPacket(struct Packet* p, char* buffer, int ascii) {
         p->seq = (uint32_t) a;
         p->speed.leftTick = (uint16_t) b;
         p->speed.rightTick = (uint16_t) c;
-        return buffer;
     }
-
+    return buffer;
 
 }
 

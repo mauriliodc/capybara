@@ -11,7 +11,7 @@ void Encoder_init(struct Encoder* encoder, uint8_t* positionCounterRegister)
 void EncoderController_init(struct EncoderController* controller)
 {
     //ENCODER 1
-    QEI1CONbits.QEIM 	= 0b111;	//	QEI_MODE_x2_MATCH
+    QEI1CONbits.QEIM 	= 0b111;	//QEI_MODE_x2_MATCH
     QEI1CONbits.SWPAB 	= 0;	//	QEI_INPUTS_SWAP
     QEI1CONbits.QEISIDL	= 1;	//	QEI_IDLE_STOP
     QEI1CONbits.POSRES	= 0;	//	QEI_INDEX_RESET_DISABLE

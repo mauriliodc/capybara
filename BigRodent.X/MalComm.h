@@ -144,6 +144,14 @@ char* readDumbPacket(struct Packet* p,char* buffer, int ascii);
 char* writeSlimStatePacket(const struct Packet* p, char* buffer, int ascii);
 char* readSlimStatePacket(struct Packet* p, char* buffer, int ascii);
 //==============================================================================
+//[WR]INIT PACKET
+char* writeInitPacket(const struct Packet* p, char* buffer, int ascii);
+char* readInitPacket(struct Packet* p, char* buffer, int ascii);
+//==============================================================================
+//[WR]SPEED PACKET
+char* writeSpeedPacket(const struct Packet* p, char* buffer, int ascii);
+char* readSpeedPacket(struct Packet* p, char* buffer, int ascii);
+//==============================================================================
 
 //DECODER STUFF
 //Utility functions to clear and prepare the encoder/decoder stuff.
