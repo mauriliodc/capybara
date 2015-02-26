@@ -1,4 +1,4 @@
-#include "primitives.h"
+#include "mal_primitives.h"
 
 //==============================================================================
 //Conversion primitives:BINARY
@@ -109,11 +109,11 @@ char* readFloat(float* dest, char* buffer) {
 //Conversion primitives:ASCII
 
 char* writeHeaderAscii(char* buffer) {
-    return buffer + sprintf(buffer, "%c ", AsciiHeader);
+    return buffer + sprintf(buffer, "%c ", packet_decoder_ascii_header);
 }
 
 char* writeFooterAscii(char* buffer) {
-    return buffer + sprintf(buffer, "%c ", AsciiFooter);
+    return buffer + sprintf(buffer, "%c ", packet_decoder_ascii_footer);
 }
 
 char* writeCharAscii(char value, char* buffer) {

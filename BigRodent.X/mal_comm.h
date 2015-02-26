@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <p33FJ128MC802.h>
-#include "primitives.h"
+#include "mal_primitives.h"
 #include "generic_utils.h"
 #define BUFFER_SIZE 255
 
@@ -24,8 +24,9 @@
 //CONFIGURATION PACKET
 //==============================================================================
 //useful to get/set eeprom parameters
-extern uint8_t ConfigurationPacketID;
-struct ConfigurationPacket{
+extern uint8_t Configuration_Payload_ID;
+
+struct Configuration_Payload {
     uint8_t address;
     int16_t intValue;
     float floatValue;
@@ -34,8 +35,9 @@ struct ConfigurationPacket{
 
 //SLIM STATE PACKET
 //==============================================================================
-extern uint8_t SlimStatePacketID;
-struct SlimStatePacket{
+extern uint8_t State_Payload_ID;
+
+struct State_Payload {
     uint16_t leftEncoder;
     uint16_t rightEncoder;
 };
@@ -44,8 +46,9 @@ struct SlimStatePacket{
 //INIT PACKET
 //==============================================================================
 //used to start/reset the roboot
-extern uint8_t InitPacketID;
-struct InitPacket{
+extern uint8_t Init_Payload_ID;
+
+struct Init_Payload {
     uint8_t init;
 };
 
@@ -54,16 +57,18 @@ struct InitPacket{
 //==============================================================================
 //Speed packet is used by the client to request a specific speed on the motors
 //The speed is expressed in the form of encoder ticks
-extern uint8_t SpeedPacketID;
-struct SpeedPacket{
+extern uint8_t Speed_Payload_ID;
+
+struct Speed_Payload {
     int16_t leftTick;
     int16_t rightTick;
 };
 
 //DUMB PACKET
 //==============================================================================
-extern uint8_t DumbPacketID;
-struct DumbPacket{
+extern uint8_t Dumb_Payload_ID;
+
+struct Dumb_Payload {
     uint8_t stupid;
 };
 //==============================================================================
@@ -71,8 +76,9 @@ struct DumbPacket{
 
 //DUMMY PACKET
 //==============================================================================
-extern uint8_t DummyPacketID;
-struct DummyPacket{
+extern uint8_t Dummy_Payload_ID;
+
+struct Dummy_Payload {
     uint8_t field_1;
     uint16_t field_2;
     int8_t field_3;
@@ -84,20 +90,21 @@ struct DummyPacket{
 };
 //==============================================================================
 
-struct Packet{
+struct Packet {
     uint8_t id;
     uint8_t lenght;
     uint32_t seq;
-    union{
-        struct DummyPacket dummy;
-        struct DumbPacket dumb;
-        struct SlimStatePacket slimState;
-        struct InitPacket init;
-        struct SpeedPacket speed;
+
+    union {
+        struct Dummy_Payload dummy;
+        struct Dumb_Payload dumb;
+        struct State_Payload state;
+        struct Init_Payload init;
+        struct Speed_Payload speed;
     };
 };
 
-struct PacketDecoder{
+struct Packet_Decoder {
     int ascii;
     int status;
     char buffer[BUFFER_SIZE];
@@ -113,11 +120,14 @@ struct PacketDecoder{
 
 //Externs and Union
 //==============================================================================
-enum BufferStatus {Unsync=0x0, Sync=0x1, Length=0x2, Payload=0x3};
-extern char header_1;
-extern char header_2;
-extern char AsciiHeader;
-extern char AsciiFooter;
+
+enum buffer_status {
+    Unsync = 0x0, Sync = 0x1, Length = 0x2, Payload = 0x3
+};
+extern char packet_decoder_binary_header_1;
+extern char packet_decoder_binary_header_2;
+extern char packet_decoder_ascii_header;
+extern char packet_decoder_ascii_footer;
 //==============================================================================
 //==============================================================================
 
@@ -126,40 +136,48 @@ extern char AsciiFooter;
 //==============================================================================
 //WritePacket:
 //gets a const packet to create a char array ready to be sent
-char* writePacket(const struct Packet* p, char* buffer,int ascii);
+char* Packet_write(const struct Packet* p, char* buffer, int ascii);
 //ParsePacket:
-char* parsePacket(char* buffer, struct Packet* p,int ascii);
+char* Packet_parse(char* buffer, struct Packet* p, int ascii);
+//Execute
+int Packet_execute(struct Packet* p);
 //==============================================================================
 
 
 //[WR]DUMMY PACKET
-char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii);
-char* readDummyPacket(struct Packet* p,char* buffer, int ascii);
+char* Dummy_Payload_write(const struct Packet* p, char* buffer, int ascii);
+char* Dummy_Payload_read(struct Packet* p, char* buffer, int ascii);
+void Dummy_Payload_execute(struct Packet* p);
 //==============================================================================
 //[WR]DUMB PACKET
-char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii);
-char* readDumbPacket(struct Packet* p,char* buffer, int ascii);
+char* Dumb_Payload_write(const struct Packet* p, char* buffer, int ascii);
+char* Dumb_Payload_read(struct Packet* p, char* buffer, int ascii);
+void Dumb_Payload_execute(struct Packet* p);
 //==============================================================================
 //[WR]SLIMSTATE PACKET
-char* writeSlimStatePacket(const struct Packet* p, char* buffer, int ascii);
-char* readSlimStatePacket(struct Packet* p, char* buffer, int ascii);
+char* State_Payload_write(const struct Packet* p, char* buffer, int ascii);
+char* State_Payload_read(struct Packet* p, char* buffer, int ascii);
+void State_Payload_execute(struct Packet* p);
 //==============================================================================
 //[WR]INIT PACKET
-char* writeInitPacket(const struct Packet* p, char* buffer, int ascii);
-char* readInitPacket(struct Packet* p, char* buffer, int ascii);
+char* Init_Payload_write(const struct Packet* p, char* buffer, int ascii);
+char* Init_Payload_read(struct Packet* p, char* buffer, int ascii);
+void Init_Payload_execute(struct Packet* p);
 //==============================================================================
 //[WR]SPEED PACKET
-char* writeSpeedPacket(const struct Packet* p, char* buffer, int ascii);
-char* readSpeedPacket(struct Packet* p, char* buffer, int ascii);
+char* Speed_Payload_write(const struct Packet* p, char* buffer, int ascii);
+char* Speed_Payload_read(struct Packet* p, char* buffer, int ascii);
+void Speed_Payload_execute(struct Packet* p);
 //==============================================================================
 
 //DECODER STUFF
 //Utility functions to clear and prepare the encoder/decoder stuff.
 //Call it before use it!
 //==============================================================================
-void DecoderInit(struct PacketDecoder* dm, int ascii);
-void ResetDecoderBuffer(struct PacketDecoder* d);
-int DecoderPutChar(struct PacketDecoder* d, char c);
+void Packet_Decoder_init(struct Packet_Decoder* dm, int ascii);
+void Packet_Decoder_resetBuffers(struct Packet_Decoder* d);
+int Packet_Decoder_putChar(struct Packet_Decoder* d, char c);
+void Dummy_Payload_execute(struct Packet* p);
 //==============================================================================
 //==============================================================================
 
@@ -170,14 +188,14 @@ int DecoderPutChar(struct PacketDecoder* d, char c);
 //==============================================================================
 void initConsts();
 //Checksum
-uint8_t computeChecksum(char* buffer, uint8_t length);
+uint8_t Payload_computeChecksum(char* buffer, uint8_t length);
 //==============================================================================
 //==============================================================================
 
 
 #ifdef __33FJ128MC802_H
 //Generic send to uart
-void sendToUart(char* buffer,int length, int intraCharDelayUs);
+void sendToUart(char* buffer, int length, int intraCharDelayUs);
 #else
 void sendToUart(int device, char* buffer, int length, int intraCharDelayUs);
 #endif

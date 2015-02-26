@@ -13,13 +13,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "MalComm.h"
+#include "mal_comm.h"
 
 //#include "DoubleBuffer.h"
 
 extern struct TimerEventHandler tHandler;
 
-extern struct PacketDecoder pDecoder;
+extern struct Packet_Decoder pDecoder;
 extern int complete;
 
 extern char* packetBuffer[2];
@@ -62,7 +62,7 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = 0;
     if(!complete)
-    complete=DecoderPutChar(&pDecoder,(unsigned char)U1RXREG);
+    complete=Packet_Decoder_putChar(&pDecoder,(unsigned char)U1RXREG);
     
 
 }

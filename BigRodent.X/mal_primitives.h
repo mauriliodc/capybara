@@ -10,8 +10,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern char AsciiHeader;
-extern char AsciiFooter;
+extern char packet_decoder_ascii_header;
+extern char packet_decoder_ascii_footer;
 //##############################################################################
 //Conversion primitives
 //##############################################################################
@@ -45,7 +45,6 @@ extern char AsciiFooter;
  char*  readUint16(uint16_t* dest, char* buffer);
  char*  readUint32(uint32_t* dest, char* buffer);
  char*  readFloat(float* dest, char* buffer);
-
 
 //------------------------------------------------------------------------------
 //ASCII

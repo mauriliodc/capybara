@@ -1,30 +1,29 @@
-#include "MalComm.h"
-
+#include "mal_comm.h"
 //INITIALIZATION STUFF
 //==============================================================================
-uint8_t DummyPacketID;
-uint8_t DumbPacketID;
-uint8_t SlimStatePacketID;
-uint8_t InitPacketID;
-uint8_t SpeedPacketID;
-char header_1;
-char header_2;
-char AsciiHeader;
-char AsciiFooter;
+uint8_t Dummy_Payload_ID;
+uint8_t Dumb_Payload_ID;
+uint8_t State_Payload_ID;
+uint8_t Init_Payload_ID;
+uint8_t Speed_Payload_ID;
+char packet_decoder_binary_header_1;
+char packet_decoder_binary_header_2;
+char packet_decoder_ascii_header;
+char packet_decoder_ascii_footer;
 int complete = 0;
 //Consts init
 //==============================================================================
 
 void initConsts() {
-    DummyPacketID = 1;
-    DumbPacketID = 2;
-    SlimStatePacketID = 3;
-    InitPacketID = 4;
-    SpeedPacketID = 5;
-    header_1 = 0xaa;
-    header_2 = 0x55;
-    AsciiHeader = '(';
-    AsciiFooter = ')';
+    Dummy_Payload_ID = 1;
+    Dumb_Payload_ID = 2;
+    State_Payload_ID = 3;
+    Init_Payload_ID = 4;
+    Speed_Payload_ID = 5;
+    packet_decoder_binary_header_1 = 0xaa;
+    packet_decoder_binary_header_2 = 0x55;
+    packet_decoder_ascii_header = '(';
+    packet_decoder_ascii_footer = ')';
 }
 //==============================================================================
 //==============================================================================
@@ -33,8 +32,8 @@ void initConsts() {
 //Decoder init and useful stuff
 //==============================================================================
 
-void DecoderInit(struct PacketDecoder* d, int ascii) {
-    ResetDecoderBuffer(d);
+void Packet_Decoder_init(struct Packet_Decoder* d, int ascii) {
+    Packet_Decoder_resetBuffers(d);
     d->buffer_start = &(d->buffer[0]);
     d->bufferPtr = &(d->buffer[0]);
     d->status = Unsync;
@@ -43,7 +42,7 @@ void DecoderInit(struct PacketDecoder* d, int ascii) {
 
 }
 
-void ResetDecoderBuffer(struct PacketDecoder* d) {
+void Packet_Decoder_resetBuffers(struct Packet_Decoder* d) {
     memset(d->buffer, '\0', BUFFER_SIZE);
     d->bufferPtr = d->buffer_start;
 }
@@ -53,20 +52,20 @@ void ResetDecoderBuffer(struct PacketDecoder* d) {
 //Decoder main loop
 //==============================================================================
 
-int DecoderPutChar(struct PacketDecoder* d, char c) {
+int Packet_Decoder_putChar(struct Packet_Decoder* d, char c) {
     //binary mode
     //-----------------------------------------------------
     if (d->ascii == 0) {
         if (d->status == Unsync) {
             //clear the buffer
-            ResetDecoderBuffer(d);
+            Packet_Decoder_resetBuffers(d);
             //clear the checksum, just in case
             d->checksum = 0;
-            if (c == header_1) {
+            if (c == packet_decoder_binary_header_1) {
                 d->status = Sync;
             }
         } else if (d->status == Sync) {
-            if (c == header_2) {
+            if (c == packet_decoder_binary_header_2) {
                 d->status = Length;
             } else {
                 d->status = Unsync;
@@ -96,16 +95,16 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
     else if (d->ascii == 1) {
         if (d->status == Unsync) {
             //clear the buffer
-            ResetDecoderBuffer(d);
-            if (c == AsciiHeader) {
+            Packet_Decoder_resetBuffers(d);
+            if (c == packet_decoder_ascii_header) {
                 d->status = Payload;
             }
         } else if (d->status == Payload) {
             //Sync Error, clean buffer and start oveer
-            if (c == AsciiHeader) {
+            if (c == packet_decoder_ascii_header) {
                 d->status = Unsync;
             }//Packet end, process it
-            else if (c == AsciiFooter) {
+            else if (c == packet_decoder_ascii_footer) {
                 d->status = Unsync;
                 return 1;
             }//in any other case, the char received is probably good!
@@ -126,33 +125,32 @@ int DecoderPutChar(struct PacketDecoder* d, char c) {
 //GenericPacket Utilities
 //==============================================================================
 
-char* writePacket(const struct Packet* p, char* buffer, int ascii) {
+char* Packet_write(const struct Packet* p, char* buffer, int ascii) {
     //Binary mode
     char* buffPtr;
     if (!ascii) {
-        buffer = writeUint8(header_1, buffer);
-        buffer = writeUint8(header_2, buffer);
+        buffer = writeUint8(packet_decoder_binary_header_1, buffer);
+        buffer = writeUint8(packet_decoder_binary_header_2, buffer);
     }
-    if (p->id == DummyPacketID) {
+    if (p->id == Dummy_Payload_ID) {
         buffPtr = buffer;
-        buffer = writeDummyPacket(p, buffer, ascii);
-    } else if (p->id == DumbPacketID) {
+        buffer = Dummy_Payload_write(p, buffer, ascii);
+    } else if (p->id == Dumb_Payload_ID) {
         buffPtr = buffer;
-        buffer = writeDumbPacket(p, buffer, ascii);
-    } else if (p->id == SlimStatePacketID) {
+        buffer = Dumb_Payload_write(p, buffer, ascii);
+    } else if (p->id == State_Payload_ID) {
         buffPtr = buffer;
-        buffer = writeSlimStatePacket(p, buffer, ascii);
-    } else if (p->id == SpeedPacketID) {
+        buffer = State_Payload_write(p, buffer, ascii);
+    } else if (p->id == Speed_Payload_ID) {
         buffPtr = buffer;
-        buffer = writeSpeedPacket(p, buffer, ascii);
-    }
-    else if (p->id == InitPacketID) {
+        buffer = Speed_Payload_write(p, buffer, ascii);
+    } else if (p->id == Init_Payload_ID) {
         buffPtr = buffer;
-        buffer = writeInitPacket(p, buffer, ascii);
+        buffer = Init_Payload_write(p, buffer, ascii);
     }
     //Binary mode, has to compute the checksum
     if (!ascii) {
-        uint8_t checksum = computeChecksum(buffer, buffer - buffPtr);
+        uint8_t checksum = Payload_computeChecksum(buffer, buffer - buffPtr);
         buffer = writeUint8(checksum, buffer);
     }
     return buffer;
@@ -160,7 +158,7 @@ char* writePacket(const struct Packet* p, char* buffer, int ascii) {
 
 //Note,buffer has to point to the ID, not to the length
 
-char* parsePacket(char* buffer, struct Packet* p, int ascii) {
+char* Packet_parse(char* buffer, struct Packet* p, int ascii) {
     uint8_t id;
     if (!ascii) {
         buffer = readUint8(&id, buffer);
@@ -169,22 +167,38 @@ char* parsePacket(char* buffer, struct Packet* p, int ascii) {
     }
     //IF - ELSE-IF for each existing packet
     p->id = id;
-    if (id == DummyPacketID) {
-        readDummyPacket(p, buffer, ascii);
-    } else if (id == DumbPacketID) {
-        readDumbPacket(p, buffer, ascii);
-    } else if (id == SlimStatePacketID) {
-        readSlimStatePacket(p, buffer, ascii);
-    } else if (id == SpeedPacketID) {
-        readSpeedPacket(p, buffer, ascii);
-    }
-    else if (id == InitPacketID) {
-        readInitPacket(p, buffer, ascii);
+    if (id == Dummy_Payload_ID) {
+        Dummy_Payload_read(p, buffer, ascii);
+    } else if (id == Dumb_Payload_ID) {
+        Dumb_Payload_read(p, buffer, ascii);
+    } else if (id == State_Payload_ID) {
+        State_Payload_read(p, buffer, ascii);
+    } else if (id == Speed_Payload_ID) {
+        Speed_Payload_read(p, buffer, ascii);
+    } else if (id == Init_Payload_ID) {
+        Init_Payload_read(p, buffer, ascii);
     }
     return buffer;
 }
 
-uint8_t computeChecksum(char* buffer, uint8_t length) {
+//calls the right execute for the packet, returns the id
+
+int Packet_execute(struct Packet* p) {
+    if (p->id == Dummy_Payload_ID) {
+        Dummy_Payload_execute(p);
+    } else if (p->id == Dumb_Payload_ID) {
+        Dumb_Payload_execute(p);
+    } else if (p->id == State_Payload_ID) {
+        State_Payload_execute(p);
+    } else if (p->id == Speed_Payload_ID) {
+        Speed_Payload_execute(p);
+    } else if (p->id == Init_Payload_ID) {
+        Init_Payload_execute(p);
+    }
+    return p->id;
+}
+
+uint8_t Payload_computeChecksum(char* buffer, uint8_t length) {
     uint8_t checksum = 0;
     uint8_t len = length - 1;
     while (len) {
@@ -193,6 +207,7 @@ uint8_t computeChecksum(char* buffer, uint8_t length) {
     }
     return checksum;
 }
+
 
 
 

@@ -14,7 +14,7 @@
 #include "commands.h"
 #include "Eeprom.h"
 #include "configurationData.h"
-#include "MalComm.h"
+#include "mal_comm.h"
 
 
 /*
@@ -43,7 +43,7 @@ int parse = 0;
 char sendingBuffer[255];
 
 extern int complete;
-struct PacketDecoder pDecoder;
+struct Packet_Decoder pDecoder;
 struct Packet receivedPacket;
 
 char* pEnd;
@@ -51,8 +51,6 @@ char* charToSend;
 struct Packet clientPacket;
 int _s1;
 int _s2;
-
-void Packet_execute(struct Packet*);
 
 int main() {
     charToSend = 0;
@@ -64,7 +62,7 @@ int main() {
     initConsts();
 
     int ascii = 1;
-    DecoderInit(&pDecoder, ascii);
+    Packet_Decoder_init(&pDecoder, ascii);
 
     //ENCODER
     //=================================================
@@ -140,7 +138,7 @@ int main() {
 //        }
         if (U1STAbits.OERR) U1STAbits.OERR = 0;
         if (complete) {
-            parsePacket(pDecoder.buffer_start, &clientPacket, ascii);
+            Packet_parse(pDecoder.buffer_start, &clientPacket, ascii);
             Packet_execute(&clientPacket);
             complete = 0;
         }
@@ -150,8 +148,9 @@ int main() {
 }
 
 
-void Packet_execute(struct Packet* p){
-    MotorController_setDesiredSpeed(&LeftMotorController,p->speed.leftTick);
-    MotorController_setDesiredSpeed(&RightMotorController,p->speed.rightTick);
-}
+//int Packet_execute(struct Packet* p){
+//    MotorController_setDesiredSpeed(&LeftMotorController,p->speed.leftTick);
+//    MotorController_setDesiredSpeed(&RightMotorController,p->speed.rightTick);
+//    return 0;
+//}
 

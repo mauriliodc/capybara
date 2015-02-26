@@ -9,8 +9,9 @@
         <itemPath>configurationData.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="MalComm" projectFiles="true">
-        <itemPath>MalComm.h</itemPath>
-        <itemPath>primitives.h</itemPath>
+        <itemPath>mal_comm.h</itemPath>
+        <itemPath>mal_primitives.h</itemPath>
+        <itemPath>mal_buffer.h</itemPath>
       </logicalFolder>
       <itemPath>platform_defs.h</itemPath>
       <itemPath>headers.h</itemPath>
@@ -40,16 +41,17 @@
         <itemPath>Flash Operations.s</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="MalComm" projectFiles="true">
-        <logicalFolder name="f1" displayName="Packets" projectFiles="true">
-          <itemPath>ConfigurationPacket.c</itemPath>
-          <itemPath>DumbPacket.c</itemPath>
-          <itemPath>DummyPacket.c</itemPath>
-          <itemPath>InitPacket.c</itemPath>
-          <itemPath>SlimStatePacket.c</itemPath>
-          <itemPath>SpeedPacket.c</itemPath>
+        <logicalFolder name="f1" displayName="Payloads" projectFiles="true">
+          <itemPath>configuration_payload.c</itemPath>
+          <itemPath>dumb_payload.c</itemPath>
+          <itemPath>dummy_payload.c</itemPath>
+          <itemPath>init_payload.c</itemPath>
+          <itemPath>state_payload.c</itemPath>
+          <itemPath>speed_payload.c</itemPath>
         </logicalFolder>
-        <itemPath>MalComm.c</itemPath>
-        <itemPath>primitives.c</itemPath>
+        <itemPath>mal_comm.c</itemPath>
+        <itemPath>mal_primitives.c</itemPath>
+        <itemPath>mal_buffer.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>platform_defs.c</itemPath>
@@ -83,7 +85,7 @@
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.24</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>

@@ -1,4 +1,4 @@
-#include "MalComm.h"
+#include "mal_comm.h"
 //==============================================================================
 //DummyPacket
 //==============================================================================
@@ -6,7 +6,7 @@
 //The checksum is computed on the first byte of each field.
 //We need to get the addresws of (buffer-1) because the Write primitive does side effect
 //on the buffer, so the returned buffer points to a NUL byte
-char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
+char* Dummy_Payload_read(struct Packet* p, char* buffer, int ascii) {
   //Don't have to read the lenght
   if (!ascii) {
     buffer = readUint32(&(p->seq), buffer);
@@ -49,14 +49,14 @@ char* readDummyPacket(struct Packet* p, char* buffer, int ascii) {
 
 }
 
-char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
+char* Dummy_Payload_write(const struct Packet* p, char* buffer, int ascii) {
   //BinaryMode
   if (!ascii) {
     uint8_t lenght = 23;
     //PACKET LENGTH
     buffer = writeUint8(lenght, buffer);
     //PACKET ID
-    buffer = writeUint8(DummyPacketID, buffer);
+    buffer = writeUint8(Dummy_Payload_ID, buffer);
     buffer = writeUint32(p->seq, buffer);
 
     buffer = writeUint8(p->dummy.field_1, buffer);
@@ -70,7 +70,7 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
   }//Ascii mode
   else {
     buffer = writeHeaderAscii(buffer);
-    buffer = writeUint8Ascii(DummyPacketID, buffer);
+    buffer = writeUint8Ascii(Dummy_Payload_ID, buffer);
     buffer = writeUint32Ascii(p->seq, buffer);
     buffer = writeUint8Ascii(p->dummy.field_1, buffer);
     buffer = writeUint16Ascii(p->dummy.field_2, buffer);
@@ -83,6 +83,10 @@ char* writeDummyPacket(const struct Packet* p, char* buffer, int ascii) {
     buffer = writeFooterAscii(buffer);
   }
   return buffer;
+}
+
+void Dummy_Payload_execute(struct Packet* p){
+
 }
 //==============================================================================
 //==============================================================================

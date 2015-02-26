@@ -1,9 +1,9 @@
-#include "MalComm.h"
+#include "mal_comm.h"
 //DumbPacket
 //==============================================================================
 //Write
 //==============================================================================
-char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
+char* Dumb_Payload_write(const struct Packet* p, char* buffer, int ascii) {
   if (!ascii) {
 
   } else {
@@ -14,9 +14,11 @@ char* writeDumbPacket(const struct Packet* p, char* buffer, int ascii) {
 
 //Read
 //==============================================================================
-char* readDumbPacket(struct Packet* p, char* buffer, int ascii) {
+char* Dumb_Payload_read(struct Packet* p, char* buffer, int ascii) {
   return buffer;
 }
 
+void Dumb_Payload_execute(struct Packet* p){
+}
 //==============================================================================
 //==============================================================================
