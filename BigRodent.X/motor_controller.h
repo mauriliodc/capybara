@@ -1,5 +1,3 @@
-
-
 #ifndef _MOTOR_CONTROLLER_H
 #define _MOTOR_CONTROLLER_H
 
@@ -9,8 +7,7 @@
 #include "timer_handler.h"
 #include "control_algorithm.h"
 
-struct MotorController
-{
+struct MotorController {
     TimerEvent event;
     int16_t _measuredSpeed;
     int16_t _desiredSpeed;
@@ -22,7 +19,7 @@ struct MotorController
     struct ControlAlgorithm* _ca;
     struct PWMController* _pwms;
     uint8_t _pwnNum;
-    uint8_t  _encoderNum;
+    uint8_t _encoderNum;
     int16_t _measuredDistance;
     int _directionPin;
     unsigned int* _directionPTR;
@@ -30,24 +27,26 @@ struct MotorController
 
 };
 
-void MotorController_init(struct MotorController* mc,struct EncoderController* encoders, uint8_t  encoderNum,
-		     struct PWMController* pwms, uint8_t pwnNum,
-                     int16_t directionPin,uint16_t* directionPTR,
-		     struct ControlAlgorithm* algorthm, int16_t period);
+void MotorController_init(struct MotorController* mc, struct EncoderController* encoders, uint8_t encoderNum,
+        struct PWMController* pwms, uint8_t pwnNum,
+        int16_t directionPin, uint16_t* directionPTR,
+        struct ControlAlgorithm* algorthm, int16_t period);
 
 int16_t MotorController_period();
 void MotorController_setPWM(struct MotorController* mc, int16_t speed);
-void  MotorController_setDesiredSpeed(struct MotorController* controller,int16_t speed);
+
+void MotorController_setDesiredSpeed(struct MotorController* controller, int16_t speed);
 int16_t MotorController_desiredSpeed(struct MotorController* controller);
+
 int16_t MotorController_measuredSpeed(struct MotorController* controller);
 
 int16_t MotorController_measuredDistance(struct MotorController* controller);
 int16_t MotorController_setMeasuredDistance(struct MotorController* controller, uint16_t ticks);
 
 int16_t MotorController_maxPositiveSpeedIncrement(struct MotorController* controller);
-int16_t  MotorController_maxNegativeSpeedIncrement(struct MotorController* controller);
-void  MotorController_setMaxPositiveSpeedIncrement(struct MotorController* controller, int16_t inc);
-void  MotorController_setMaxNegativeSpeedIncrement(struct MotorController* controller, int16_t inc);
+int16_t MotorController_maxNegativeSpeedIncrement(struct MotorController* controller);
+void MotorController_setMaxPositiveSpeedIncrement(struct MotorController* controller, int16_t inc);
+void MotorController_setMaxNegativeSpeedIncrement(struct MotorController* controller, int16_t inc);
 
 
 int16_t MotorController_maxPositiveeSpeed(struct MotorController* controller);
@@ -55,4 +54,6 @@ void MotorController_setPositiveMaxSpeed(struct MotorController* controller, int
 int16_t MotorController_maxNegativeSpeed(struct MotorController* controller);
 void MotorController_setNegativeMaxSpeed(struct MotorController* controller, int16_t inc);
 
+void MotorController_UpperHandler(struct TimerEvent* t);
+void MotorController_LowerHandler(struct TimerEvent* t);
 #endif

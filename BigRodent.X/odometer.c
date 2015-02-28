@@ -4,9 +4,16 @@
 #include "message_buffer.h"
 #include <math.h>
 #include <stdio.h>
+#include "mal_comm.h"
+#include "mal_buffer.h"
 
 #define PI 3.14159265
 #define RATIO_RAD_GRAD PI/180
+
+uint16_t stupid=0;
+
+extern struct Double_Buffer outputBuffer;
+extern int ascii;
 
 void DifferentialDrive_UpperHandler(struct TimerEvent* t) {
     struct Odometer* oh = (struct Odometer*) t;
@@ -17,10 +24,20 @@ void DifferentialDrive_UpperHandler(struct TimerEvent* t) {
 }
 
 void DifferentialDrive_LowerHandler(struct TimerEvent* t) {
-
-   
-
-
+    struct Odometer* oh = (struct Odometer*) t;
+    struct Packet p;
+    struct State_Payload sp;
+    p.id=State_Payload_ID;
+    p.seq=stupid;
+    stupid++;
+    sp.leftEncoder=oh->_distance[0];
+    oh->_distance[0]=0;
+    sp.rightEncoder=oh->_distance[1];
+    oh->_distance[1]=0;
+    p.state=sp;
+    char stateBuffer[255];
+    char* pEnd=Packet_write(&p,stateBuffer,ascii);
+    Double_Buffer_write(&outputBuffer,stateBuffer,pEnd-stateBuffer);
 }
 
 void DifferentialDriveOdometryHandler_init(struct DifferentialDriveOdometer* dd,

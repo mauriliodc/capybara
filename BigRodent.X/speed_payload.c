@@ -1,4 +1,13 @@
 #include "mal_comm.h"
+#include "motor_controller.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+
+extern struct MotorController LeftMotorController;
+extern struct MotorController RightMotorController;
+
+
 //SpeedStatePacket
 //==============================================================================
 //Write
@@ -47,7 +56,8 @@ char* Speed_Payload_read(struct Packet* p, char* buffer, int ascii) {
 }
 
 void Speed_Payload_execute(struct Packet* p){
-
+    MotorController_setDesiredSpeed(&LeftMotorController,p->speed.leftTick);
+    MotorController_setDesiredSpeed(&RightMotorController,p->speed.rightTick);
 }
 //==============================================================================
 //==============================================================================

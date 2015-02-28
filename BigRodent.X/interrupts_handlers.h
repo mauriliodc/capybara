@@ -38,6 +38,7 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _T1Interrupt(void) {
 }
 
 
+
 void __attribute__((__interrupt__, __no_auto_psv__)) _QEI1Interrupt(void) {
     _QEI1IF = 0;
 }
@@ -48,15 +49,14 @@ void __attribute__((__interrupt__, __no_auto_psv__)) _QEI2Interrupt(void) {
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1TXInterrupt(void) {
     IFS0bits.U1TXIF = 0;
-    if(charToSend==0 || charToSend==pEnd){
-        U1TXREG='\n';
-        IEC0bits.U1TXIE = 0;
-        charToSend=0;
-        pEnd=0;
+    if (charToSend == pEnd){
+            U1TXREG=0xA;
+            IEC0bits.U1TXIE = 0;
     }else{
         U1TXREG=*charToSend;
-        charToSend++;
+        charToSend++;      
     }
+   
 }
 
 void __attribute__((__interrupt__, __no_auto_psv__)) _U1RXInterrupt(void) {

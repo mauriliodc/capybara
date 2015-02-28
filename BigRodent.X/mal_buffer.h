@@ -20,13 +20,14 @@ struct Double_Buffer {
     char* _activeEndPtr;
     char* _active;
     char* _ready;
+    char* _readyEndPtr;
 };
 
 void Double_Buffer_init(struct Double_Buffer* db);
 void Double_Buffer_write(struct Double_Buffer* db, const char* buffer, uint16_t len);
 char* Double_Buffer_getReady(struct Double_Buffer* db);
 void Double_Buffer_swapBuffers(struct Double_Buffer* db);
-
+char* Double_Buffer_getReadyEndTPr(struct Double_Buffer* db);
 
 #endif	/* MAL_BUFFER_H */
 

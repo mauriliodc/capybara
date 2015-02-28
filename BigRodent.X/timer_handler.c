@@ -1,9 +1,13 @@
 #include "timer_handler.h"
 
+
+//return number of installed events
 uchar8_t TimerEventHandler_num(const struct TimerEventHandler* handler) {
     return MAX_EVENTS;
 }
 
+//basic constructor for a timer event.
+//you need to provide the period in milliseconds and the two callbacks o type <EventCallback>
 void TimerEvent_init(struct TimerEvent* event, EventCallback upperHalf, EventCallback lowerHalf, int16_t period)
 {
     event->_lowerHalf=lowerHalf;
@@ -12,6 +16,8 @@ void TimerEvent_init(struct TimerEvent* event, EventCallback upperHalf, EventCal
 
 }
 
+//register a TimerEvent in the handler.
+//all the statistics and the data is set to zero.
 void TimerEventHandler_setEvent(struct TimerEventHandler* handler,uchar8_t numEvent, struct TimerEvent* event) {
     if (numEvent < TimerEventHandler_num(handler)) {
         handler->_events[numEvent]=event;
@@ -23,6 +29,7 @@ void TimerEventHandler_setEvent(struct TimerEventHandler* handler,uchar8_t numEv
 
     }
 }
+
 
 void TimerEventHandler_setEventEnabled(struct TimerEventHandler* handler,uchar8_t numEvent,int enable) {
     TimerEventFlags en = 0;
@@ -39,6 +46,7 @@ void TimerEventHandler_setEventEnabled(struct TimerEventHandler* handler,uchar8_
     }
 }
 
+//get the enable status of an event
 int TimerEventHandler_eventEnabled(const struct TimerEventHandler* handler,uchar8_t numEvent) {
     int r = 0;
     if (numEvent < TimerEventHandler_num(handler)) {
@@ -47,6 +55,7 @@ int TimerEventHandler_eventEnabled(const struct TimerEventHandler* handler,uchar
     return r;
 }
 
+//return a pointer to the requested timer event
 const TimerEvent* TimerEventHandler_event(const struct TimerEventHandler* handler, uchar8_t numEvent) {
     if (numEvent < TimerEventHandler_num(handler)) {
         return handler->_events[numEvent];
@@ -54,15 +63,19 @@ const TimerEvent* TimerEventHandler_event(const struct TimerEventHandler* handle
     return 0;
 }
 
+//set the timer event handler running/stopped
 void TimerEventHandler_setRunning(struct TimerEventHandler* handler,
         int running) {
     handler->_running = running;
 }
 
+//return the status of the handler
 int TimerEventHandler_running(const struct TimerEventHandler* handler) {
     return handler->_running;
 }
 
+//this has to be called inside the timer interrupt at a granularity of 1ms (if
+//you are reasing in ms)
 void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
     handler->_tick++;
     uint8_t i;
@@ -88,6 +101,8 @@ void TimerEventHandler_handleIRQEvents(struct TimerEventHandler* handler) {
     }
 }
 
+//this has to be called in the main loop, basically calls the lower handlers
+//of the upper handler events triggered in the interrupt
 void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler) {
     uint8_t i;
     if (!handler->_running)
@@ -111,6 +126,7 @@ void TimerEventHandler_handleScheduledEvents(struct TimerEventHandler* handler) 
     }
 }
 
+//init
 void TimerEventHandler_init(struct TimerEventHandler* handler) {
     uchar8_t i;
     for (i = 0; i < MAX_EVENTS; i++) {

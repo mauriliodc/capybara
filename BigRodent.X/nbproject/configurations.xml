@@ -26,7 +26,6 @@
       <itemPath>motor_controller.h</itemPath>
       <itemPath>odometer.h</itemPath>
       <itemPath>message_buffer.h</itemPath>
-      <itemPath>OutputBuffer.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -85,7 +84,7 @@
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.24</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
