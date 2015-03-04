@@ -6,7 +6,7 @@ Aim of the project is to develop an open-firmware and open-hardware mobile base 
 and for all roboticists and hobbists.
 
 A ROS (Indigo) packages is available here https://github.com/mauriliodc/capybarauno
-![alt text](https://github.com/mauriliodc/capybarauno "Capybara")
+![alt text](http://i.imgur.com/QOzCvIJ.jpg "Capybara")
 
 W.I.P
 
