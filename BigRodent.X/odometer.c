@@ -19,7 +19,7 @@ void DifferentialDrive_UpperHandler(struct TimerEvent* t) {
     struct Odometer* oh = (struct Odometer*) t;
     uint8_t i;
     for (i = 0; i < MOTORS_NUM; i++) {
-        oh->_distance[i] = (long_t) MotorController_setMeasuredDistance(oh->mc[i], 0);
+        oh->_distance[i] += (long_t) MotorController_setMeasuredDistance(oh->mc[i], 0);
     }
 }
 
@@ -31,9 +31,9 @@ void DifferentialDrive_LowerHandler(struct TimerEvent* t) {
     p.seq=stupid;
     stupid++;
     sp.leftEncoder=oh->_distance[0];
-    oh->_distance[0]=0;
+    //oh->_distance[0]=0;
     sp.rightEncoder=oh->_distance[1];
-    oh->_distance[1]=0;
+    //oh->_distance[1]=0;
     p.state=sp;
     char stateBuffer[255];
     char* pEnd=Packet_write(&p,stateBuffer,ascii);

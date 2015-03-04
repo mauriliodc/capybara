@@ -100,31 +100,31 @@ int main() {
     //PWM
     //39khz, page 14 at http://ww1.microchip.com/downloads/en/DeviceDoc/70187E.pdf
     PWMController_init(&pwmc, 1024);
-    PIDControlAlgorithm_init(&leftPID, 40, 20, 1, 18000, 2, 1);
-    PIDControlAlgorithm_init(&rightPID, 40, 20, 1, 18000, 2, 1);
+    PIDControlAlgorithm_init(&leftPID, 40, 20, 1, 28000, 1, 1);
+    PIDControlAlgorithm_init(&rightPID, 40, 20, 1, 28000, 1, 1);
 
     MotorController_init(&RightMotorController,
             &ec, 0,
             &pwmc, 0,
             1 << 14, (unsigned int*) 0x02CC,
             (struct ControlAlgorithm*) &leftPID, leftPID._period);
-    MotorController_setMaxPositiveSpeedIncrement(&RightMotorController, 155);
-    MotorController_setMaxNegativeSpeedIncrement(&RightMotorController, 155);
+    MotorController_setMaxPositiveSpeedIncrement(&RightMotorController, 50);
+    MotorController_setMaxNegativeSpeedIncrement(&RightMotorController, 50);
 
     MotorController_init(&LeftMotorController,
             &ec, 1,
             &pwmc, 1,
             1 << 12, (unsigned int*) 0x02CC,
             (struct ControlAlgorithm*) &rightPID, rightPID._period);
-    MotorController_setMaxPositiveSpeedIncrement(&LeftMotorController, 155);
-    MotorController_setMaxNegativeSpeedIncrement(&LeftMotorController, 155);
+    MotorController_setMaxPositiveSpeedIncrement(&LeftMotorController, 50);
+    MotorController_setMaxNegativeSpeedIncrement(&LeftMotorController, 50);
 
     DifferentialDriveOdometryHandler_init(&odo,
             0.4, //baseling
             &LeftMotorController, &RightMotorController,
             0.1, 0.1, //radius
             0.000349066, 0.000349066, //radians per ticks
-            2, //period
+            10, //period
             &TransmissionBuffer); //trasmissionbuffer
 
     TimerEventHandler_init(&tHandler);

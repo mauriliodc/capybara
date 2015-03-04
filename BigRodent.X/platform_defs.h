@@ -35,7 +35,7 @@ typedef long long int very_long_t;
 
 typedef int16_t mtime_t;
 typedef uint8_t uchar8_t;
-typedef float long_t;
+typedef uint16_t long_t;
 
 typedef void(*irq_handler_t)();
 
